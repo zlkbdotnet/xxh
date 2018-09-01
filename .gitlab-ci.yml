@@ -1,0 +1,19 @@
+before_script:
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+  - git clone http://192.168.1.212:10030/jj/zfaka.git $(pwd)/site
+
+build-nginx:
+  stage: build
+  script:
+    - docker build  -f Dockerfile.nginx -t "$DOCKER_USER:nginx" .
+    - docker push "$DOCKER_USER:nginx"
+  tags:
+    - docker-build
+
+build-php:
+  stage: build
+  script:
+    - docker build  -f Dockerfile.php -t "$DOCKER_USER:php" .
+    - docker push "$DOCKER_USER:php"
+  tags:
+    - docker-build
