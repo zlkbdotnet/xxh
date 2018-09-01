@@ -1,6 +1,7 @@
 before_script:
   - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
   - git clone http://192.168.1.212:10030/jj/zfaka.git $(pwd)/site
+  - mv $(pwd)/site/conf/application.ini.new $(pwd)/site/conf/application.ini
 
 build-nginx:
   stage: build
