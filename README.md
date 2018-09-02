@@ -29,6 +29,8 @@
 
 # 二、系统部署
 
+## [使用docker-compose快速部署(网速快，只需要几分钟)](https://github.com/zsnmwy/zfaka/wiki/%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2(%E7%BD%91%E9%80%9F%E5%BF%AB%EF%BC%8C%E5%8F%AA%E9%9C%80%E8%A6%81%E5%87%A0%E5%88%86%E9%92%9F)
+
 ## 2.1 环境安装
 
 ### 2.1.1 lnmp环境
