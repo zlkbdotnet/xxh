@@ -43,6 +43,8 @@ RUN set -xe \
     && make \
     && make install \
     && make clean \
+    && rm -rf ../yaf-3.0.2 \
+    && rm -rf ../yaf-3.0.2.tgz \
     && DEBIAN_FRONTEND=noninteractive apt-get install cron -y \
     && echo "清理" \
     && apt-get purge -y --auto-remove \

@@ -2,6 +2,8 @@ version: '2'
 services:
     nginx:
         image: "zsnmwy/zfaka:nginx"
+        restart: always
+        container_name: nginx-zfaka
         ports:
             - "80:80"
         networks:
@@ -11,12 +13,16 @@ services:
             - mysql
     php:
         image: "zsnmwy/zfaka:php"
+        restart: always
+        container_name: php-zfaka
         networks:
             - frontend
             - backend
 
     mysql:
         image: "mysql:5.5"
+        restart: always
+        container_name: mysql-zfaka
         environment:
           TZ: 'Asia/Shanghai'
           MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
@@ -28,7 +34,7 @@ services:
 
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
-      container_name: phpmyadmin
+      container_name: phpmyadmin-zfaka
       environment:
         - PMA_ARBITRARY=1
       restart: always
