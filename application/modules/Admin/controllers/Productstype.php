@@ -100,6 +100,7 @@ class ProductstypeController extends AdminBasicController
 		$method = $this->getPost('method',false);
 		$id = $this->getPost('id',false);
 		$name = $this->getPost('name',false);
+		$sort_num = $this->getPost('sort_num',false);
 		$active = $this->getPost('active',false);
 		$csrf_token = $this->getPost('csrf_token', false);
 		
@@ -110,10 +111,11 @@ class ProductstypeController extends AdminBasicController
 			Helper::response($data);
         }
 		
-		if($method AND $name AND is_numeric($active) AND $csrf_token){
+		if($method AND $name AND is_numeric($sort_num) AND is_numeric($active) AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				$m=array(
 					'name'=>$name,
+					'sort_num'=>$sort_num,
 					'active'=>$active,
 				);
 				if($method == 'edit' AND $id>0){

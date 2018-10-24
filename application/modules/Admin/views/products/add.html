@@ -55,7 +55,7 @@
                         <div class="layui-form-item">
                             <label for="qty" class="layui-form-label">库存数量</label>
                             <div class="layui-input-inline">
-                                <input type="number" id="qty" name="qty" lay-verify="required" autocomplete="off" value="" class="layui-input">
+                                <input type="number" id="qty" name="qty" lay-verify="required" autocomplete="off" value="1" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -71,6 +71,15 @@
                                 <input type="radio" name="auto" value="0" title="手工发货">
                             </div>
                         </div>
+						
+                        <div class="layui-form-item" style="display:none">
+                            <label for="addons" class="layui-form-label">附加输入框</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="addons" name="addons" autocomplete="off" value="" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">自定义输入框，显示在商品订购页; A,B</div>
+                        </div>
+						
                         <div class="layui-form-item">
                             <label class="layui-form-label">是否销售</label>
                             <div class="layui-input-block">
@@ -83,6 +92,7 @@
                             <div class="layui-input-inline">
                                 <input type="number" id="sort_num" name="sort_num" lay-verify="required" autocomplete="off" value="99" class="layui-input">
                             </div>
+							<div class="layui-form-mid layui-word-aux">数字越大，越靠前</div>
                         </div>
                         <div class="layui-form-item">
                             <input type="hidden" name="method" value="add">

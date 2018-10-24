@@ -38,7 +38,7 @@ class ProductController extends PcBasicController
 		$this->m_order->Where(array('userid'=>0,'email'=>$this->uinfo['email']))->Update(array('userid'=>$this->userid));
 		
 		//2.再开始进行数据处理
-		$where = array('userid'=>$this->userid);
+		$where = array('userid'=>$this->userid,'isdelete'=>0);
 		$page = $this->get('page');
 		$page = is_numeric($page) ? $page : 1;
 		

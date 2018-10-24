@@ -21,7 +21,12 @@ class QueryController extends PcBasicController
 		$orderid  = $this->get('orderid',false);
 		if($orderid){
 			$data['order'] = $data['cnstatus'] = array();
-			$order_email = $this->getSession('order_email');
+			if (false != $this->login AND $this->userid) {
+				$order_email = $this->uinfo['email'];
+			}else{
+				$order_email = $this->getSession('order_email');
+			}
+			
 			if($order_email){
 				$order = $this->m_order->Where(array('orderid'=>$orderid,'email'=>$order_email))->Where(array('isdelete'=>0))->SelectOne();
 				if(!empty($order)){
@@ -40,37 +45,49 @@ class QueryController extends PcBasicController
 	
 	public function ajaxAction()
 	{
-		$email    = $this->getPost('email',false);
 		$chapwd    = $this->getPost('chapwd',false);
 		$csrf_token = $this->getPost('csrf_token', false);
 		
-		if($email AND $chapwd AND $csrf_token){
+		if($chapwd AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
-				if(isEmail($email)){
-					if(isset($this->config['yzm_switch']) AND $this->config['yzm_switch']>0){
-						$vercode = $this->getPost('vercode',false);
-						if($vercode){
-							if(strtolower($this->getSession('productqueryCaptcha')) == strtolower($vercode)){
-								$this->unsetSession('productqueryCaptcha');
-							}else{
-								$data=array('code'=>1004,'msg'=>'图形验证码错误');
-								Helper::response($data);
-							}
-						}else{
-							$data = array('code' => 1000, 'msg' => '丢失参数');
-							Helper::response($data);
-						}
-					}
-					
-
-					$order = $this->m_order->Where(array('email'=>$email,'chapwd'=>$chapwd))->Where(array('isdelete'=>0))->Select();
-					if(empty($order)){
-						$data=array('code'=>1005,'msg'=>'订单不存在');
+				if(isset($this->config['order_input_type']) AND $this->config['order_input_type']=='2'){
+					$qq = $this->getPost('qq');
+					if($qq AND is_numeric($qq)){
+						$email = $qq.'@qq.com';
 					}else{
-						$data=array('code'=>1,'msg'=>'查询成功','data'=>$order,'count'=>1);
+						$data = array('code' => 1006, 'msg' => '丢失参数');
+						Helper::response($data);
 					}
 				}else{
-					 $data = array('code' => 1003, 'msg' => '邮箱账户有误!');
+					$email = $this->getPost('email',false);
+					if($email AND isEmail($email)){
+						$qq = '';
+					}else{
+						$data = array('code' => 1006, 'msg' => '丢失参数');
+						Helper::response($data);
+					}
+				}
+				
+				if(isset($this->config['yzm_switch']) AND $this->config['yzm_switch']>0){
+					$vercode = $this->getPost('vercode',false);
+					if($vercode){
+						if(strtolower($this->getSession('productqueryCaptcha')) == strtolower($vercode)){
+							$this->unsetSession('productqueryCaptcha');
+						}else{
+							$data=array('code'=>1004,'msg'=>'图形验证码错误');
+							Helper::response($data);
+						}
+					}else{
+						$data = array('code' => 1000, 'msg' => '丢失参数');
+						Helper::response($data);
+					}
+				}
+					
+				$order = $this->m_order->Where(array('email'=>$email,'chapwd'=>$chapwd))->Where(array('isdelete'=>0))->Select();
+				if(empty($order)){
+					$data=array('code'=>1005,'msg'=>'订单不存在');
+				}else{
+					$data=array('code'=>1,'msg'=>'查询成功','data'=>$order,'count'=>1);
 				}
 			} else {
                 $data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');

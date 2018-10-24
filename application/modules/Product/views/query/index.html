@@ -1,7 +1,8 @@
 <?php include COMMON_PATH.'/header.html';?>
 <div class="layui-container fly-marginTop">
-    <div class="fly-panel fly-panel-user" pad20>
-        <div class="layui-tab layui-tab-brief" lay-filter="user">
+    <div class="layui-card layui-form-pane">
+		<div class="layui-card-header">查询订单</div>
+        <div class="layui-card-body layui-tab layui-tab-brief" lay-filter="user">
             <blockquote class="layui-elem-quote">
                 <ul class="layui-form">
                     <li class="layui-form-li" style="line-height: 26px;">
@@ -20,12 +21,21 @@
                     <div class="layui-form-pane" id="query-pane">
                         <?php if($querymethod == 'ajax'):?>
                         <form class="layui-form" id="query-form">
+							<?php if(isset($config['order_input_type']) AND $config['order_input_type'] == '2'):?>
+                            <div class="layui-form-item">
+                                <label for="qq" class="layui-form-label">QQ</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="qq" name="qq" required lay-verify="required|number" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+							<?php else:?>
                             <div class="layui-form-item">
                                 <label for="L_email" class="layui-form-label">邮箱</label>
                                 <div class="layui-input-inline">
                                     <input type="text" id="L_email" name="email" required lay-verify="required|email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
+							<?php endif;?>
                             <div class="layui-form-item">
                                 <label for="L_chapwd" class="layui-form-label">查询密码</label>
                                 <div class="layui-input-inline">

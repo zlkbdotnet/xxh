@@ -78,7 +78,13 @@ class SettingController extends AdminBasicController
 			$data = array();
 			$item=$this->m_config->SelectByID('',$id);
 			$data['item'] =$item;
-			$this->getView()->assign($data);
+			if($item['name'] AND file_exists(APP_PATH.'/application/modules/'.ADMIN_DIR.'/views/setting/tpl/'.$item['name'].'.html')){
+				$tpl = 'tpl_'.$item['name'];
+				$this->display($tpl, $data);
+				return FALSE;
+			}else{
+				$this->getView()->assign($data);
+			}
 		}else{
             $this->redirect('/'.ADMIN_DIR."/setting");
             return FALSE;

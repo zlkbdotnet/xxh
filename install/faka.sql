@@ -84,8 +84,17 @@ INSERT INTO `t_config` (`id`, `catid`, `name`, `value`, `tag`, `lock`, `updateti
 (7, 1, 'web_description', '本系统由资料空白开发', '当前站点描述', 1, 1453452674),
 (8, 1, 'notice', '本系统商品均可正常购买。开源下载地址：github地址:&lt;a href=&quot;https://github.com/zlkbdotnet/zfaka/&quot; target=&quot;_blank&quot;&gt;https://github.com/zlkbdotnet/zfaka/&lt;/a&gt;', '首页公告', 1, 1453452674),
 (9, 1, 'ad', '&lt;image src=&quot;/res/images/pay/supportme.jpg&quot;&gt;', '购买页默认内容', 1, 1453452674),
-(10, 1, 'yzm_switch', '1', '验证码开关(1开，0关)', 1, 1453452674);
-
+(10, 1, 'yzm_switch', '1', '验证码开关(1开，0关)', 1, 1453452674),
+(11, 1, 'order_input_type', '2', '订单必填输入框选择: 1邮箱 2QQ', 1, 1453452674),
+(12, 1, 'index_tpl', 'default', '首页显示模式，筛选(default)|列表(list)', 1, 1453452674),
+(13, 1, 'logo', '/res/images/logo.png', 'LOGO地址,默认：/res/images/logo.png', 1, 1453452674),
+(14, 1, 'tongji', '/', '统计脚本', 1, 1453452674),
+(15, 1, 'm_prodcut_description', '0', '移动端商品详情，隐藏(0)|显示(1)', 1, 1453452674),
+(16, 1, 'order_prefix', 'zlkb', '订单前缀，建议不要超过5个字符串', 1, 1453452674),
+(17, 1, 'backgroundimage', 'https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6a600c338744ebf894c9e667dff9d72a6059a72a.jpg', '前台背景图片地址', 1, 1453452674),
+(18, 1, 'headermenucolor', 'layui-bg-black', '前台顶部菜单配色方案', 1, 1453452674),
+(19, 1, 'mousejqtx', 'mousejqtxstars', '鼠标特效', 1, 1453452674),
+(20, 1, 'layerad', '', '弹窗广告', 1, 1453452674);
 -- --------------------------------------------------------
 
 --
@@ -155,7 +164,8 @@ CREATE TABLE IF NOT EXISTS `t_email_queue` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '发送时间',
   `sendtime` int(11) NOT NULL DEFAULT '0' COMMENT '发送时间',
   `sendresult` text COMMENT '发送错误',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0,未发送 ，1已发送，-1,失败'
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0,未发送 ，1已发送，-1,失败',
+  `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未删除,1已删除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -191,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `orderid` varchar(55) NOT NULL DEFAULT '0' COMMENT '订单号',
   `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
   `email` varchar(255) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `qq` varchar(50) NOT NULL COMMENT 'QQ号码',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '产品id',
   `productname` varchar(255) NOT NULL DEFAULT '' COMMENT '订单名称',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '单价',
@@ -205,6 +216,7 @@ CREATE TABLE IF NOT EXISTS `t_order` (
   `paymethod` varchar(255) NOT NULL DEFAULT '' COMMENT '支付渠道',
   `paymoney` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '支付总金额',
   `kami` text COMMENT '卡密',
+  `addons` text NOT NULL COMMENT '备注',
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未删除,1已删除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -220,11 +232,12 @@ CREATE TABLE IF NOT EXISTS `t_payment` (
   `payname` varchar(55) NOT NULL DEFAULT '' COMMENT '显示名称',
   `payimage` varchar(250) NOT NULL DEFAULT '' COMMENT '图片',
   `alias` varchar(55) NOT NULL DEFAULT '' COMMENT '别名',
-  `sign_type` enum('RSA','RSA2') NOT NULL DEFAULT 'RSA2',
+  `sign_type` enum('RSA','RSA2','MD5') NOT NULL DEFAULT 'RSA2',
   `app_id` varchar(255) NOT NULL DEFAULT '',
   `app_secret` varchar(255) NOT NULL DEFAULT '',
   `ali_public_key` text,
   `rsa_private_key` text,
+  `configure3` text NOT NULL COMMENT '配置3',
   `overtime` int(11) NOT NULL DEFAULT '0' COMMENT '支付超时,0是不限制',
   `active` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未激活,1已激活'
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
@@ -233,12 +246,16 @@ CREATE TABLE IF NOT EXISTS `t_payment` (
 -- 转存表中的数据 `t_payment`
 --
 
-INSERT INTO `t_payment` (`id`, `payment`, `payname`, `payimage`, `alias`, `sign_type`, `app_id`, `app_secret`, `ali_public_key`, `rsa_private_key`,`overtime`, `active`) VALUES
-(1, '支付宝当面付', '支付宝', '/res/images/pay/alipay.jpg', 'zfbf2f', 'RSA2', '', '', '', '',0, 0),
-(2, '码支付-支付宝扫码支付', '支付宝', '/res/images/pay/alipay.jpg', 'codepayalipay', 'RSA2', '', '', '', '', 300, 0),
-(3, '码支付-QQ扫码支付', '手机QQ', '/res/images/pay/qqpay.jpg', 'codepayqq', 'RSA2', '', '', '', '',300, 0),
-(4, '码支付-微信扫码支付', '微信', '/res/images/pay/weixin.jpg', 'codepaywx', 'RSA2', '', '', '', '',300, 0),
-(5, '支付宝电脑网站支付', '支付宝', '/res/images/pay/alipay.jpg', 'zfbweb', 'RSA2', '2018********', '', '', '', 0, 0);
+INSERT INTO `t_payment` (`id`, `payment`, `payname`, `payimage`, `alias`, `sign_type`, `app_id`, `app_secret`, `ali_public_key`, `rsa_private_key`, `configure3`,`overtime`, `active`) VALUES
+(1, '支付宝当面付', '支付宝', '/res/images/pay/alipay.jpg', 'zfbf2f', 'RSA2', '', '', '', '','',0, 0),
+(2, '码支付-支付宝扫码支付', '支付宝', '/res/images/pay/alipay.jpg', 'codepayalipay', 'RSA2', '', '', '', '', '',300, 0),
+(3, '码支付-QQ扫码支付', '手机QQ', '/res/images/pay/qqpay.jpg', 'codepayqq', 'RSA2', '', '', '', '','',300, 0),
+(4, '码支付-微信扫码支付', '微信', '/res/images/pay/weixin.jpg', 'codepaywx', 'RSA2', '', '', '', '','',300, 0),
+(5, '支付宝电脑网站支付', '支付宝', '/res/images/pay/alipay.jpg', 'zfbweb', 'RSA2', '2018********', '', '', '', '',0, 0),
+(6, '微信扫码支付', '微信', '/res/images/pay/weixin.jpg', 'wxf2f', 'MD5', '', '', '', '', '', 0, 0),
+(7, '有赞接口', '有赞', '/res/images/pay/yzpay.jpg', 'yzpay', 'RSA2', '', '', '', '', '', 0, 0),
+(8, '收款辅助(码支付)', '微信', '/res/images/pay/weixin.jpg', 'zlkbcodepaywx', 'RSA2', '', '', '', '', '', 300, 0);
+
 
 -- --------------------------------------------------------
 
@@ -256,6 +273,7 @@ CREATE TABLE IF NOT EXISTS `t_products` (
   `qty` int(11) NOT NULL DEFAULT '0' COMMENT '数量',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00',
   `auto` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0手动,1自动',
+  `addons` text NOT NULL COMMENT '备注',
   `sort_num` int(11) NOT NULL DEFAULT '1' COMMENT '排序',
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未删除,1已删除'

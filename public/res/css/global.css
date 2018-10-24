@@ -199,7 +199,7 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .fly-header .fly-nav-user .layui-nav-child{left: auto; right: 0; width: 120px; min-width: 0;}
 
 /* 底部 */
-.fly-footer {margin: 50px 0 0; padding: 20px 0 30px; line-height: 30px; text-align: center; color: #737573; border-top: 1px solid #e2e2e2;}
+.fly-footer {line-height: 30px; text-align: center; color: #737573;}
 .fly-footer a{padding:0 6px; font-weight: 300; color: #333;}
 .fly-footer a:hover{color: #777;}
 .fly-union{margin-top: 10px; color: #999;}
@@ -597,7 +597,8 @@ body .fly-user-main{position: relative; min-height: 600px;}
 .ico_log {display: inline-block;width: 130px;height: 38px;vertical-align: middle;margin-right: 7px}
 .ico-codepayalipay,.ico-zfbf2f,.ico-zfbweb{background: url("/res/images/pay/alipay.jpg") no-repeat;}
 .ico-codepayqq {background: url("/res/images/pay/qqpay.jpg") no-repeat;}
-.ico-codepaywx {background: url("/res/images/pay/weixin.jpg") no-repeat;}
+.ico-yzpay {background: url("/res/images/pay/yzpay.jpg") no-repeat;}
+.ico-codepaywx,.ico-zlkbcodepaywx {background: url("/res/images/pay/weixin.jpg") no-repeat;}
 .mod-title .text {font-size: 20px;color: #333;font-weight: normal;vertical-align: middle}
 .mod-content{text-align: center;}
 .mod-content img{margin-left: 20px;margin-right: 20px;}

@@ -55,17 +55,17 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">是否库存控制</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="stockcontrol" lay-filter="stockcontrol" value="1" title="限制" <?php if($product[ 'stockcontrol']=='1' ):?>checked=""<?php endif;?>>
-                                <input type="radio" name="stockcontrol" lay-filter="stockcontrol" value="0" title="不限制" <?php if($product[ 'stockcontrol']=='0' ):?>checked=""<?php endif;?>>
+                                <input type="radio" name="stockcontrol" lay-filter="stockcontrol" value="1" title="限制" <?php if($product['stockcontrol']=='1' ):?>checked=""<?php endif;?>>
+                                <input type="radio" name="stockcontrol" lay-filter="stockcontrol" value="0" title="不限制" <?php if($product['stockcontrol']=='0' ):?>checked=""<?php endif;?>>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="qty" class="layui-form-label">库存数量</label>
                             <div class="layui-input-inline">
-                                <input type="number" id="qty" name="qty" oldqty="<?php echo $product['qty'];?>" lay-verify="required" autocomplete="off" value="<?php echo $product['qty'];?>" <?php if($product[ 'stockcontrol']=='0' ):?>disabled="disabled"<?php endif;?> class="layui-input">
+                                <input type="number" id="qty" name="qty" oldqty="<?php echo $product['qty'];?>" lay-verify="required" autocomplete="off" value="<?php echo $product['qty'];?>" <?php if($product['stockcontrol']=='0' ):?>disabled="disabled"<?php endif;?> class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">
-                                <button class="layui-btn layui-btn-warm layui-btn-xs" <?php if($product[ 'auto']=='1' AND $product[ 'stockcontrol']=='1' ):?>
+                                <button class="layui-btn layui-btn-warm layui-btn-xs" <?php if($product['auto']=='1' AND $product['stockcontrol']=='1' ):?>
                                     <?php else:?>disabled
                                     <?php endif;?> id="updateQty">更新库存</button>
                             </div>
@@ -79,18 +79,25 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">发货模式</label>
                             <div class="layui-input-block">
-                                <input class="auto" type="radio" name="auto" value="1" title="自动发货" <?php if($product[ 'auto']=='1' ):?>checked=""
-                                <?php endif;?>>
-                                <input class="auto" type="radio" name="auto" value="0" title="手工发货" <?php if($product[ 'auto']=='0' ):?>checked=""
-                                <?php endif;?>>
+                                <input class="auto" type="radio" lay-filter="auto" name="auto" value="1" title="自动发货" <?php if($product['auto']=='1' ):?>checked=""<?php endif;?>>
+                                <input class="auto" type="radio" lay-filter="auto" name="auto" value="0" title="手工发货" <?php if($product['auto']=='0' ):?>checked=""<?php endif;?>>
                             </div>
                         </div>
+						
+                        <div class="layui-form-item" id="addonsinput" <?php if($product['auto']=='1' ):?> style="display:none" <?php endif;?>>
+                            <label for="addons" class="layui-form-label">附加输入框</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="addons" name="addons" autocomplete="off" value="<?php echo $product['addons'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">自定义输入框，显示在商品订购页; A,B</div>
+                        </div>
+						
                         <div class="layui-form-item">
                             <label class="layui-form-label">是否销售</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="active" value="1" title="在售" <?php if($product[ 'active']=='1' ):?>checked=""
+                                <input type="radio" name="active" value="1" title="在售" <?php if($product['active']=='1' ):?>checked=""
                                 <?php endif;?>>
-                                <input type="radio" name="active" value="0" title="停售" <?php if($product[ 'active']=='0' ):?>checked=""
+                                <input type="radio" name="active" value="0" title="停售" <?php if($product['active']=='0' ):?>checked=""
                                 <?php endif;?>>
                             </div>
                         </div>
@@ -99,11 +106,12 @@
                             <div class="layui-input-inline">
                                 <input type="number" id="sort_num" name="sort_num" lay-verify="required" autocomplete="off" value="<?php echo $product['sort_num'];?>" class="layui-input">
                             </div>
+							<div class="layui-form-mid layui-word-aux">数字越大，越靠前</div>
                         </div>
                         <div class="layui-form-item">
                             <input type="hidden" name="method" value="edit">
                             <input type="hidden" name="id" id="pid" value="<?php echo $product['id'];?>">
-                            <button class="layui-btn" key="set-mine" lay-filter="edit" lay-submit>确认添加</button>
+                            <button class="layui-btn" key="set-mine" lay-filter="edit" lay-submit>确认修改</button>
                         </div>
                     </form>
                 </div>

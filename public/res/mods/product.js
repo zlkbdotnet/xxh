@@ -65,8 +65,9 @@
 					$('#qty').val('');
 					$('#prodcut_description').html('');
 					$("#buy").attr("disabled","true");
-					autoHeight();
+					$("#addons").remove();
 					form.render('select');
+					autoHeight();
 				} else {
 					$("#buy").attr("disabled","true");
 					form.render('select');
@@ -112,8 +113,18 @@
 					
 					html = str + htmlspecialchars_decode(product.description);
 					$('#prodcut_description').html(html);
-					autoHeight();
+					
+					$("#addons").remove();
+					var addons = '';
+					var list = res.data.addons;
+					for (var i = 0, j = list.length; i < j; i++) {
+						addons += '<div id="addons"><div class="layui-form-item"><label class="layui-form-label">'+list[i]+'</label><div class="layui-input-block"><input type="text" name="addons[]" id="addons'+i+'" class="layui-input" required lay-verify="required" placeholder=""></div></div></div>';
+					}
+					$('#product_input').append(addons);
+					$('#prodcut_num').height('auto');
+					
 					form.render();
+					autoHeight();
 				} else {
 					layer.msg(res.msg,{icon:2,time:5000});
 				}
@@ -178,5 +189,21 @@
 		$('#prodcut_description').html(html);
 	}*/
 	autoHeight();
+	
+	//首页广告弹窗
+	if(LAYERAD.length>0){
+		layer.open({
+			type: 1
+			,title: false
+			,closeBtn: false
+			,area: '300px;'
+			,shade: 0.8
+			,id: 'zlkbAD'
+			,btn: [ '关闭']
+			,btnAlign: 'c'
+			,moveType: 1 //拖拽模式，0或者1
+			,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">'+LAYERAD+'</div>'
+		});
+	}
 	exports('product',null)
 });

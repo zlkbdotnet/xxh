@@ -23,13 +23,13 @@ layui.define(['layer', 'form'], function(exports){
 							,offset: 'auto'
 							,id: 'layerPayone' //防止重复弹出
 							,content: html
-							,btn: ['去GitHub','下载ZIP包', '残忍拒绝']
+							,btn: ['自动更新','下载ZIP包', '残忍拒绝']
 							,btnAlign: 'c' //按钮居中
 							,shade: 0.8 //不显示遮罩
 							,success: function(layero){
 							  var btn = layero.find('.layui-layer-btn');
 							  btn.find('.layui-layer-btn0').attr({
-								href: res.data.url
+								href: '/'+ADMIN_DIR+'/upgrade'
 								,target: '_blank'
 							  });
 							  btn.find('.layui-layer-btn1').attr({

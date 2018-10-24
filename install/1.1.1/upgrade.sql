@@ -1,0 +1,2 @@
+ALTER TABLE `t_order` ADD `qq` VARCHAR(50) NOT NULL COMMENT 'QQ号码' AFTER `email`;
+INSERT INTO `t_config` (`id`, `catid`, `name`, `value`, `tag`, `lock`, `updatetime`) VALUES (11, 1, 'order_input_type', '2', '订单必填输入框选择: 1邮箱 2QQ', 1, 1453452674);

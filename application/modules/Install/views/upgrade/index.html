@@ -21,13 +21,18 @@
 						<p><?php echo $upgrade_desc;?></p>
 					</blockquote>
 					
+					<?php if(strlen($upgrade_sql)>0):?>
 					<pre class="layui-code layui-box layui-code-view"><?php echo $upgrade_sql;?></pre>
+					<?php endif;?>
+					
+					<?php if($button):?>
 					<form class="layui-form" method="post">
 					<p style="margin-bottom: 0;text-align:center">
 						<input type="hidden" name="method" value="upgrade">
 						<button class="layui-btn" key="set-mine" lay-filter="upgrade_button" lay-submit>立即升级</button>
                     </p>
 					</form>
+					<?php endif;?>
 				</div>
 			  </div>
 			</div>

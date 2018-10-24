@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html<?php if(isset($config['backgroundimage']) AND strlen($config['backgroundimage'])>0):?> style="background-size: cover; background-image: url(<?php echo $config['backgroundimage'];?>);"<?php endif;?>>
 <head>
     <meta charset="utf-8">
     <title><?php echo $title.'_'.$config['web_name'];?></title>
@@ -20,16 +20,12 @@
     </script>
 </head>
 
-<body>
-    <div class="fly-header layui-bg-black">
+<body id="zlkbbody">
+    <div class="fly-header <?php if(isset($config['headermenucolor']) AND strlen($config['headermenucolor'])>0):?><?php echo $config['headermenucolor'];?><?php else:?>layui-bg-black<?php endif;?>">
         <div class="layui-container">
-             <div class="layui-hide-xs"><a class="fly-logo" href="/"><img src="/res/images/logo.png" alt="layui"></a></div>
+             <div class=""><a class="fly-logo" href="/"><img src="<?php if(isset($config['logo']) AND strlen($config['logo'])>0):?><?php echo $config['logo'];?><?php else:?>/res/images/logo.png<?php endif;?>" alt="layui"></a></div>
             <ul class="layui-nav fly-nav" id="webmenu">
-				<li class="layui-nav-item layui-hide-lg layui-hide-md layui-hide-sm layadmin-flexible">
-					<a href="javascript:;" title="侧边伸缩">
-					<i class="layui-icon layui-icon-spread-left" id="main-menu-mobile-switch"></i>
-					</a>
-				</li>
+				<li></li>
                 <?php if($login):?>
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/member">我的账户</a>
@@ -49,7 +45,16 @@
                 </li>
                 <?php endif;?>
             </ul>
-            <ul class="layui-nav fly-nav-user">
+			
+			<ul class="layui-nav fly-nav-user">
+				<li class="layui-nav-item layui-hide-lg layui-hide-md layui-hide-sm layadmin-flexible">
+					<a href="javascript:;" title="侧边伸缩">
+					<i class="layui-icon layui-icon-spread-left" id="main-menu-mobile-switch" style="font-size: 16px;"></i>
+					</a>
+				</li>
+			 </ul>
+			 
+            <ul class="layui-nav fly-nav-user layui-hide-xs">
                 <?php if($login):?>
                 <li class="layui-nav-item">
                     <a class="fly-nav-avatar" href="javascript:;">
@@ -121,10 +126,13 @@
 		<dd><a href="/member/">我的账户</a></dd>
 		<dd><a href="/product">购买商品</a></dd>
 		<dd><a href="/help">帮助中心</a></dd>
+		<dd><a href="/member/logout/">退出</a></dd>
 		<?php else:?>
 		<dd><a href="/product/">购买商品</a></dd>
 		<dd><a href="/product/query">查询订单</a></dd>
-		 <?php endif;?>
+		<dd><a href="/member/login/">登录</a></dd>
+		<?php if(isset($config['is_open_register']) AND $config['is_open_register']>0):?> <dd><a href="/member/register/">注册</a></dd><?php endif;?>
+		<?php endif;?>
     </dl>
   </li>
 </ul>

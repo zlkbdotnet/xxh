@@ -320,34 +320,30 @@ if ( ! function_exists('rcopy')){
  * 拷贝文件
  * $source:源目录名
  * $destination:目的目录名
- * $child:复制时，是不是包含的子目录
- * xCopy("feiy", "feiy2", 1): 拷贝feiy下的文件到 feiy2, 包括子目录
- * xCopy("feiy", "feiy2", 0): 拷贝feiy下的文件到 feiy2, 不包括子目录
  */
 if ( ! function_exists('xCopy')){
-    function xCopy($source, $destination, $child) {
-    	if (!is_dir($source)) {
+    function xCopy($src, $dst) {
+    	if (!is_dir($src)) {
     		return 0;
     	}
 
-    	if (!is_dir($destination)){
-    		mkdir($destination, 0777);
+    	if (!is_dir($dst)){
+    		mkdir($dst, 0777);
     	}
-
-    	$handle = dir($source);
-    	
-    	while ($entry = $handle->read()) {
-    		if (($entry != ".") && ($entry != "..")) {
-    			if (is_dir($source . "/" . $entry)) {
-    				if ($child){
-    					xCopy($source . "/" . $entry, $destination . "/" . $entry, $child);
-    				}else{
-    					copy($source . "/" . $entry, $destination . "/" . $entry);
-    				}
-    			}
-    		}
-    	}
-    	return 1;
+		$dir = opendir($src);
+		@mkdir($dst);
+		while(false !== ( $file = readdir($dir)) ) {
+			if (( $file != '.' ) && ( $file != '..' )) {
+				if ( is_dir($src . '/' . $file) ) {
+					xCopy($src . '/' . $file,$dst . '/' . $file);
+				}
+				else {
+					copy($src . '/' . $file,$dst . '/' . $file);
+				}
+			}
+		}
+		closedir($dir);
+		return 1;
     }
 }
 

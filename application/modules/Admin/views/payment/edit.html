@@ -13,7 +13,13 @@
                         <div class="layui-form-item">
                             <label for="t_payment" class="layui-form-label">支付渠道</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="t_payment" name="payment" ay-verify="required" autocomplete="off" value="<?php echo $item['payment'];?>" class="layui-input">
+                                <input type="text" id="t_payment" name="payment" readonly disabled lay-verify="required" autocomplete="off" value="<?php echo $item['payment'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="payname" class="layui-form-label">显示名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="payname" name="payname" ay-verify="required" autocomplete="off" value="<?php echo $item['payname'];?>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">

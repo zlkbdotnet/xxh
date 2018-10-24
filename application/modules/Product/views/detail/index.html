@@ -44,12 +44,21 @@
                             </div>
                         </div>
                         <?php else:?>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">邮箱账户</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="email" id="email" class="layui-input" required lay-verify="required|email">
-                            </div>
-                        </div>
+								<?php if(isset($config['order_input_type']) AND $config['order_input_type'] == '2'):?>
+								<div class="layui-form-item">
+									<label class="layui-form-label">QQ</label>
+									<div class="layui-input-block">
+										<input type="number" name="qq" id="qq" class="layui-input" required lay-verify="required|number">
+									</div>
+								</div>
+								<?php else:?>
+								<div class="layui-form-item">
+									<label class="layui-form-label">邮箱账户</label>
+									<div class="layui-input-block">
+										<input type="text" name="email" id="email" class="layui-input" required lay-verify="required|email">
+									</div>
+								</div>
+								<?php endif;?>
                         <?php endif;?>
                         <div class="layui-form-item">
                             <label class="layui-form-label">查询密码</label>
@@ -57,6 +66,20 @@
                                 <input type="text" name="chapwd" id="chapwd" class="layui-input" required lay-verify="required" placeholder="将作为自助查询订单重要依据">
                             </div>
                         </div>
+						
+						<?php if(!empty($addons)):?>
+						<?php foreach($addons AS $key=>$addon):?>
+							<?php if($addon):?>
+								<div class="layui-form-item">
+									<label class="layui-form-label"><?php echo $addon;?></label>
+									<div class="layui-input-block">
+										<input type="text" name="addons[]" id="addons<?php echo $key;?>" class="layui-input" required lay-verify="required" placeholder="">
+									</div>
+								</div>
+							<?php endif;?>
+						<?php endforeach;?>
+						<?php endif;?>
+						
                         <div class="layui-form-item">
                             <div class="layui-input-block">
 								<input type="hidden" name="stockcontrol" id="stockcontrol" value="<?php echo $product['stockcontrol'];?>">
@@ -69,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-col-md6 layui-hide-xs">
+        <div class="layui-col-md6 <?php if(isset($config['m_prodcut_description'])):?><?php if($config['m_prodcut_description']=="0"):?>layui-hide-xs<?php endif;?><?php else:?>layui-hide-xs<?php endif;?>">
             <div class="layui-card">
                 <div class="layui-card-header">商品详情</div>
                 <div class="layui-card-body" id="prodcut_description">

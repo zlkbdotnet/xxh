@@ -76,7 +76,7 @@ class PaymentController extends AdminBasicController
 			$data = array();
 			$item=$this->m_payment->SelectByID('',$id);
 			$data['item'] =$item;
-			if($item['alias'] AND file_exists(APP_PATH.'/application/modules/Admin/views/payment/tpl/'.$item['alias'].'.html')){
+			if($item['alias'] AND file_exists(APP_PATH.'/application/modules/'.ADMIN_DIR.'/views/payment/tpl/'.$item['alias'].'.html')){
 				$tpl = 'tpl_'.$item['alias'];
 				$this->display($tpl, $data);
 				return FALSE;
@@ -92,12 +92,13 @@ class PaymentController extends AdminBasicController
 	{
 		$method = $this->getPost('method',false);
 		$id = $this->getPost('id',false);
-		$payment = $this->getPost('payment',false);
+		$payname = $this->getPost('payname',false);
 		$sign_type = $this->getPost('sign_type',false);
 		$app_id = $this->getPost('app_id',false);
 		$app_secret = $this->getPost('app_secret',false);
 		$ali_public_key = $this->getPost('ali_public_key',false);
 		$rsa_private_key = $this->getPost('rsa_private_key',false);
+		$configure3 = $this->getPost('configure3',false);
 		$active = $this->getPost('active',false);
 		$overtime = $this->getPost('overtime',false);
 		$csrf_token = $this->getPost('csrf_token', false);
@@ -110,10 +111,10 @@ class PaymentController extends AdminBasicController
         }
 		
 		
-		if($method AND $payment AND is_numeric($active) AND $csrf_token){
+		if($method AND $payname AND is_numeric($active) AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				$m=array(
-					'payment'=>$payment,
+					'payname'=>$payname,
 					'app_id'=>$app_id,
 					'active'=>$active,
 				);
@@ -130,6 +131,9 @@ class PaymentController extends AdminBasicController
 				}
 				if(isset($rsa_private_key) AND strlen($rsa_private_key)>0){
 					$m['rsa_private_key']=$rsa_private_key;
+				}
+				if(isset($configure3) AND strlen($configure3)>0){
+					$m['configure3']=$configure3;
 				}
 				if(isset($overtime) AND is_numeric($overtime)){
 					$m['overtime']=$overtime;

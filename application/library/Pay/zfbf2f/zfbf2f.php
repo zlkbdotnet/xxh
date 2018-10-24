@@ -40,7 +40,7 @@ class zfbf2f
 		try {
 			$qr = Charge::run(Config::ALI_CHANNEL_QR, $config, $data);
 			if($qr){
-				$result_params = array('type'=>0,'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".$qr,'payname'=>$payconfig['name'],'overtime'=>$payconfig['overtime'],'money'=>$params['money']);
+				$result_params = array('type'=>0,'subjump'=>1,'subjumpurl'=>$qr,'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".$qr,'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$params['money']);
 				return array('code'=>1,'msg'=>'success','data'=>$result_params);
 			}else{
 				return array('code'=>1002,'msg'=>'当面付生成失败','data'=>'');
@@ -52,9 +52,10 @@ class zfbf2f
 		}
 	}
 	
-	public function notify(array $payconfig,array $params)
+	public function notify(array $payconfig)
 	{
 		try {
+			file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.json_encode($_POST).PHP_EOL, FILE_APPEND);
 			unset($_POST['paymethod']);
 			$callback = new \Pay\zfbf2f\callback();
 			return $ret = Notify::run("ali_charge", $payconfig,$callback);// 处理回调，内部进行了签名检查	

@@ -17,11 +17,16 @@ layui.define(['layer', 'laytpl', 'form', 'element','table'], function(exports){
 
   ,DISABLED = 'layui-btn-disabled';
 
-  //阻止IE7以下访问
-  if(device.ie && device.ie < 8){
-    layer.alert('如果您非得使用 IE 浏览器访问本站点，那么请使用 IE8+');
-  }
- 
+	//阻止IE7以下访问
+	if(device.ie && device.ie < 8){
+		layer.alert('如果您非得使用 IE 浏览器访问本站点，那么请使用 IE8+');
+	}
+	
+	if(device.weixin || device.android || device.ios){
+		$(".layui-form-item").addClass("layui-form-text");
+		$(".layui-input-inline").attr("class", "layui-input-block");
+	}
+	
   layui.focusInsert = function(obj, str){
     var result, val = obj.value;
     obj.focus();

@@ -13,5 +13,20 @@ layui.use('element', function(){
   var element = layui.element;
 });
 </script>
+<!--统计代码-->
+<?php if(isset($config['tongji']) AND strlen($config['tongji'])>0):?>
+<?php echo $config['tongji'];?>
+<?php endif;?>
+<!--鼠标特效-->
+<?php if(isset($config['mousejqtx']) AND strlen($config['mousejqtx'])>0):?>
+	<?php if($config['mousejqtx']=="mousejqtxstars"):?>
+		<script>
+			layui.use(['jquery', 'mousejqtxstars'], function(){
+				var $ = layui.jquery;
+				$('#zlkbbody').jstars({image_path:'/res/images',style:'rand',frequency:18});
+			});
+		</script>
+	<?php endif;?>
+<?php endif;?>
 </body>
 </html>

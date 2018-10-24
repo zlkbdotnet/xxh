@@ -19,11 +19,18 @@ class IndexController extends PcBasicController
     {
 		if(file_exists(INSTALL_LOCK)){
 			$data = array();
-			$order = array('sort_num' => 'ASC');
-			$products_type = $this->m_products_type->Where(array('active'=>1,'isdelete'=>0))->Order($order)->Select();
-			$data['products_type'] = $products_type;
-			$data['title'] = "购买商品";
-			$this->getView()->assign($data);
+			if(isset($this->config['index_tpl']) AND $this->config['index_tpl'] == 'list' AND file_exists(APP_PATH.'/application/modules/Product/views/index/tpl/'.$this->config['index_tpl'].'.html')){
+				$data['title'] = "购买商品";
+				$tpl = 'tpl_'.$this->config['index_tpl'];
+				$this->display($tpl, $data);
+				return FALSE;
+			}else{
+				$order = array('sort_num' => 'DESC');
+				$products_type = $this->m_products_type->Where(array('active'=>1,'isdelete'=>0))->Order($order)->Select();
+				$data['products_type'] = $products_type;
+				$data['title'] = "购买商品";
+				$this->getView()->assign($data);
+			}
 		}else{
 			$this->redirect("/install/");
 			return FALSE;

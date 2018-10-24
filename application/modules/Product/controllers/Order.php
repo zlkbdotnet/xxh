@@ -27,12 +27,36 @@ class OrderController extends PcBasicController
 		//下订单
 		$pid = ceil($this->getPost('pid'));
 		$number = ceil($this->getPost('number'));
-		$email = $this->getPost('email');
 		$chapwd = $this->getPost('chapwd');
+		$addons = $this->getPost('addons');
 		$csrf_token = $this->getPost('csrf_token', false);
 		
-		if(is_numeric($pid) AND $pid>0 AND is_numeric($number) AND $number>0 AND $email AND isEmail($email) AND $chapwd AND $csrf_token){
+		if(is_numeric($pid) AND $pid>0 AND is_numeric($number) AND $number>0  AND $chapwd AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
+				if(isset($this->config['order_input_type']) AND $this->config['order_input_type']=='2'){
+					if($this->login AND $this->userid){
+						$email = $this->uinfo['email'];
+						$qq = '';
+					}else{
+						$qq = $this->getPost('qq');
+						if($qq AND is_numeric($qq)){
+							$email = $qq.'@qq.com';
+						}else{
+							$data = array('code' => 1006, 'msg' => '丢失参数');
+							Helper::response($data);
+						}
+					}
+				}else{
+					$email = $this->getPost('email',false);
+					if($email AND isEmail($email)){
+						$qq = '';
+					}else{
+						$data = array('code' => 1006, 'msg' => '丢失参数');
+						Helper::response($data);
+					}
+				}
+				
+				
 				$product = $this->m_products->Where(array('id'=>$pid,'active'=>1,'isdelete'=>0))->SelectOne();
 				if(!empty($product)){
 					$myip = getClientIP();
@@ -67,6 +91,22 @@ class OrderController extends PcBasicController
 						}
 					}
 					
+					//对附加输入进行判断
+					if($product['addons']){
+						$p_addons = explode(',',$product['addons']);
+						if(count($p_addons)>count($addons)){
+							$data = array('code' => 1006, 'msg' => '自定义内容不能为空!');
+							Helper::response($data);
+						}
+						$o_addons = '';
+						foreach($addons AS $k=>$addon){
+							$o_addons .= $p_addons[$k].":".$addon.";";
+						}
+					}else{
+						$o_addons = '';
+					}
+					
+					
 					//记录用户uid
 					if($this->login AND $this->userid){
 						$userid = $this->userid;
@@ -80,13 +120,15 @@ class OrderController extends PcBasicController
 					}
 					
 					//生成orderid
-					$orderid = 'zlkb' . date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
+					$prefix = isset($this->config['order_prefix'])?$this->config['order_prefix']:'zlkb';
+					$orderid = $prefix. date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
 					
 					//开始下单，入库
 					$m=array(
 						'orderid'=>$orderid,
 						'userid'=>$userid,
 						'email'=>$email,
+						'qq'=>$qq,
 						'pid'=>$pid,
 						'productname'=>$product['name'],
 						'price'=>$product['price'],
@@ -95,6 +137,7 @@ class OrderController extends PcBasicController
 						'chapwd'=>$chapwd,
 						'ip'=>$myip,
 						'status'=>0,
+						'addons'=>$o_addons,
 						'addtime'=>time(),
 					);
 					$id=$this->m_order->Insert($m);
@@ -180,7 +223,8 @@ class OrderController extends PcBasicController
 									if(($order['addtime']+$payconfig['overtime'])<time()){
 										//需要重新生成订单再提交
 										//生成orderid
-										$new_orderid = 'zlkb' . date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
+										$prefix = isset($this->config['order_prefix'])?$this->config['order_prefix']:'zlkb';
+										$new_orderid = $prefix. date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
 										$u = $this->m_order->UpdateByID(array('orderid'=>$new_orderid),$oid);
 										if($u){
 											$orderid = $new_orderid;

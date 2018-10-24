@@ -16,8 +16,7 @@ class NotifyController extends PcBasicController
 	
     public function indexAction()
     {
-		if(!empty($_POST)){
-			file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.json_encode($_POST).PHP_EOL, FILE_APPEND);
+		if($this->getRequest()->isPost()){
 			$paymethod = isset($_GET['paymethod'])?$_GET['paymethod']:(isset($_POST['paymethod'])?$_POST['paymethod']:'zfbf2f');
 			$payments = $this->m_payment->getConfig();
 			if(isset($payments[$paymethod]) AND !empty($payments[$paymethod])){
@@ -25,7 +24,7 @@ class NotifyController extends PcBasicController
 					$payconfig = $payments[$paymethod];
 					$payclass = "\\Pay\\".$paymethod."\\".$paymethod;
 					$PAY = new $payclass();
-					echo $result = $PAY->notify($payconfig,$_POST);
+					echo $result = $PAY->notify($payconfig);
 					file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.$result.PHP_EOL, FILE_APPEND);
 					exit();
 				} catch (\Exception $e) {
@@ -33,9 +32,11 @@ class NotifyController extends PcBasicController
 					echo 'error|Exception:'.$e->getMessage();exit();
 				}
 			}else{
+				file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.$e->getMessage().PHP_EOL, FILE_APPEND);
 				echo 'error|Paymethod is null';exit();
 			}
 		}else{
+			file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.$e->getMessage().PHP_EOL, FILE_APPEND);
 			echo 'error|Data is null';exit();
 		}
     }

@@ -56,7 +56,7 @@ class codepaywx
 				}else{
 					$qr = $codepay_data ? $codepay_data['qrcode'] : '';
 					$money = isset($codepay_data['money'])?$codepay_data['money']:$params['money'];
-					$result = array('type'=>0,'paymethod'=>$this->paymethod,'qr'=>$qr,'payname'=>$payconfig['name'],'overtime'=>$payconfig['overtime'],'money'=>$money);
+					$result = array('type'=>0,'subjump'=>0,'paymethod'=>$this->paymethod,'qr'=>$qr,'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$money);
 					return array('code'=>1,'msg'=>'success','data'=>$result);
 				}
 			}else{
@@ -71,8 +71,10 @@ class codepaywx
 	
 	
 	//处理返回
-	public function notify($payconfig,$params)
+	public function notify($payconfig)
 	{
+		file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.json_encode($_POST).PHP_EOL, FILE_APPEND);
+		$params = $_POST;
 		ksort($params); //排序post参数
 		reset($params); //内部指针指向数组中的第一个元素
 		$sign = '';

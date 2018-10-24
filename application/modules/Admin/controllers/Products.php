@@ -57,7 +57,7 @@ class ProductsController extends AdminBasicController
             }
 			
             $limits = "{$pagenum},{$limit}";
-			$sql = "SELECT p1.id,p1.name,p1.price,p1.qty,p1.auto,p1.active,p1.stockcontrol,p2.name as typename FROM `t_products` as p1 left join `t_products_type` as p2 on p1.typeid = p2.id WHERE p1.isdelete=0 Order by p1.id desc LIMIT {$limits}";
+			$sql = "SELECT p1.id,p1.name,p1.price,p1.qty,p1.auto,p1.active,p1.stockcontrol,p1.sort_num,p2.name as typename FROM `t_products` as p1 left join `t_products_type` as p2 on p1.typeid = p2.id WHERE p1.isdelete=0 Order by p1.id desc LIMIT {$limits}";
 			$items=$this->m_products->Query($sql);
             if (empty($items)) {
                 $data = array('code'=>1002,'count'=>0,'data'=>array(),'msg'=>'无数据');
@@ -82,7 +82,7 @@ class ProductsController extends AdminBasicController
 			$product=$this->m_products->SelectByID('',$id);
 			$data['product'] = $product;
 			
-			$productstype=$this->m_products_type->Where(array('isdelete'=>0))->Order(array('id'=>'DESC'))->Select();
+			$productstype=$this->m_products_type->Where(array('isdelete'=>0))->Order(array('sort_num'=>'DESC'))->Select();
 			$data['productstype'] = $productstype;
 			
 			$this->getView()->assign($data);
@@ -100,7 +100,7 @@ class ProductsController extends AdminBasicController
         }
 
 		$data = array();
-		$productstype=$this->m_products_type->Where(array('isdelete'=>0))->Order(array('id'=>'DESC'))->Select();
+		$productstype=$this->m_products_type->Where(array('isdelete'=>0))->Order(array('sort_num'=>'DESC'))->Select();
 		$data['productstype'] = $productstype;
 		$this->getView()->assign($data);
     }
@@ -115,6 +115,7 @@ class ProductsController extends AdminBasicController
 		$qty = $this->getPost('qty',false);
 		$price = $this->getPost('price',false);
 		$auto = $this->getPost('auto',false);
+		$addons = $this->getPost('addons',false);
 		$active = $this->getPost('active',false);
 		$sort_num = $this->getPost('sort_num',false);
 		$csrf_token = $this->getPost('csrf_token', false);
@@ -128,6 +129,11 @@ class ProductsController extends AdminBasicController
 		
 		if($method AND $typeid AND $name AND $description AND is_numeric($stockcontrol) AND is_numeric($qty) AND is_numeric($price) AND is_numeric($auto) AND is_numeric($active) AND is_numeric($sort_num) AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
+				if($price<0.01){
+					$data = array('code' => 1000, 'msg' => '价格设置错误');
+					Helper::response($data);
+				}
+				
 				$description = str_replace(array("\r","\n","\t"), "", $description);
 				$m=array(
 					'typeid'=>$typeid,
@@ -137,6 +143,7 @@ class ProductsController extends AdminBasicController
 					'qty'=>$qty,
 					'price'=>$price,
 					'auto'=>$auto,
+					'addons'=>$addons,
 					'active'=>$active,
 					'sort_num'=>$sort_num,
 				);
@@ -252,7 +259,7 @@ class ProductsController extends AdminBasicController
 		if($tid AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				$data = array();
-				$order = array('sort_num' => 'ASC');
+				$order = array('sort_num' => 'DESC');
 				$field = array('id', 'name');
 				$products = $this->m_products->Field($field)->Where(array('typeid'=>$tid,'active'=>1,'isdelete'=>0))->Order($order)->Select();
 				$data['products'] = $products;

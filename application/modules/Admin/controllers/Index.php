@@ -9,6 +9,7 @@
 class IndexController extends AdminBasicController
 {
 	private $github_url = "https://github.com/zlkbdotnet/zfaka/releases";
+	private $remote_version = '';
     public function init()
     {
         parent::init();
@@ -22,6 +23,7 @@ class IndexController extends AdminBasicController
 				return FALSE;
 			}else{
 				$version = @file_get_contents(INSTALL_LOCK);
+				$version = str_replace(array("\r","\n","\t"), "", $version);
 				$version = strlen(trim($version))>0?$version:'1.0.0';
 				if(version_compare(trim($version), trim(VERSION), '<' )){
 					$this->redirect("/install/upgrade");
@@ -46,12 +48,16 @@ class IndexController extends AdminBasicController
 		$method = $this->getPost('method',false);
 		if($method AND $method=='updatecheck'){
 			if ($this->VerifyCsrfToken($csrf_token)) {
-				$up_version = $this->_getUpdateVersion();
+				$up_version = $this->getSession('up_version');
+				if(!$up_version){
+					$up_version = $this->_getUpdateVersion();
+					$this->setSession('up_version',$up_version);
+				}
 				if(version_compare(trim(VERSION), trim($up_version), '<' )){
 					$params = array('update'=>1,'url'=>$this->github_url,'zip'=>"https://github.com/zlkbdotnet/zfaka/archive/{$up_version}.zip");
 					$data = array('code' => 1, 'msg' => '有更新','data'=>$params);
 				}else{
-					$params = array('update'=>0,'url'=>$this->github_url);
+					$params = array('update'=>0,'url'=>$this->github_url,'remote_version'=>$this->remote_version);
 					$data = array('code' => 1, 'msg' => '没有更新','data'=>$params);
 				}
 			} else {
@@ -67,7 +73,7 @@ class IndexController extends AdminBasicController
 	{
 		$version = VERSION;
 		try{
-			$version_reg = '#<a href="/zlkbdotnet/zfaka/archive/(.*?).zip" rel="nofollow">#';//列表规则 
+			$version_reg = '#<a href="/zlkbdotnet/zfaka/archive/(.*?).zip"#';//列表规则 
 			$version_html= $this->_get_url_contents($this->github_url,array());
 			$version_html=mb_convert_encoding($version_html, 'utf-8', 'gbk');
 			preg_match_all($version_reg , $version_html , $cate_matches); 
@@ -75,6 +81,7 @@ class IndexController extends AdminBasicController
 				$up_version = trim($cate_matches[1][0]);
 				if(strlen($up_version)==5){
 					$version = $up_version;
+					$this->remote_version = $up_version;
 				}
 			}
 		} catch(\Exception $e) {

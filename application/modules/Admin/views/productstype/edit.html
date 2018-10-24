@@ -17,6 +17,13 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label for="sort_num" class="layui-form-label">排序</label>
+                            <div class="layui-input-inline">
+                                <input type="number" id="sort_num" name="sort_num" lay-verify="required" autocomplete="off" value="<?php echo $item['sort_num'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">数字越大，越靠前</div>
+                        </div>
+                        <div class="layui-form-item">
                             <label class="layui-form-label">是否激活</label>
                             <div class="layui-input-block">
                                 <input type="radio" name="active" value="1" title="激活" <?php if($item['active']=='1' ):?>checked=""<?php endif;?>>
