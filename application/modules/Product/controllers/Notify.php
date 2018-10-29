@@ -32,11 +32,11 @@ class NotifyController extends PcBasicController
 					echo 'error|Exception:'.$e->getMessage();exit();
 				}
 			}else{
-				file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.'Paymethod is null'.PHP_EOL, FILE_APPEND);
+				file_put_contents(YEWU_FILE, CUR_DATETIME.'-Paymethod is null'.PHP_EOL, FILE_APPEND);
 				echo 'error|Paymethod is null';exit();
 			}
 		}else{
-			file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.'Method forbidden'.PHP_EOL, FILE_APPEND);
+			file_put_contents(YEWU_FILE, CUR_DATETIME.'-Method forbidden'.PHP_EOL, FILE_APPEND);
 			echo 'error|Data is null';exit();
 		}
     }

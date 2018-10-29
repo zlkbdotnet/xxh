@@ -67,7 +67,7 @@
 								</div>
 							</div>
 							<?php else:?>
-								<?php if(isset($config['order_input_type']) AND $config['order_input_type'] == '2'):?>
+								<?php if(isset($config['orderinputtype']) AND $config['orderinputtype'] == '2'):?>
 								<div class="layui-form-item">
 									<label class="layui-form-label">QQ</label>
 									<div class="layui-input-block">
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-col-md6 <?php if(isset($config['m_prodcut_description'])):?><?php if($config['m_prodcut_description']=="0"):?>layui-hide-xs<?php endif;?><?php else:?>layui-hide-xs<?php endif;?>">
+        <div class="layui-col-md6 <?php if(isset($config['mprodcutdescriptionswitch'])):?><?php if($config['mprodcutdescriptionswitch']=="0"):?>layui-hide-xs<?php endif;?><?php else:?>layui-hide-xs<?php endif;?>">
             <div class="layui-card">
                 <div class="layui-card-header">商品详情</div>
                 <div class="layui-card-body" id="prodcut_description">

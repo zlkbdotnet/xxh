@@ -33,7 +33,7 @@ class OrderController extends PcBasicController
 		
 		if(is_numeric($pid) AND $pid>0 AND is_numeric($number) AND $number>0  AND $chapwd AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
-				if(isset($this->config['order_input_type']) AND $this->config['order_input_type']=='2'){
+				if(isset($this->config['orderinputtype']) AND $this->config['orderinputtype']=='2'){
 					if($this->login AND $this->userid){
 						$email = $this->uinfo['email'];
 						$qq = '';
@@ -74,18 +74,18 @@ class OrderController extends PcBasicController
 					$starttime = strtotime(date("Y-m-d"));
 					$endtime = strtotime(date("Y-m-d 23:59:59"));
 					//进行同一ip，下单未付款的处理判断
-					if(isset($this->config['limit_ip_order']) AND $this->config['limit_ip_order']>0){
+					if(isset($this->config['limitiporder']) AND $this->config['limitiporder']>0){
 						$total = $this->m_order->Where(array('ip'=>$myip,'status'=>0,'isdelete'=>0))->Where("addtime>={$starttime} and addtime<={$endtime}")->Total();
-						if($total>$this->config['limit_ip_order']){
+						if($total>$this->config['limitiporder']){
 							$data = array('code' => 1005, 'msg' => '处理失败,您有太多未付款订单了');
 							Helper::response($data);
 						}
 					}
 
 					//进行同一email，下单未付款的处理判断
-					if(isset($this->config['limit_email_order']) AND $this->config['limit_email_order']>0){
+					if(isset($this->config['limitemailorder']) AND $this->config['limitemailorder']>0){
 						$total = $this->m_order->Where(array('email'=>$email,'status'=>0,'isdelete'=>0))->Where("addtime>={$starttime} and addtime<={$endtime}")->Total();
-						if($total>$this->config['limit_email_order']){
+						if($total>$this->config['limitemailorder']){
 							$data = array('code' => 1006, 'msg' => '处理失败,您有太多未付款订单了');
 							Helper::response($data);
 						}
@@ -120,7 +120,7 @@ class OrderController extends PcBasicController
 					}
 					
 					//生成orderid
-					$prefix = isset($this->config['order_prefix'])?$this->config['order_prefix']:'zlkb';
+					$prefix = isset($this->config['orderprefix'])?$this->config['orderprefix']:'zlkb';
 					$orderid = $prefix. date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
 					
 					//开始下单，入库
@@ -219,11 +219,11 @@ class OrderController extends PcBasicController
 						}else{
 							try{
 								//这里对有订单超时处理的支付渠道进行特别处理
-								if($payconfig['overtime']>0){
+								/*if($payconfig['overtime']>0){
 									if(($order['addtime']+$payconfig['overtime'])<time()){
 										//需要重新生成订单再提交
 										//生成orderid
-										$prefix = isset($this->config['order_prefix'])?$this->config['order_prefix']:'zlkb';
+										$prefix = isset($this->config['orderprefix'])?$this->config['orderprefix']:'zlkb';
 										$new_orderid = $prefix. date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
 										$u = $this->m_order->UpdateByID(array('orderid'=>$new_orderid),$oid);
 										if($u){
@@ -237,10 +237,11 @@ class OrderController extends PcBasicController
 									}
 								}else{
 									$orderid = $order['orderid'];
-								}
+								}*/
+								$orderid = $order['orderid'];
 								$payclass = "\\Pay\\".$paymethod."\\".$paymethod;
 								$PAY = new $payclass();
-								$params =array('orderid'=>$orderid,'money'=>$order['money'],'productname'=>$order['productname'],'web_url'=>$this->config['web_url']);
+								$params =array('orderid'=>$orderid,'money'=>$order['money'],'productname'=>$order['productname'],'weburl'=>$this->config['weburl']);
 								$data = $PAY->pay($payconfig,$params);
 							} catch (\Exception $e) {
 								$data = array('code' => 1005, 'msg' => $e->getMessage());
@@ -269,7 +270,7 @@ class OrderController extends PcBasicController
 			//增加安全判断
 			if(isset($_SERVER['HTTP_REFERER'])){
 				$referer_url = parse_url($_SERVER['HTTP_REFERER']);
-				$web_url = parse_url($this->config['web_url']);
+				$web_url = parse_url($this->config['weburl']);
 				if($referer_url['host']!=$web_url['host']){
 					echo 'fuck you!';exit();
 				}

@@ -77,7 +77,7 @@ class SettingController extends AdminBasicController
 		if($id AND $id>0){
 			$data = array();
 			$item=$this->m_config->SelectByID('',$id);
-			$data['item'] =$item;
+			$data['item'] = $item;
 			if($item['name'] AND file_exists(APP_PATH.'/application/modules/'.ADMIN_DIR.'/views/setting/tpl/'.$item['name'].'.html')){
 				$tpl = 'tpl_'.$item['name'];
 				$this->display($tpl, $data);

@@ -31,7 +31,6 @@ layui.define(['layer', 'form','jquery','base64','laytpl'], function(exports){
 			case '0':
 				oid = $.base64.encode(data.id);
 				str = '<span class="layui-badge layui-bg-gray">待付款</span>';
-				str += ',<a style="color:red" href="/product/order/pay/?oid='+oid+'">去支付</a>';
 				break;
 			case '1':
 				str = '<span class="layui-badge layui-bg-blue">待处理</span>';

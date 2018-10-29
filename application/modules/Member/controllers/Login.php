@@ -24,7 +24,10 @@ class LoginController extends PcBasicController
             $this->redirect("/member/");
             return FALSE;
         }
-		
+		if(isset($this->config['loginswitch']) AND $this->config['loginswitch']<1){
+            $this->redirect("/member/");
+            return FALSE;
+		}
 		$data = array();
 		$data['title'] = "登录";
         $this->getView()->assign($data);
@@ -33,6 +36,10 @@ class LoginController extends PcBasicController
 	
 	public function ajaxAction()
 	{
+		if(isset($this->config['loginswitch']) AND $this->config['loginswitch']<1){
+			$data = array('code' => 1000, 'msg' => '本系统关闭登录功能');
+			Helper::response($data);
+		}
 		$email    = $this->getPost('email',false);
 		$password = $this->getPost('password',false);
 		$csrf_token = $this->getPost('csrf_token', false);
@@ -40,7 +47,7 @@ class LoginController extends PcBasicController
 		if($email AND $password AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
-					if(isset($this->config['yzm_switch']) AND $this->config['yzm_switch']>0){
+					if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
 						$vercode = $this->getPost('vercode',false);
 						if($vercode){
 							if(strtolower($this->getSession('loginCaptcha')) == strtolower($vercode)){

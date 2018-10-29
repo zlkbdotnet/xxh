@@ -78,9 +78,9 @@ class notify
 									$m[]=array('email'=>$order['email'],'subject'=>'商品购买成功','content'=>$content,'addtime'=>time(),'status'=>0);
 								}
 								//3.1.4.2通知管理员,定时任务去执行
-								if(isEmail($web_config['admin_email'])){
+								if(isEmail($web_config['adminemail'])){
 									$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],卡密发送成功'.$kucunNotic;
-									$m[]=array('email'=>$web_config['admin_email'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
+									$m[]=array('email'=>$web_config['adminemail'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
 								}
 								
 								if(!empty($m)){
@@ -99,9 +99,9 @@ class notify
 									$m[] = array('email'=>$order['email'],'subject'=>'商品购买成功','content'=>$content,'addtime'=>time(),'status'=>0);
 								}
 								//3.2.3.2通知管理员,定时任务去执行
-								if(isEmail($web_config['admin_email'])){
+								if(isEmail($web_config['adminemail'])){
 									$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],由于库存不足暂时无法处理,请尽快处理!';
-									$m[] = array('email'=>$web_config['admin_email'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
+									$m[] = array('email'=>$web_config['adminemail'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
 								}
 								
 								if(!empty($m)){
@@ -124,12 +124,12 @@ class notify
 								$m[] = array('email'=>$order['email'],'subject'=>'商品购买成功','content'=>$content,'addtime'=>time(),'status'=>0);
 							}
 							//4.2.2通知管理员,定时任务去执行
-							if(isEmail($web_config['admin_email'])){
+							if(isEmail($web_config['adminemail'])){
 								$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],属于手工发货类型，请尽快联系他!';
 								if($order['addons']){
 									$content .='订单附加信息：'.$order['addons'];
 								}
-								$m[] = array('email'=>$web_config['admin_email'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
+								$m[] = array('email'=>$web_config['adminemail'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
 							}
 							if(!empty($m)){
 								$m_email_queue->MultiInsert($m);

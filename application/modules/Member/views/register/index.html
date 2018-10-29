@@ -4,12 +4,12 @@
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title">
                 <li><a href="/member/login/">登录</a></li>
-                <li class="layui-this">注册</li>
+                <?php if(isset($config['loginswitch']) AND $config['loginswitch']>0):?><li class="layui-this">注册</li><?php endif;?>
             </ul>
             <div class="layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-pane">
-                        <?php if(isset($config['is_open_register']) AND $config['is_open_register']>0):?>
+                        <?php if(isset($config['registerswitch']) AND $config['registerswitch']>0):?>
                         <form class="layui-form" method="post" action="/member/register/ajax">
                             <div class="layui-form-item">
                                 <label for="L_email" class="layui-form-label">邮箱</label>
@@ -37,7 +37,7 @@
                                     <input type="password" id="L_repass" name="repassword" required lay-verify="required|repasswd" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-							<?php if(isset($config['yzm_switch']) AND $config['yzm_switch']>0):?>
+							<?php if(isset($config['yzmswitch']) AND $config['yzmswitch']>0):?>
                             <div class="layui-form-item" style="position: relative;">
                                 <label for="L_vercode" class="layui-form-label">图形验证</label>
                                 <div class="layui-input-inline">

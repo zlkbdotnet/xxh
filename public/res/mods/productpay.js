@@ -132,7 +132,7 @@
 					}
                 } else {
 					layer.closeAll();
-					location.href = '/product/query/?orderid='+res.data.orderid;
+					location.href = '/product/query/?method=auto&orderid='+res.data.orderid;
                 }
             },
             //Ajax请求超时，继续查询

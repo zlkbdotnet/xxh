@@ -23,6 +23,11 @@ class RegisterController extends PcBasicController
             $this->redirect("/member/");
             return FALSE;
         }
+		if(isset($this->config['registerswitch']) AND $this->config['registerswitch']<1){
+            $this->redirect("/member/");
+            return FALSE;
+		}
+		
 		$data = array();
 		$data['title'] = "注册";
         $this->getView()->assign($data);
@@ -30,7 +35,7 @@ class RegisterController extends PcBasicController
 
 	public function ajaxAction()
 	{
-		if(isset($this->config['is_open_register']) AND $this->config['is_open_register']<1){
+		if(isset($this->config['registerswitch']) AND $this->config['registerswitch']<1){
 			$data = array('code' => 1000, 'msg' => '本系统关闭注册功能');
 			Helper::response($data);
 		}
@@ -42,7 +47,7 @@ class RegisterController extends PcBasicController
 		if($email AND $password AND $nickname AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
-					if(isset($this->config['yzm_switch']) AND $this->config['yzm_switch']>0){
+					if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
 						$vercode = $this->getPost('vercode',false);
 						if($vercode){
 							if(strtolower($this->getSession('registerCaptcha')) == strtolower($vercode)){

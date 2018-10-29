@@ -26,12 +26,20 @@ class ForgetpwdController extends PcBasicController
             $this->redirect("/member/");
             return FALSE;
         }
+		if(isset($this->config['forgetpwdswitch']) AND $this->config['forgetpwdswitch']<1){
+            $this->redirect("/member/");
+            return FALSE;
+		}
 		$data['title'] = "找回密码";
 		$this->getView()->assign($data);
     }
 	
 	public function resetAction()
 	{
+		if(isset($this->config['forgetpwdswitch']) AND $this->config['forgetpwdswitch']<1){
+            $this->redirect("/member/");
+            return FALSE;
+		}
         $key = $this->get('key', false);
 		$data = array();
         if (false != $key) {
@@ -72,6 +80,10 @@ class ForgetpwdController extends PcBasicController
 	//找回密码 2.重设
 	public function resetajaxAction()
 	{
+		if(isset($this->config['forgetpwdswitch']) AND $this->config['forgetpwdswitch']<1){
+			$data = array('code' => 1000, 'msg' => '本系统关闭密码重置功能');
+			Helper::response($data);
+		}
 		$email = $this->getPost('email',false);
 		$code = $this->getPost('code',false);
 		$password = $this->getPost('password',false);
@@ -107,6 +119,10 @@ class ForgetpwdController extends PcBasicController
 	//找回密码 1.验证邮箱
 	public function ajaxAction()
 	{
+		if(isset($this->config['forgetpwdswitch']) AND $this->config['forgetpwdswitch']<1){
+			$data = array('code' => 1000, 'msg' => '本系统关闭密码重置功能');
+			Helper::response($data);
+		}
 		$email    = $this->getPost('email',false);
 		$csrf_token = $this->getPost('csrf_token', false);
 		
@@ -115,7 +131,7 @@ class ForgetpwdController extends PcBasicController
 		if($email AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
-					if(isset($this->config['yzm_switch']) AND $this->config['yzm_switch']>0){
+					if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
 						$vercode = $this->getPost('vercode',false);
 						if($vercode){
 							if(strtolower($this->getSession('forgetpwdCaptcha')) == strtolower($vercode)){
@@ -158,7 +174,7 @@ class ForgetpwdController extends PcBasicController
 									try {
 										$key=base64_encode("{$m['code']}-{$m['id']}-{$email}");
 										$str = "key={$key}";
-										$url = siteUrl($this->config['web_url'], "/member/forgetpwd/reset", $str);
+										$url = siteUrl($this->config['weburl'], "/member/forgetpwd/reset", $str);
 										$content = '用户' . $email . ',请点击此链接重置密码<a href="' . $url . '">' . $url . '</a>';
 										$emainConfig = $this->m_email->getConfig();
 										$config=array();

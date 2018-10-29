@@ -32,7 +32,9 @@ class zlkbcodepaywx
 					return array('code'=>1002,'msg'=>$curl_data['msg'],'data'=>'');
 				}else{
 					$money = isset($curl_data['data']['money'])?$curl_data['data']['money']:$params['money'];
-					$result = array('type'=>0,'subjump'=>0,'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".urlencode($curl_data['data']['qr_content']),'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$money);
+					//计算关闭时间
+					$closetime = (int)($curl_data['data']['closetime']-$curl_data['data']['servertime']-3);
+					$result = array('type'=>0,'subjump'=>0,'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".urlencode($curl_data['data']['qr_content']),'payname'=>$payconfig['payname'],'overtime'=>$closetime,'money'=>$money);
 					return array('code'=>1,'msg'=>'success','data'=>$result);
 				}
 			}else{

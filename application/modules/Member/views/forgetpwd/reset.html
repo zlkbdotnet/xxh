@@ -3,10 +3,8 @@
     <div class="fly-panel fly-panel-user" pad20>
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title">
-                <li><a href="/member/login">登录</a></li>
-                <li class="layui-this">找回密码
-                    <!--重置密码-->
-                </li>
+                <?php if(isset($config['loginswitch']) AND $config['loginswitch']>0):?><li><a href="/member/login">登录</a></li><?php endif;?>
+                <li class="layui-this">找回密码</li>
             </ul>
             <div class="layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
@@ -18,6 +16,7 @@
                     <!-- 重置密码 -->
                     <div class="fly-msg">请重置您的密码</div>
                     <div class="layui-form-pane" style="margin-top: 30px;">
+						<?php if(isset($config['forgetpwdswitch']) AND $config['forgetpwdswitch']>0):?>
                         <form class="layui-form" method="post">
                             <div class="layui-form-item">
                                 <label for="L_pass" class="layui-form-label">密码</label>
@@ -38,6 +37,11 @@
                                 <button class="layui-btn" alert="1" lay-filter="reset" lay-submit>提交</button>
                             </div>
                         </form>
+					<?php else:?>
+						<blockquote class="layui-elem-quote">
+							<p>本系统已经关闭密码重置功能；</p>
+						</blockquote>
+                   <?php endif;?>
                     </div>
                     <?php endif;?>
                 </div>
