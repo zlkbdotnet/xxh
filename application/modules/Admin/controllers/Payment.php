@@ -116,11 +116,12 @@ class PaymentController extends AdminBasicController
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				$m=array(
 					'payname'=>$payname,
-					'payimage'=>$payimage,
 					'app_id'=>$app_id,
 					'active'=>$active,
 				);
-				
+				if(isset($payimage) AND strlen($payimage)>0){
+					$m['payimage']=$payimage;
+				}
 				$sign=array('RSA','RSA2');
 				if(isset($sign_type) AND strlen($sign_type)>0 AND in_array($sign_type,$sign)){
 					$m['sign_type']=$sign_type;
