@@ -23,6 +23,12 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label for="payimage" class="layui-form-label">支付图片</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="payimage" name="payimage" ay-verify="required" autocomplete="off" value="<?php echo $item['payimage'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
                             <label for="app_id" class="layui-form-label">client_id</label>
                             <div class="layui-input-inline">
                                 <input type="text" id="app_id" name="app_id" required lay-verify="required" autocomplete="off" value="<?php echo $item['app_id'];?>" class="layui-input">
