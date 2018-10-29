@@ -106,15 +106,24 @@ class SettingController extends AdminBasicController
 			Helper::response($data);
         }
 		
-		if($method AND $name AND ($value OR is_numeric($value))AND $csrf_token){
+		if($method AND $name AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
-				$value = str_replace(array("\r","\n","\t"), "", $value);
-				$tag = str_replace(array("\r","\n","\t"), "", $tag);
-				$m=array(
-					'name'=>$name,
-					'value'=>htmlspecialchars($value),
-					'tag'=>htmlspecialchars($tag),
-				);
+				if($value OR is_numeric($value)){
+					$value = str_replace(array("\r","\n","\t"), "", $value);
+					$tag = str_replace(array("\r","\n","\t"), "", $tag);
+					$m=array(
+						'name'=>$name,
+						'value'=>htmlspecialchars($value),
+						'tag'=>htmlspecialchars($tag),
+					);
+				}else{
+					$m=array(
+						'name'=>$name,
+						'value'=>"",
+						'tag'=>htmlspecialchars($tag),
+					);
+				}
+
 				if($method == 'edit' AND $id>0){
 					$u = $this->m_config->UpdateByID($m,$id);
 					if($u){
