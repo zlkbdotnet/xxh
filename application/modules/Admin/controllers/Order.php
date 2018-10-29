@@ -261,12 +261,12 @@ class OrderController extends AdminBasicController
 							$m = array();
 							//3.1.4.1通知用户,定时任务去执行
 							if(isEmail($order['email'])){
-								$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],卡密是:'.$kami;
+								$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],密码是:'.$kami;
 								$m[]=array('email'=>$order['email'],'subject'=>'商品购买成功','content'=>$content,'addtime'=>time(),'status'=>0);
 							}
 							//3.1.4.2通知管理员,定时任务去执行
 							if(isEmail($this->config['admin_email'])){
-								$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],卡密发送成功';
+								$content = '用户:' . $order['email'] . ',购买的商品['.$order['productname'].'],密码发送成功';
 								$m[]=array('email'=>$this->config['admin_email'],'subject'=>'用户购买商品','content'=>$content,'addtime'=>time(),'status'=>0);
 							}
 							if(!empty($m)){
