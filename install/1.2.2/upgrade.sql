@@ -1,0 +1,1 @@
+UPDATE `t_payment` SET `payment` = '收款宝' WHERE `id` = 8;

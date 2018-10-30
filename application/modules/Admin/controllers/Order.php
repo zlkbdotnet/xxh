@@ -71,7 +71,8 @@ class OrderController extends AdminBasicController
             }
 			
             $limits = "{$pagenum},{$limit}";
-			$items=$this->m_order->Where($where1)->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
+			$field = array('id','orderid','email','productname','addtime','status','paymoney','number');
+			$items=$this->m_order->Field($field)->Where($where1)->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
 			
             if (empty($items)) {
                 $data = array('code'=>1002,'count'=>0,'data'=>array(),'msg'=>'无数据');

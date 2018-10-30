@@ -77,8 +77,7 @@ class EmailqueueController extends AdminBasicController
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if($id AND is_numeric($id) AND $id>0){
 					$where1 = array('id'=>$id);
-					$where = '(status=1)';//已完成的才可以删
-					$delete = $this->m_email_queue->Where($where1)->Where($where)->Update(array('isdelete'=>1));
+					$delete = $this->m_email_queue->Where($where1)->Update(array('isdelete'=>1));
 					if($delete){
 						$data = array('code' => 1, 'msg' => '删除成功', 'data' => '');
 					}else{
@@ -88,7 +87,7 @@ class EmailqueueController extends AdminBasicController
 					$ids = json_decode($id,true);
 					if(isset($ids['ids']) AND !empty($ids['ids'])){
 						$idss = implode(",",$ids['ids']);
-						$where = "(status=1) and id in ({$idss})";
+						$where = "id in ({$idss})";
 						$delete = $this->m_email_queue->Where($where)->Update(array('isdelete'=>1));
 						if($delete){
 							$data = array('code' => 1, 'msg' => '成功');
