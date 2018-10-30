@@ -88,7 +88,7 @@ INSERT INTO `t_config` (`id`, `catid`, `name`, `value`, `tag`, `lock`, `updateti
 (11, 1, 'orderinputtype', '2', '订单必填输入框选择: 1邮箱 2QQ', 1, 1453452674),
 (12, 1, 'tplindex', 'default', '首页显示模式，筛选(default)|列表(list)', 1, 1453452674),
 (13, 1, 'logo', '/res/images/logo.png', 'LOGO地址,默认：/res/images/logo.png', 1, 1453452674),
-(14, 1, 'tongji', '/', '统计脚本', 1, 1453452674),
+(14, 1, 'tongji', '<!--统计js-->', '统计脚本', 1, 1453452674),
 (15, 1, 'mprodcutdescriptionswitch', '0', '移动端商品详情，隐藏(0)|显示(1)', 1, 1453452674),
 (16, 1, 'orderprefix', 'zlkb', '订单前缀，建议不要超过5个字符串', 1, 1453452674),
 (17, 1, 'backgroundimage', 'https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6a600c338744ebf894c9e667dff9d72a6059a72a.jpg', '前台背景图片地址', 1, 1453452674),
