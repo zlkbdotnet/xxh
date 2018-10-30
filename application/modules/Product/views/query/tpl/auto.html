@@ -71,7 +71,7 @@
 											<?php if($order['status']=='0'):?>
 											<button class="layui-btn layui-btn-disabled layui-btn-xs" >未支付订单</button>
 											<?php elseif($order['status']=='2'):?>
-											<button class="layui-btn view_kami layui-btn-xs" id="buy" data-orderid="<?php echo $order['orderid'];?>">提取卡密</button>
+											<button class="layui-btn view_kami layui-btn-xs layui-btn-warm" id="buy" data-orderid="<?php echo $order['orderid'];?>">提取卡密</button>
 											<?php endif;?>
 										</div>
 										<div class="layui-card-body" id="prodcut_num">

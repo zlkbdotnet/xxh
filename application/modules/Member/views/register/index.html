@@ -3,8 +3,8 @@
     <div class="fly-panel fly-panel-user" pad20>
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title">
-                <li><a href="/member/login/">登录</a></li>
-                <?php if(isset($config['loginswitch']) AND $config['loginswitch']>0):?><li class="layui-this">注册</li><?php endif;?>
+                <?php if(isset($config['loginswitch']) AND $config['loginswitch']>0):?><li><a href="/member/login/">登录</a></li><?php endif;?>
+                <li class="layui-this">注册</li>
             </ul>
             <div class="layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">

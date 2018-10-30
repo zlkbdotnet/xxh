@@ -1,8 +1,8 @@
 <?php include COMMON_PATH.'/header.html';?>
 <div class="layui-container fly-marginTop">
     <div class="fly-panel fly-panel-user" pad20>
-        <div class="layui-tab layui-tab-brief" lay-filter="user">
-
+       <div class="layui-card-header layui-hide-xs">查询订单</div>
+	   
 			<?php if($code>1):?>
 				<blockquote class="layui-elem-quote">
 					<ul class="layui-form">
@@ -15,99 +15,97 @@
 				</blockquote>
 				<p style="margin-bottom: 0;text-align:center"><a class="layui-btn layui-btn-warm" href="/product">返回</a></p>
 			<?php else:?>
-            <div class="layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-pane">
-				<?php if(isset($order) AND !empty($order)):?>
-				<div class="layui-table-zlkb layui-hide-xs">
-				<table class="layui-table" id="query-table">
-					<colgroup>
-						<col width="150">
-						<col width="200">
-						<col>
-					</colgroup>
-					<thead>
-						<tr>
-							<th>订单ID</th>
-							<th>订单名称</th>
-							<th>单价</th>
-							<th>数量</th>
-							<th>金额</th>
-							<th>下单时间</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<?php echo $order['orderid'];?>
-							</td>
-							<td>
-								<?php echo $order['productname'];?>
-							</td>
-							<td>
-								<?php echo $order['price'];?>
-							</td>
-							<td>
-								<?php echo $order['number'];?>
-							</td>
-							<td>
-								<?php echo $order['money'];?>
-							</td>
-							<td>
-								<?php echo date('Y-m-d H:i:s',$order['addtime']);?>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				</div>
+						<?php if(isset($order) AND !empty($order)):?>
+						<div class="layui-table-zlkb layui-hide-xs">
+							<table class="layui-table" id="query-table">
+								<colgroup>
+									<col width="150">
+									<col width="200">
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th>订单ID</th>
+										<th>订单名称</th>
+										<th>单价</th>
+										<th>数量</th>
+										<th>金额</th>
+										<th>下单时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<?php echo $order['orderid'];?>
+										</td>
+										<td>
+											<?php echo $order['productname'];?>
+										</td>
+										<td>
+											<?php echo $order['price'];?>
+										</td>
+										<td>
+											<?php echo $order['number'];?>
+										</td>
+										<td>
+											<?php echo $order['money'];?>
+										</td>
+										<td>
+											<?php echo date('Y-m-d H:i:s',$order['addtime']);?>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 				
 				
-				<div class="layui-card layui-hide-lg layui-hide-md layui-hide-sm">
-					<div class="layui-card-header">订单信息</div>
-					<div class="layui-card-body" id="prodcut_num">
-						<form class="layui-form" action="">
-							<div class="layui-form-item">
-								<label class="layui-form-label">订单</label>
-								<div class="layui-input-block">
-									<input type="text" value="<?php echo $order['orderid'];?>" readonly disabled class="layui-input">
-								</div>
+						<div class="layui-card layui-hide-lg layui-hide-md layui-hide-sm">
+							<div class="layui-card-header">订单信息</div>
+							<div class="layui-card-body" id="prodcut_num">
+								<form class="layui-form" action="">
+									<div class="layui-form-item">
+										<label class="layui-form-label">订单</label>
+										<div class="layui-input-block">
+											<input type="text" value="<?php echo $order['orderid'];?>" readonly disabled class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">商品</label>
+										<div class="layui-input-block">
+											<input type="text" value="<?php echo $order['productname'];?>" readonly disabled class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">单价</label>
+										<div class="layui-input-block">
+											<input type="number" value="<?php echo $order['price'];?>" readonly disabled class="layui-input" >
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">数量</label>
+										<div class="layui-input-block">
+											<input type="text" value="<?php echo $order['number'];?>" readonly disabled class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">金额</label>
+										<div class="layui-input-block">
+											<input type="text" value="<?php echo $order['money'];?>" readonly disabled class="layui-input">
+										</div>
+									</div>
+								</form>
 							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">商品</label>
-								<div class="layui-input-block">
-									<input type="text" value="<?php echo $order['productname'];?>" readonly disabled class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">单价</label>
-								<div class="layui-input-block">
-									<input type="number" value="<?php echo $order['price'];?>" readonly disabled class="layui-input" >
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">数量</label>
-								<div class="layui-input-block">
-									<input type="text" value="<?php echo $order['number'];?>" readonly disabled class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">金额</label>
-								<div class="layui-input-block">
-									<input type="text" value="<?php echo $order['money'];?>" readonly disabled class="layui-input">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-				<?php endif;?>
+						</div>
+					<?php endif;?>
 				</div>
 			</div>
-			</div>	
 				<?php if($order['status']>0):?>
 					<p style="margin-bottom: 0;text-align:center"><button class="layui-btn layui-btn-warm">已支付</button></p>
 				<?php else:?>
 					<?php if(!empty($payments)):?>
-						<div class="layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+						<div class="layui-tab-content" style="padding: 20px 0;">
 							<div class="layui-tab-item layui-show">
 								<div class="layui-form-pane">
 									<div class="layerPay" id="layerPay" style="margin-bottom: 0;text-align:center">
@@ -124,7 +122,6 @@
 					<?php endif;?>
 				<?php endif;?>
 			<?php endif;?>
-        </div>
     </div>
 </div>
 <!--引入公共底文件-->

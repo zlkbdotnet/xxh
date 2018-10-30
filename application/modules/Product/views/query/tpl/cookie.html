@@ -12,15 +12,15 @@
 						<div class="layui-tab layui-tab-brief" lay-filter="">
 							<ul class="layui-tab-title">
 								<li class="layui-this">浏览器缓存</a></li>
-								<li><a href="/product/query/?method=orderid">订单号</a></li>
-								<li><a href="/product/query/?method=contact">联系方式</a></li>
+								<li><a href="/product/query/?zlkbmethod=orderid">订单号</a></li>
+								<li><a href="/product/query/?zlkbmethod=contact">联系方式</a></li>
 							</ul>
 							<div class="layui-tab-content">
 								<div class="layui-tab-item layui-show">
 									<div class="layui-form-pane" id="query-pane">
 										<form class="layui-form" id="query-form">
 											<div class="layui-form-item">
-												<input type="hidden" name="method" value="cookie">
+												<input type="hidden" name="zlkbmethod" value="cookie">
 												<button class="layui-btn" lay-filter="query" lay-submit>查询</button>
 											</div>
 										</form>
@@ -53,7 +53,7 @@
 		{{#  if(item.status == '0'){ }}
 			<button class="layui-btn layui-btn-disabled layui-btn-xs" >未支付订单</button>
 		{{# }else if(item.status =="2"){ }}
-			<button class="layui-btn layui-btn-xs view_kami" id="buy" data-orderid="{{ item.orderid}}">提取卡密</button>
+			<button class="layui-btn layui-btn-xs layui-btn-warm view_kami" id="buy" data-orderid="{{ item.orderid}}">提取卡密</button>
 		{{#  } }} 
 		</div>
 		<div id="prodcut_num">

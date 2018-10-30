@@ -26,7 +26,7 @@ class zfbweb
 			'sign_type' => $payconfig['sign_type'],
 			'ali_public_key' => $payconfig['ali_public_key'],
 			'rsa_private_key' => $payconfig['rsa_private_key'],
-			'return_url' => $params['weburl']. '/product/query/?method=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
+			'return_url' => $params['weburl']. '/product/query/?zlkbmethod=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
 			'notify_url' => $params['weburl'] . '/product/notify/?paymethod='.$this->paymethod,
 			'return_raw' => true
 		];

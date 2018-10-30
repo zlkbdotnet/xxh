@@ -20,12 +20,12 @@ class QueryController extends PcBasicController
     public function indexAction()
     {
 		$data = array();
-		$method = $this->get("method");
-		if(!in_array($method,$this->method_array)){
-			$method = "contact";
+		$zlkbmethod = $this->get("zlkbmethod");
+		if(!in_array($zlkbmethod,$this->method_array)){
+			$zlkbmethod = "contact";
 		}
 		
-		if($method == "auto"){
+		if($zlkbmethod == "auto"){
 			$data['order'] = $data['cnstatus'] = array();
 			//如果有订单号过来，就是直接去自动查询页面
 			$orderid  = $this->get('orderid',false);
@@ -47,8 +47,8 @@ class QueryController extends PcBasicController
 		}
 
 		$data['title'] = "订单查询";
-		if(file_exists(APP_PATH.'/application/modules/Product/views/query/tpl/'.$method.'.html')){
-			$tpl = 'tpl_'.$method;
+		if(file_exists(APP_PATH.'/application/modules/Product/views/query/tpl/'.$zlkbmethod.'.html')){
+			$tpl = 'tpl_'.$zlkbmethod;
 			$this->display($tpl, $data);
 			return FALSE;
 		}else{
@@ -58,11 +58,11 @@ class QueryController extends PcBasicController
 	
 	public function ajaxAction()
 	{
-		$method = $this->getPost('method',false);
+		$zlkbmethod = $this->getPost('zlkbmethod',false);
 		$csrf_token = $this->getPost('csrf_token', false);
-		if($method AND $csrf_token){
-			if(in_array($method,$this->method_array)){
-				if($method == 'contact'){
+		if($zlkbmethod AND $csrf_token){
+			if(in_array($zlkbmethod,$this->method_array)){
+				if($zlkbmethod == 'contact'){
 					$chapwd    = $this->getPost('chapwd',false);
 					if($chapwd){
 						if ($this->VerifyCsrfToken($csrf_token)) {
@@ -112,7 +112,7 @@ class QueryController extends PcBasicController
 						$data = array('code' => 1000, 'msg' => '丢失参数');
 					}
 				//订单号查询	
-				}elseif($method == 'orderid'){
+				}elseif($zlkbmethod == 'orderid'){
 					$orderid    = $this->getPost('orderid',false);
 					if($orderid){
 						if ($this->VerifyCsrfToken($csrf_token)) {
@@ -143,7 +143,7 @@ class QueryController extends PcBasicController
 					}else{
 						$data = array('code' => 1000, 'msg' => '丢失参数');
 					}
-				}elseif($method == 'cookie'){
+				}elseif($zlkbmethod == 'cookie'){
 					//从浏览器中cookie中读取
 					$orderid = $this->getCookie('oid');
 					if($orderid){
@@ -161,6 +161,8 @@ class QueryController extends PcBasicController
 					}else{
 						$data = array('code' => 1000, 'msg' => '没有订单记录');
 					}
+				}else{
+					$data = array('code' => 1001, 'msg' => '未知的查询方式');
 				}
 			}else{
 				$data = array('code' => 1001, 'msg' => '参数错误');

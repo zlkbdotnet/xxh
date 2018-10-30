@@ -24,7 +24,7 @@ class RegisterController extends PcBasicController
             return FALSE;
         }
 		if(isset($this->config['registerswitch']) AND $this->config['registerswitch']<1){
-            $this->redirect("/member/");
+            $this->redirect("/product/");
             return FALSE;
 		}
 		

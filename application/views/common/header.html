@@ -74,18 +74,20 @@
                     </dl>
                 </li>
                 <?php else:?>
-                <!-- 未登录的状态 -->
-                <li class="layui-nav-item">
-                    <a class="iconfont icon-touxiang layui-hide-xs" href="/member/login/"></a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="/member/login/">登录</a>
-                </li>
-                <?php if(isset($config['registerswitch']) AND $config['registerswitch']>0):?>
-                <li class="layui-nav-item">
-                    <a href="/member/register/">注册</a>
-                </li>
-                <?php endif;?>
+					<?php if(isset($config['loginswitch']) AND $config['loginswitch']>0):?>
+					<!-- 未登录的状态 -->
+					<li class="layui-nav-item">
+						<a class="iconfont icon-touxiang layui-hide-xs" href="/member/login/"></a>
+					</li>
+					<li class="layui-nav-item">
+						<a href="/member/login/">登录</a>
+					</li>
+					<?php endif;?>
+					<?php if(isset($config['registerswitch']) AND $config['registerswitch']>0):?>
+					<li class="layui-nav-item">
+						<a href="/member/register/">注册</a>
+					</li>
+					<?php endif;?>
                 <?php endif;?>
             </ul>
         </div>
@@ -130,7 +132,7 @@
 		<?php else:?>
 		<dd><a href="/product/">购买商品</a></dd>
 		<dd><a href="/product/query">查询订单</a></dd>
-		<dd><a href="/member/login/">登录</a></dd>
+		<?php if(isset($config['loginswitch']) AND $config['loginswitch']>0):?><dd><a href="/member/login/">登录</a></dd><?php endif;?>
 		<?php if(isset($config['registerswitch']) AND $config['registerswitch']>0):?> <dd><a href="/member/register/">注册</a></dd><?php endif;?>
 		<?php endif;?>
     </dl>

@@ -27,7 +27,7 @@ class ForgetpwdController extends PcBasicController
             return FALSE;
         }
 		if(isset($this->config['forgetpwdswitch']) AND $this->config['forgetpwdswitch']<1){
-            $this->redirect("/member/");
+            $this->redirect("/product/");
             return FALSE;
 		}
 		$data['title'] = "找回密码";
@@ -37,7 +37,7 @@ class ForgetpwdController extends PcBasicController
 	public function resetAction()
 	{
 		if(isset($this->config['forgetpwdswitch']) AND $this->config['forgetpwdswitch']<1){
-            $this->redirect("/member/");
+            $this->redirect("/product/");
             return FALSE;
 		}
         $key = $this->get('key', false);

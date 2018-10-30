@@ -29,7 +29,7 @@ class wxf2f
 			'app_cert_pem' => LIB_PATH.'Pay/'.$paymethod.'/pem/weixin_app_cert.pem',
 			'app_key_pem' => LIB_PATH.'Pay/'.$paymethod.'/pem/weixin_app_key.pem',
 			'fee_type'  => 'CNY',
-			'redirect_url' => $params['weburl']. '/product/query/?paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
+			'redirect_url' => $params['weburl']. '/product/query/?zlkbmethod=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
 			'notify_url' => $params['weburl'] . '/product/notify/?paymethod='.$this->paymethod,
 			'return_raw' => false
 		];

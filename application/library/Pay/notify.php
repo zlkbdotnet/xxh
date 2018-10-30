@@ -43,7 +43,7 @@ class notify
 					if(!empty($order) AND !empty($product)){
 						if($product['auto']>0){
 							//3.自动处理
-							//查询通过订单中记录的pid，根据购买数量查询卡密,修复
+							//查询通过订单中记录的pid，根据购买数量查询密码,修复
 							if($product['stockcontrol']>0){
 								$Limit = $order['number'];
 							}else{
@@ -51,24 +51,24 @@ class notify
 							}
 							$cards = $m_products_card->Where(array('pid'=>$order['pid'],'active'=>0,'isdelete'=>0))->Limit($Limit)->Select();
 							if(is_array($cards) AND !empty($cards) AND count($cards)==$Limit){
-								//3.1 库存充足,获取对应的卡id,卡密
+								//3.1 库存充足,获取对应的卡id,密码
 								$card_mi_array = array_column($cards, 'card');
 								$card_mi_str = implode(',',$card_mi_array);
 								$card_id_array = array_column($cards, 'id');
 								$card_id_str = implode(',',$card_id_array);
-								//3.1.2 进行卡密处理,如果进行了库存控制，就开始处理
+								//3.1.2 进行密码处理,如果进行了库存控制，就开始处理
 								if($product['stockcontrol']>0){
-									//3.1.2.1 直接进行卡密与订单的关联
+									//3.1.2.1 直接进行密码与订单的关联
 									$m_products_card->Where("id in ({$card_id_str})")->Where(array('active'=>0))->Update(array('active'=>1));
 									//3.1.2.2 然后进行库存清减
 									$qty_m = array('qty' => 'qty-'.$order['number']);
 									$m_products->Where(array('id'=>$order['pid'],'stockcontrol'=>1))->Update($qty_m,TRUE);
 									$kucunNotic=";当前商品库存剩余:".($product['qty']-$order['number']);
 								}else{
-									//3.1.2.3不进行库存控制时,自动发货商品是不需要减库存，也不需要取消卡密；因为这种情况下的卡密是通用的；
+									//3.1.2.3不进行库存控制时,自动发货商品是不需要减库存，也不需要取消密码；因为这种情况下的密码是通用的；
 									$kucunNotic="";
 								}
-								//3.1.3 更新订单状态,同时把卡密写到订单中
+								//3.1.3 更新订单状态,同时把密码写到订单中
 								$m_order->Where(array('orderid'=>$orderid,'status'=>1))->Update(array('status'=>2,'kami'=>$card_mi_str));
 								//3.1.4 把邮件通知写到消息队列中，然后用定时任务去执行即可
 								$m = array();

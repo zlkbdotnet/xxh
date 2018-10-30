@@ -25,7 +25,7 @@ class LoginController extends PcBasicController
             return FALSE;
         }
 		if(isset($this->config['loginswitch']) AND $this->config['loginswitch']<1){
-            $this->redirect("/member/");
+            $this->redirect("/product/");
             return FALSE;
 		}
 		$data = array();
