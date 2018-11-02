@@ -66,7 +66,7 @@ class SendemailController extends BasicController
 			if($isSend){
 				$data = array('code' => 1, 'msg' => '邮件发送成功，请稍候！');
 			}else{
-				$data = array('code' => 1007, 'msg' => '失败'.strip_tags ($lib_email->print_debugger()));
+				$data = array('code' => 1007, 'msg' => '失败'. getRawText($lib_email->print_debugger()));
 			}
 		} catch (\Exception $e) {
 			$data = array('code' => 1006, 'msg' => $e->getMessage());
