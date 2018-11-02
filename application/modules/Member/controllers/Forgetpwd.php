@@ -84,9 +84,9 @@ class ForgetpwdController extends PcBasicController
 			$data = array('code' => 1000, 'msg' => '本系统关闭密码重置功能');
 			Helper::response($data);
 		}
-		$email = $this->getPost('email',false);
-		$code = $this->getPost('code',false);
-		$password = $this->getPost('password',false);
+		$email = $this->getPost('email');
+		$code = $this->getPost('code');
+		$password = $this->getPost('password');
 		$csrf_token = $this->getPost('csrf_token', false);
 		
 		$data = array();
@@ -123,7 +123,7 @@ class ForgetpwdController extends PcBasicController
 			$data = array('code' => 1000, 'msg' => '本系统关闭密码重置功能');
 			Helper::response($data);
 		}
-		$email    = $this->getPost('email',false);
+		$email    = $this->getPost('email');
 		$csrf_token = $this->getPost('csrf_token', false);
 		
 		$data = array();
@@ -132,7 +132,7 @@ class ForgetpwdController extends PcBasicController
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
 					if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
-						$vercode = $this->getPost('vercode',false);
+						$vercode = $this->getPost('vercode');
 						if($vercode){
 							if(strtolower($this->getSession('forgetpwdCaptcha')) == strtolower($vercode)){
 								$this->unsetSession('forgetpwdCaptcha');

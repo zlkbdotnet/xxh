@@ -110,6 +110,7 @@ class ProductsController extends AdminBasicController
 		$id = $this->getPost('id',false);
 		$typeid = $this->getPost('typeid',false);
 		$name = $this->getPost('name',false);
+		$password = $this->getPost('password',false);
 		$description = $this->getPost('description',false);
 		$stockcontrol = $this->getPost('stockcontrol',false);
 		$qty = $this->getPost('qty',false);
@@ -138,6 +139,7 @@ class ProductsController extends AdminBasicController
 				$m=array(
 					'typeid'=>$typeid,
 					'name'=>$name,
+					'password'=>$password,
 					'description'=>htmlspecialchars($description),
 					'stockcontrol'=>$stockcontrol,
 					'qty'=>$qty,

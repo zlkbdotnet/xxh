@@ -34,9 +34,9 @@ class LoginController extends AdminBasicController
 	
 	public function ajaxAction()
 	{
-		$email    = $this->getPost('email',false);
-		$password = $this->getPost('password',false);
-		$vercode = $this->getPost('vercode',false);
+		$email    = $this->getPost('email');
+		$password = $this->getPost('password');
+		$vercode = $this->getPost('vercode');
 		$csrf_token = $this->getPost('csrf_token', false);
 		
 		if($email AND $password AND $csrf_token AND $vercode){

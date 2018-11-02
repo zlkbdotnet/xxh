@@ -1,5 +1,4 @@
 <?php
-
 /*
  * 功能：会员中心－个人中心
  * Author:资料空白
@@ -177,7 +176,7 @@ class OrderController extends PcBasicController
 				}
 			}
 			
-			if($id>0){
+			if(is_numeric($oid) AND $id>0){
 				$order = $this->m_order->Where(array('id'=>$id,'isdelete'=>0))->SelectOne();
 				if(!empty($order)){
 					//获取支付方式
@@ -206,7 +205,7 @@ class OrderController extends PcBasicController
 		$paymethod = $this->getPost('paymethod');
 		$oid = $this->getPost('oid');
 		$csrf_token = $this->getPost('csrf_token');
-		if($paymethod AND $oid AND $csrf_token){
+		if($paymethod AND $oid AND is_numeric($oid) AND $oid>0 AND $csrf_token){
 			$payments = $this->m_payment->getConfig();
 			if(isset($payments[$paymethod]) AND !empty($payments[$paymethod])){
 				$payconfig = $payments[$paymethod];

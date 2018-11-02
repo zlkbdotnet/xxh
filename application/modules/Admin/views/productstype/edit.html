@@ -13,7 +13,19 @@
                         <div class="layui-form-item">
                             <label for="name" class="layui-form-label">分类名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="name" name="name" ay-verify="required" autocomplete="off" value="<?php echo $item['name'];?>" class="layui-input">
+                                <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" value="<?php echo $item['name'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="description" class="layui-form-label">分类描述(请简单点)</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="description" name="description" lay-verify="required" autocomplete="off" value="<?php echo $item['description'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="password" class="layui-form-label">分类密码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="password" name="password" autocomplete="off" value="<?php echo $item['password'];?>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">

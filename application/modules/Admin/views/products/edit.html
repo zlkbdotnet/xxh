@@ -102,6 +102,12 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label for="password" class="layui-form-label">商品密码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="password" name="password" autocomplete="off" value="<?php echo $product['password'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
                             <label for="sort_num" class="layui-form-label">排序</label>
                             <div class="layui-input-inline">
                                 <input type="number" id="sort_num" name="sort_num" lay-verify="required" autocomplete="off" value="<?php echo $product['sort_num'];?>" class="layui-input">

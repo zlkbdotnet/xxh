@@ -270,6 +270,7 @@ CREATE TABLE IF NOT EXISTS `t_products` (
   `typeid` int(11) NOT NULL DEFAULT '1' COMMENT '类型id',
   `active` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未激活 1激活',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '产品名',
+  `password` varchar(60) NOT NULL DEFAULT '' COMMENT '密码',
   `description` text COMMENT '描述',
   `stockcontrol` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不控制,1控制',
   `qty` int(11) NOT NULL DEFAULT '0' COMMENT '数量',
@@ -285,8 +286,8 @@ CREATE TABLE IF NOT EXISTS `t_products` (
 -- 转存表中的数据 `t_products`
 --
 
-INSERT INTO `t_products` (`id`, `typeid`, `active`, `name`, `description`, `stockcontrol`, `qty`, `price`, `auto`, `sort_num`, `addtime`,`isdelete`) VALUES
-(1, 1, 1, '测试商品', '测试使用', 0, 0, '0.10', 1, 99, 1528962221,0);
+INSERT INTO `t_products` (`id`, `typeid`, `active`, `name`, `password`,`description`, `stockcontrol`, `qty`, `price`, `auto`, `sort_num`, `addtime`,`isdelete`) VALUES
+(1, 1, 1, '测试商品', '','测试使用', 0, 0, '0.10', 1, 99, 1528962221,0);
 
 -- --------------------------------------------------------
 
@@ -319,6 +320,8 @@ INSERT INTO `t_products_card` (`id`, `pid`, `card`, `addtime`, `active`,`isdelet
 CREATE TABLE IF NOT EXISTS `t_products_type` (
   `id` int(11) NOT NULL,
   `name` varchar(55) NOT NULL DEFAULT '' COMMENT '类型命名',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
+  `password` varchar(60) NOT NULL DEFAULT '' COMMENT '分类密码',
   `sort_num` int(11) NOT NULL DEFAULT '1' COMMENT '排序',
   `active` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未激活,1已激活',
   `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未删除,1已删除'
@@ -328,8 +331,8 @@ CREATE TABLE IF NOT EXISTS `t_products_type` (
 -- 转存表中的数据 `t_products_type`
 --
 
-INSERT INTO `t_products_type` (`id`, `name`, `sort_num`, `active`,`isdelete`) VALUES
-(1, '测试商品', 1, 1,0);
+INSERT INTO `t_products_type` (`id`, `name`, `description`,`password`,`sort_num`, `active`,`isdelete`) VALUES
+(1, '测试商品', '测试商品','',1, 1,0);
 
 -- --------------------------------------------------------
 

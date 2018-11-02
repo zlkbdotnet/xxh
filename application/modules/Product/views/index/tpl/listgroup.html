@@ -9,8 +9,8 @@
 		<?php endif;?>
         <div class="layui-card layui-form-pane">
 		
-            <div class="layui-card-header layui-hide-xs">商品列表</div>
-			<div class="layui-tab-brief layui-hide-md"><ul class="layui-tab-title"><li class="layui-this">商品列表</li><li class=""><a href="/product/query">查询订单</a></li></ul></div>
+            <div class="layui-card-header layui-hide-xs">分类列表</div>
+			<div class="layui-tab-brief layui-hide-md"><ul class="layui-tab-title"><li class="layui-this">分类列表</li><li class=""><a href="/product/query">查询订单</a></li></ul></div>
 			
             <div class="layui-card-body" id="prodcut_num">
 				<table class="layui-table" id="table" lay-filter="table"></table>
@@ -18,27 +18,13 @@
 		</div>
     </div>
 </div>
-<script type="text/html" id="auto">
-    {{# if(d.auto >0){ }}
-    <span class="layui-badge layui-bg-green">自动发货</span>
-    {{# } else { }}
-    <span class="layui-badge layui-bg-gray">手工发货</span>
-    {{# } }}
-</script>
-<script type="text/html" id="qty">
-    {{# if(d.stockcontrol >0){ }}
-        {{d.qty}}
-    {{# } else { }}
-        <span class="layui-badge layui-bg-gray">不限量</span>
-    {{# } }}
-</script>
 <script type="text/html" id="opt">
-    <a class="layui-btn layui-btn-warm layui-btn-xs" href="/product/{{d.id}}.html">购买</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" href="/group/{{d.id}}.html">购买</a>
 </script>
 <!--引入公共底文件-->
 <?php include COMMON_PATH.'/footer.html';?>
 <script>
-layui.use('product-list');
+layui.use('product-list-group');
 <?php if(isset($config['layerad']) AND strlen($config['layerad'])>0):?>
 var LAYERAD = "<?php echo $config['layerad'];?>";
 <?php else:?>

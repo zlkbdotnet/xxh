@@ -29,11 +29,15 @@ class SetptwoController extends BasicController
 	
 	public function ajaxAction()
 	{
-		$host = $this->getPost('host',false);
-		$port = $this->getPost('port',false);
-		$user = $this->getPost('user', false);
-		$password = $this->getPost('password', false);
-		$dbname = $this->getPost('dbname', false);
+		if(file_exists(INSTALL_LOCK)){
+			$data = array('code' => 1001, 'msg' => '已经安装过了');
+			Helper::response($data);
+		}
+		$host = $this->getPost('host');
+		$port = $this->getPost('port');
+		$user = $this->getPost('user');
+		$password = $this->getPost('password');
+		$dbname = $this->getPost('dbname');
 		
 		$data = array();
 		

@@ -19,7 +19,7 @@ class IndexController extends PcBasicController
     {
 		if(file_exists(INSTALL_LOCK)){
 			$data = array();
-			if(isset($this->config['tplindex']) AND $this->config['tplindex'] == 'list' AND file_exists(APP_PATH.'/application/modules/Product/views/index/tpl/'.$this->config['tplindex'].'.html')){
+			if(isset($this->config['tplindex']) AND file_exists(APP_PATH.'/application/modules/Product/views/index/tpl/'.$this->config['tplindex'].'.html')){
 				$data['title'] = "购买商品";
 				$tpl = 'tpl_'.$this->config['tplindex'];
 				$this->display($tpl, $data);

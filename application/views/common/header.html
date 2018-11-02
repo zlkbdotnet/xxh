@@ -105,7 +105,7 @@
 		<?php if($login):?>
 		if (aName.indexOf('/member') == 0) {
 			aMenu[1].className += ' layui-this';
-		} else if (aName.indexOf('/product') > -1) {
+		} else if (aName.indexOf('/product') > -1 || aName.indexOf('/group') > -1) {
 			aMenu[2].className += ' layui-this';
 		} else if (aName.indexOf('/help') > -1) {
 			aMenu[3].className += ' layui-this';
@@ -113,7 +113,7 @@
 		<?php else:?>
 		if (aName.indexOf('/product/query') > -1) {
 			aMenu[2].className += ' layui-this';
-		} else if (aName.indexOf('/product') > -1) {
+		} else if (aName.indexOf('/product') > -1 || aName.indexOf('/group') > -1) {
 			aMenu[1].className += ' layui-this';
 		}
 		<?php endif;?>

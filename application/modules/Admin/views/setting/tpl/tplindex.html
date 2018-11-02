@@ -9,6 +9,10 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form-pane layui-tab-item layui-show">
+                   <blockquote class="layui-elem-quote">
+                        <p> 注意事项： </p>
+                        <p> 1.在筛选模式下，密码发类，密码商品均有效;</p>
+                    </blockquote>
                     <form class="layui-form layui-show" method="post">
                         <div class="layui-form-item">
                             <label for="name" class="layui-form-label">配置名</label>
@@ -22,7 +26,8 @@
 							<div class="layui-input-inline">
 								 <select name="value">
 									<option value="default" <?php if($item['value']=="default"):?>selected=""<?php endif;?>>筛选模式</option>
-									<option value="list" <?php if($item['value']=="list"):?>selected=""<?php endif;?>>列表模式</option>
+									<option value="list" <?php if($item['value']=="list"):?>selected=""<?php endif;?>>列表模式1(商品)</option>
+									<option value="listgroup" <?php if($item['value']=="listgroup"):?>selected=""<?php endif;?>>列表模式2(分类)</option>
 								  </select>
 							</div>
 						</div> 

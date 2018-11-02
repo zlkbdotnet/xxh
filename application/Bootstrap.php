@@ -27,7 +27,13 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract
             array('module' => 'product', 'controller' => 'detail', 'action' => 'index'),
             array(1 => 'pid')
         );
-        $router->addRoute('products_detail', $products_detail);			
+        $router->addRoute('products_detail', $products_detail);	
+        $products_group = new Yaf\Route\Regex(
+            '#group/([0-9]+).html#',
+            array('module' => 'product', 'controller' => 'group', 'action' => 'index'),
+            array(1 => 'tid')
+        );
+        $router->addRoute('products_group', $products_group);	
 		
 	}
 	

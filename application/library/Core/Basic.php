@@ -69,8 +69,12 @@ class BasicController extends Yaf\Controller_Abstract
 		setCookie($key, $value, CUR_TIMESTAMP + $expire, $path, $domain);
 	}
 
-	public function getCookie($key){
-		return trim($_COOKIE[$key]);
+	public function getCookie($key, $filter = TRUE){
+		if($filter){
+			return filterStr(trim($_COOKIE[$key]));
+		}else{
+			return trim($_COOKIE[$key]);
+		}
 	}
 
 	public function load($model){

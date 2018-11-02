@@ -39,16 +39,16 @@ class RegisterController extends PcBasicController
 			$data = array('code' => 1000, 'msg' => '本系统关闭注册功能');
 			Helper::response($data);
 		}
-		$email    = $this->getPost('email',false);
-		$password = $this->getPost('password',false);
-		$nickname = $this->getPost('nickname',false);
+		$email    = $this->getPost('email');
+		$password = $this->getPost('password');
+		$nickname = $this->getPost('nickname');
 		$csrf_token = $this->getPost('csrf_token', false);
 		
 		if($email AND $password AND $nickname AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
 					if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
-						$vercode = $this->getPost('vercode',false);
+						$vercode = $this->getPost('vercode');
 						if($vercode){
 							if(strtolower($this->getSession('registerCaptcha')) == strtolower($vercode)){
 								$this->unsetSession('registerCaptcha');
