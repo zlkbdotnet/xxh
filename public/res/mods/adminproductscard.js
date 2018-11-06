@@ -218,5 +218,42 @@ layui.define(['layer', 'table', 'form','upload'], function(exports){
         });
         return false;
     });
+
+    table.on('tool(table)', function(obj) {
+        var layEvent = obj.event;
+        var url = $(this).data('href');
+
+        if (layEvent === 'card-edit') { //编辑
+            layer.prompt({
+                formType: 2,
+                value: $(this).data('value'),
+                title: '请输卡密',
+            }, function(value, index, elem){
+                layer.close(index);
+                var loading = layer.load(2);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {'csrf_token':TOKEN, card:value}
+                })
+                    .done(function(res) {
+                        if ( res.code == '1' ) {
+                            layer.msg(res.msg,{icon:1});
+                            location.reload();
+                        } else {
+                            layer.msg(res.msg,{icon:2})
+                        }
+                    })
+                    .fail(function() {
+                        layer.alert('error',{time:3000});
+                    })
+                    .always(function() {
+                        layer.close(loading);
+                    });
+            });
+        }
+    });
+
 	exports('adminproductscard',null)
 });

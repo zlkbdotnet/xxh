@@ -57,7 +57,7 @@ class QueryController extends PcBasicController
 	
 	public function ajaxAction()
 	{
-		$zlkbmethod = $this->getPost('zlkbmethod');
+		$zlkbmethod = $this->getPost('method');
 		$csrf_token = $this->getPost('csrf_token', false);
 		if($zlkbmethod AND $csrf_token){
 			if(in_array($zlkbmethod,$this->method_array)){

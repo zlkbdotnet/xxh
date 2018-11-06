@@ -24,10 +24,10 @@ class M_Payment extends Model
 	public function getConfig($new=0)
 	{
 		$data = $config = array();
-			$file_path=TEMP_PATH ."/payment.json";
-			if(file_exists($file_path) AND !$new){
-				$data = json_decode(file_get_contents($file_path),true);
-			}
+        $file_path=TEMP_PATH ."/payment.json";
+        if(file_exists($file_path) AND !$new){
+            $data = json_decode(file_get_contents($file_path),true);
+        }
 		//取旧值
 		if(!empty($data) AND isset($data['config']) AND (isset($data['expire_time']) AND $data['expire_time'] > time())){
 			$config =$data['config'];

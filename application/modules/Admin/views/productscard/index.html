@@ -76,6 +76,7 @@
                 {{# } }}
             </script>
             <script type="text/html" id="opt">
+				<a data-href="/<?php echo ADMIN_DIR;?>/productscard/edit/?id={{d.id}}" data-value="{{d.card}}" class="layui-btn layui-btn-xs layui-btn-warm" lay-event="card-edit">改</a>
 				<a data-href="/<?php echo ADMIN_DIR;?>/productscard/delete/?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
             </script>
         </div>

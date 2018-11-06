@@ -183,6 +183,54 @@ class ProductscardController extends AdminBasicController
 		Helper::response($data);
 	}
 
+	public function editAction()
+    {
+        $id = $this->get('id',false);
+        $card = $this->getPost('card',false);
+        $csrf_token = $this->getPost('csrf_token', false);
+
+        $data = array();
+
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $data = array('code' => 1000, 'msg' => '请登录');
+            Helper::response($data);
+        }
+
+        if($csrf_token){
+            if ($this->VerifyCsrfToken($csrf_token)) {
+                if($id AND is_numeric($id) AND $id>0){
+                    $update = $this->m_products_card->UpdateByID(array('card'=>$card),$id);
+                    if($update){
+                        $data = array('code' => 1, 'msg' => '成功');
+                    }else{
+                        $data = array('code' => 1003, 'msg' => '编辑失败');
+                    }
+                }
+                // 暂不支持批量修改
+                // else{
+                //     $ids = json_decode($id,true);
+                //     if(isset($ids['ids']) AND !empty($ids['ids'])){
+                //         $idss = implode(",",$ids['ids']);
+                //         $where = "id in ({$idss})";
+                //         $update = $this->m_products_card->Where($where)->Update(array('card'=>$card));
+                //         if($update){
+                //             $data = array('code' => 1, 'msg' => '成功');
+                //         }else{
+                //             $data = array('code' => 1003, 'msg' => '编辑失败');
+                //         }
+                //     }else{
+                //         $data = array('code' => 1000, 'msg' => '请选中需要编辑的卡密');
+                //     }
+                // }
+            } else {
+                $data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');
+            }
+        }else{
+            $data = array('code' => 1000, 'msg' => '丢失参数');
+        }
+        Helper::response($data);
+    }
+
 	public function deleteAction()
 	{
 		$id = $this->get('id',false);

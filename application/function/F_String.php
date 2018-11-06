@@ -85,3 +85,12 @@ function JSON($array) {
 	return urldecode($json);
 }
 }
+
+if ( ! function_exists('getRawText')){
+    function getRawText($str=''){
+        $str = strip_tags($str);
+        $search = array(" ","　","\n","\r","\t");
+        $replace = array("","","","","");
+        return str_replace($search, $replace, $str);
+    }
+}

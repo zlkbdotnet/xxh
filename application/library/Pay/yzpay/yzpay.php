@@ -44,7 +44,7 @@ class yzpay
 			
 			if($input_params['test'] != "true"){	//判断消息是否测试
 				file_put_contents(YEWU_FILE, CUR_DATETIME.'-'.json_encode($input_params).PHP_EOL, FILE_APPEND);
-			unset($_POST['paymethod']);
+			    unset($_POST['paymethod']);
 				$client_id = $payconfig['app_id'];							//应用的 client_id
 				$client_secret = $payconfig['app_secret'];					//应用的 client_secret
 				$sign = md5($client_id."".$input_params['msg']."".$client_secret);
