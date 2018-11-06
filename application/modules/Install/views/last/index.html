@@ -16,15 +16,15 @@
 					</blockquote>
 					<div class="layui-collapse" lay-accordion="">
 						<div class="layui-colla-item">
-							<h2 class="layui-colla-title">1.LNMP等linux环境</h2>
-							<div class="layui-colla-content layui-show">
+							<h2 class="layui-colla-title">1.LNMP环境(定时计划)</h2>
+							<div class="layui-colla-content">
 								<p>参考：<a href="https://github.com/zlkbdotnet/zfaka/wiki/lnmp%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1" target="_blank">lnmp环境中如何部署计划任务</a></p>
 								<pre class="layui-code layui-box layui-code-view">*/2 * * * * php -q <?php echo APP_PATH;?>/public/cli.php request_uri="/crontab/sendemail/index"  </pre>
 							</div>
 						</div>
 
 						<div class="layui-colla-item">
-							<h2 class="layui-colla-title">2.宝塔环境</h2>
+							<h2 class="layui-colla-title">2.宝塔环境(定时计划)</h2>
 							<div class="layui-colla-content">
 								<p>参考：<a href="https://github.com/zlkbdotnet/zfaka/wiki/%E5%AE%9D%E5%A1%94%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1" target="_blank">宝塔环境中如何部署计划任务</a></p>
 								<pre class="layui-code layui-box layui-code-view">php -q <?php echo APP_PATH;?>/public/cli.php request_uri="/crontab/sendemail/index"   </pre>

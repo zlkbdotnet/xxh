@@ -78,9 +78,8 @@
 >参考：[系统安装指南](https://github.com/zlkbdotnet/zfaka/wiki/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97).
 
 ### 2.2.1 下载代码
-<pre>
-	git clone https://github.com/zlkbdotnet/zfaka.git [这是最新测试版]
-</pre> 
+>测试版：
+<pre>git clone https://github.com/zlkbdotnet/zfaka.git [这是最新测试版]</pre> 
 
 >稳定版：请访问这里下载：https://github.com/zlkbdotnet/zfaka/releases
 
