@@ -4,18 +4,30 @@ layui.define(['layer', 'table'], function(exports){
 	var table = layui.table;
 	var device = layui.device();
 
-	table.render({
-		elem: '#table',
-		url: '/product/get/grouplist',
-		page: true,
-		cellMinWidth:60,
-		cols: [[
-			{field: 'name', title: '分类',minWidth:120},
-			{field: 'description', title: '描述'},
-			{field: 'opt', title: '操作', width:80, templet: '#opt',align:'center',fixed: 'right'},
-		]]
-	});
-	
+	if(device.weixin || device.android || device.ios){
+		table.render({
+			elem: '#table',
+			url: '/product/get/grouplist',
+			page: true,
+			cellMinWidth:60,
+			cols: [[
+				{field: 'name', title: '分类',templet: '#name',minWidth:120},
+				{field: 'opt', title: '操作', width:80, templet: '#opt',align:'center',fixed: 'right'},
+			]]
+		});	
+	}else{
+		table.render({
+			elem: '#table',
+			url: '/product/get/grouplist',
+			page: true,
+			cellMinWidth:60,
+			cols: [[
+				{field: 'name', title: '分类',templet: '#name',width:120},
+				{field: 'description', title: '描述'},
+				{field: 'opt', title: '操作', width:80, templet: '#opt',align:'center',fixed: 'right'},
+			]]
+		});
+	}
 	//首页广告弹窗
 	if(typeof(LAYERAD)!="undefined"){
 		if(LAYERAD.length>0){

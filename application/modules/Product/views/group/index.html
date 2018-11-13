@@ -18,6 +18,9 @@
 		</div>
     </div>
 </div>
+<script type="text/html" id="name">
+    <a href="/product/{{d.id}}.html">{{d.name}}</a>
+</script>
 <script type="text/html" id="auto">
     {{# if(d.auto >0){ }}
     <span class="layui-badge layui-bg-green">自动发货</span>
@@ -33,7 +36,11 @@
     {{# } }}
 </script>
 <script type="text/html" id="opt">
+	{{# if(d.stockcontrol >0 && d.qty=="0"){ }}
+	<a class="layui-btn layui-btn-xs layui-btn-disabled" href="javascript:;">购买</a>
+	{{# } else { }}
     <a class="layui-btn layui-btn-warm layui-btn-xs" href="/product/{{d.id}}.html">购买</a>
+	{{# } }}
 </script>
 <!--引入公共底文件-->
 <?php include COMMON_PATH.'/footer.html';?>

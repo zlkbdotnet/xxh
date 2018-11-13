@@ -36,7 +36,7 @@ layui.define(['layer', 'table'], function(exports){
 								page: true,
 								cellMinWidth:60,
 								cols: [[
-									{field: 'name', title: '商品名称',minWidth:120},
+									{field: 'name', title: '商品名称',templet: '#name',minWidth:120},
 									{field: 'price', title: '单价', width:80,},
 									{field: 'opt', title: '操作', width:80, templet: '#opt',align:'center',fixed: 'right'},
 								]],
@@ -56,7 +56,7 @@ layui.define(['layer', 'table'], function(exports){
 								page: true,
 								cellMinWidth:60,
 								cols: [[
-									{field: 'name', title: '商品名称',minWidth:120},
+									{field: 'name', title: '商品名称',templet: '#name',minWidth:120},
 									{field: 'price', title: '单价', width:80,},
 									{field: 'qty', title: '库存', width:80, templet: '#qty',align:'center'},
 									{field: 'auto', title: '发货模式', width:100, templet: '#auto',align:'center'},
@@ -92,7 +92,7 @@ layui.define(['layer', 'table'], function(exports){
 				page: true,
 				cellMinWidth:60,
 				cols: [[
-					{field: 'name', title: '商品名称',minWidth:120},
+					{field: 'name', title: '商品名称',templet: '#name',minWidth:120},
 					{field: 'price', title: '单价', width:80,},
 					{field: 'opt', title: '操作', width:80, templet: '#opt',align:'center',fixed: 'right'},
 				]]
@@ -105,7 +105,7 @@ layui.define(['layer', 'table'], function(exports){
 				page: true,
 				cellMinWidth:60,
 				cols: [[
-					{field: 'name', title: '商品名称',minWidth:120},
+					{field: 'name', title: '商品名称',templet: '#name',minWidth:120},
 					{field: 'price', title: '单价', width:80,},
 					{field: 'qty', title: '库存', width:80, templet: '#qty',align:'center'},
 					{field: 'auto', title: '发货模式', width:100, templet: '#auto',align:'center'},

@@ -42,6 +42,26 @@ input[readonly]{
 input.readonly{
 	background-color:#F5F5F5;
 }
+
+textarea:disabled{
+	background-color:#F5F5F5;
+}
+textarea[disabled]{
+	background-color:#F5F5F5;
+}
+textarea.disabled{
+	background-color:#F5F5F5;
+}
+textarea:readonly{
+	background-color:#F5F5F5;
+}
+textarea[readonly]{
+	background-color:#F5F5F5;
+}
+textarea.readonly{
+	background-color:#F5F5F5;
+}
+
 .layui-btn.disabled, .layui-btn[disabled], fieldset[disabled] .layui-btn {
     pointer-events: none;
     cursor: not-allowed;

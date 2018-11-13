@@ -181,5 +181,42 @@
 			intDiff--;
 		}, 1000);
 	}
+	
+	$("#query-pane").on("click",".view_kami",function(event){
+		event.preventDefault();
+		var orderid = $(this).attr("data-orderid");
+		$(this).attr({"disabled":"disabled"});
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/product/query/kami",
+            data: { "csrf_token": TOKEN,'orderid':orderid},
+            success: function(res) {
+                if (res.code == 1) {
+					var html = "";
+					var list = res.data;
+					for (var i = 0, j = list.length; i < j; i++) {
+						html += '<p>'+list[i]+'</p>';
+					}
+					layer.open({
+						type: 1
+						,title: '提取卡密'
+						,offset: 'auto'
+						,id: 'layerDemoauto' //防止重复弹出
+						,content: '<div style="text-align: center;padding: 20px 100px;">'+html+'</div>'
+						,btn: '关闭'
+						,btnAlign: 'c' //按钮居中
+						,shade: 0 //不显示遮罩
+						,yes: function(){
+						  layer.closeAll();
+						}
+					});
+                } else {
+					layer.msg(res.msg,{icon:2,time:5000});
+                }
+                return;
+            }
+        });
+	});
 	exports('productpay',null)
 });

@@ -60,7 +60,7 @@ layui.define(['layer', 'form','jquery','base64','laytpl'], function(exports){
 					var html = "";
 					var list = res.data;
 					for (var i = 0, j = list.length; i < j; i++) {
-						html += '<p>卡密:'+list[i]+'</p>';
+						html += '<p>'+list[i]+'</p>';
 					}
 					layer.open({
 						type: 1

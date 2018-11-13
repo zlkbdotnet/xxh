@@ -34,10 +34,12 @@
             <div class="layui-form-item">
                 <input class="layui-input" name="password" placeholder="密码" lay-verify="required" type="password" autocomplete="off">
             </div>
+			<?php if(isset($config['adminyzmswitch']) AND $config['adminyzmswitch']>0):?>
             <div class="layui-form-item form_code">
                 <input type="text" id="L_vercode" name="vercode" required lay-verify="required|vercode" placeholder="请输入图形验证码" autocomplete="off" class="layui-input">
                 <div class="code"><img src="/Captcha?t=adminlogin" alt="图片验证码" height="36" class="loadcode"></div>
             </div>
+			<?php endif;?>
             <button class="layui-btn login_btn" lay-submit="" lay-filter="login">登录</button>
         </form>
     </div>

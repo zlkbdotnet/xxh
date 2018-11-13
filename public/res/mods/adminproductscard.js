@@ -137,7 +137,24 @@ layui.define(['layer', 'table', 'form','upload'], function(exports){
 			layer.msg('请选中需要删除的卡密',{icon: 2});
 		}
 	});
-  
+     $('#deleteempty').on('click',function () {
+		layer.confirm('确认清空所有已删除的卡密吗？', function(index) {
+			$.ajax({
+				url: '/'+ADMIN_DIR+'/productscard/deleteempty',//请求的url地址
+				dataType: 'json',//返回的格式为json
+				data: {'method': "empty",'csrf_token':TOKEN},//参数值
+				type: "POST"
+			})
+			.done(function (data) {
+			if (data.code == 1) {
+				layer.msg(data.msg, {icon: 1});
+				location.reload();
+			} else {
+				layer.msg(data.msg, {icon: 2});
+				}
+			})
+		})
+	}); 
 	//添加
 	form.on('submit(add)', function(data){
 		data.field.csrf_token = TOKEN;

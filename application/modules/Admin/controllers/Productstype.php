@@ -133,7 +133,7 @@ class ProductstypeController extends AdminBasicController
 					}
 				}elseif($method == 'add'){
 					$u = $this->m_products_type->Insert($m);
-					if($u){
+					if($u>0){
 						//更新缓存 
 						//$this->m_products_type->getConfig(1);
 						$data = array('code' => 1, 'msg' => '新增成功');

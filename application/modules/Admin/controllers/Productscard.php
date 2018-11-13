@@ -286,6 +286,35 @@ class ProductscardController extends AdminBasicController
 		Helper::response($data);
 	}
 	
+	public function deleteemptyAction()
+	{
+		$method = $this->get('method',false);
+		$csrf_token = $this->getPost('csrf_token', false);
+		
+		$data = array();
+		
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $data = array('code' => 1000, 'msg' => '请登录');
+			Helper::response($data);
+        }
+		
+		if($method AND $csrf_token){
+			if ($this->VerifyCsrfToken($csrf_token)) {
+				if($method =="empty"){
+					$this->m_products_card->Query("DELETE FROM `t_products_card` WHERE `isdelete` = 1");
+					 $data = array('code' => 1, 'msg' => '清空已删除卡密');
+				}else{
+					 $data = array('code' => 1002, 'msg' => '方法错误');
+				}
+			} else {
+                $data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');
+            }
+		}else{
+			$data = array('code' => 1000, 'msg' => '丢失参数');
+		}
+		Helper::response($data);
+	}
+	
     public function importAction()
     {
         if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
