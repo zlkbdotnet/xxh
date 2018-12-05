@@ -40,8 +40,8 @@ class zfbweb
 		try {
 			$url = Charge::run(Config::ALI_CHANNEL_WEB, $config, $data);
 			if($url){
-				$result_params = array('type'=>1,'subjump'=>0,'paymethod'=>$this->paymethod,'url'=>$url,'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$params['money']);
-				return array('code'=>1,'msg'=>'success','data'=>$result_params);
+				$result = array('type'=>1,'subjump'=>0,'paymethod'=>$this->paymethod,'url'=>$url,'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$params['money']);
+				return array('code'=>1,'msg'=>'success','data'=>$result);
 			}else{
 				return array('code'=>1002,'msg'=>'生成失败','data'=>'');
 			}

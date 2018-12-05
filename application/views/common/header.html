@@ -12,6 +12,11 @@
     <meta name="description" content="<?php echo $config['webdescription'];?>">
     <link rel="stylesheet" href="/res/layui/css/layui.css">
     <link rel="stylesheet" href="/res/css/global.css">
+	<?php if(isset($config['shortcuticon']) AND strlen($config['shortcuticon'])>0):?>
+	<link rel="shortcut icon" href="<?php echo $config['shortcuticon'];?>" /> 
+	<?php else:?>
+	<link rel="shortcut icon" href="/favicon.ico" /> 
+	<?php endif;?>
     <script>
     var TOKEN = "<?php echo $csrf_token;?>";
     if (self != top) {
@@ -23,7 +28,7 @@
 <body id="zlkbbody">
     <div class="fly-header <?php if(isset($config['headermenucolor']) AND strlen($config['headermenucolor'])>0):?><?php echo $config['headermenucolor'];?><?php else:?>layui-bg-black<?php endif;?>">
         <div class="layui-container">
-             <div class=""><a class="fly-logo" href="/"><img src="<?php if(isset($config['logo']) AND strlen($config['logo'])>0):?><?php echo $config['logo'];?><?php else:?>/res/images/logo.png<?php endif;?>" alt="layui"></a></div>
+             <div class=""><a class="fly-logo" href="/"><img src="<?php if(isset($config['logo']) AND strlen($config['logo'])>0):?><?php echo $config['logo'];?><?php else:?>/res/images/logo.png<?php endif;?>" alt="zfaka"></a></div>
             <ul class="layui-nav fly-nav" id="webmenu">
 				<li></li>
                 <?php if($login):?>

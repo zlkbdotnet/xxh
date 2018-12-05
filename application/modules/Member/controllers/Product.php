@@ -67,4 +67,35 @@ class ProductController extends PcBasicController
         }
 		Helper::response($data);
 	}
+	
+    public function deleteAction()
+    {
+        if ($this->login==FALSE AND !$this->userid) {
+            $data = array('code' => 1000, 'msg' => '请登录');
+			Helper::response($data);
+        }
+		$id = $this->get('id',false);
+		$csrf_token = $this->getPost('csrf_token', false);
+        if ($csrf_token) {
+			if ($this->VerifyCsrfToken($csrf_token)) {
+				if($id AND is_numeric($id) AND $id>0){
+					$where1 = array('id'=>$id,'userid'=>$this->userid);
+					$where = '(status=0 or status=2)';//已完成和未支付的才可以删
+					$delete = $this->m_order->Where($where1)->Where($where)->Update(array('isdelete'=>1));
+					if($delete){
+						$data = array('code' => 1, 'msg' => '删除成功', 'data' => '');
+					}else{
+						$data = array('code' => 1003, 'msg' => '删除失败', 'data' => '');
+					}
+				}else{
+					$data = array('code' => 1001, 'msg' => '参数错误', 'data' => '');
+				}
+			} else {
+                $data = array('code' => 1002, 'msg' => '页面超时，请刷新页面后重试!');
+            }
+        } else {
+            $data = array('code' => 1001, 'msg' => '缺少字段', 'data' => '');
+        }
+       Helper::response($data);
+    }
 }

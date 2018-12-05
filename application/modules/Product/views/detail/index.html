@@ -13,34 +13,44 @@
 				<div class="layui-tab-brief layui-hide-md"><ul class="layui-tab-title"><li class="layui-this">购买商品</li><li class=""><a href="/product/query">查询订单</a></li></ul></div>
                 <div class="layui-card-body" id="prodcut_num">
                     <form class="layui-form" action="">
-                        <div class="layui-form-item">
+                        <div class="layui-form-item productname">
                             <label class="layui-form-label">商品名称</label>
                             <div class="layui-input-block">
                                 <input type="text" name="name" id="name" readonly disabled class="layui-input" value ="<?php echo $product['name'];?>">
                             </div>
                         </div>
 						<div class="layui-col-md12 layui-col-xs6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">商品单价</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="price" id="price" readonly disabled class="layui-input" value ="<?php echo $product['price'];?>">
-                            </div>
-                        </div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">商品单价</label>
+								<div class="layui-input-block">
+									<input type="text" name="price" id="price" readonly disabled class="layui-input" value ="<?php echo $product['price'];?>" style="color: red;">
+								</div>
+							</div>
 						</div>
 						<div class="layui-col-md12 layui-col-xs6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">商品库存</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="qty" id="qty" readonly disabled class="layui-input" value ="<?php if($product['stockcontrol']>0):?><?php if($product['qty']>0):?><?php echo $product['qty'];?><?php else:?>库存不足<?php endif;?><?php else:?>不限量<?php endif;?>">
-                            </div>
-                        </div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">订单金额</label>
+								<div class="layui-input-block">
+									<input type="text" name="money" id="money" readonly disabled class="layui-input" value ="<?php echo $product['price'];?>" style="color: red;">
+								</div>
+							</div>
 						</div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">购买数量</label>
-                            <div class="layui-input-block">
-                                <input type="number" name="number" id="number" value="1" class="layui-input" lay-verify="required|numberCheck">
-                            </div>
-                        </div>
+						<div class="layui-col-md12 layui-col-xs6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">商品库存</label>
+								<div class="layui-input-block">
+									<input type="text" name="qty" id="qty" readonly disabled class="layui-input" value ="<?php if($product['stockcontrol']>0):?><?php if($product['qty']>0):?><?php echo $product['qty'];?><?php else:?>库存不足<?php endif;?><?php else:?>不限量<?php endif;?>">
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md12 layui-col-xs6">
+							<div class="layui-form-item">
+								<label class="layui-form-label">购买数量</label>
+								<div class="layui-input-block">
+									<input type="number" name="number" id="number" value="1" class="layui-input" lay-verify="required|numberCheck">
+								</div>
+							</div>
+						</div>
                         <?php if($login):?>
                         <div class="layui-form-item">
                             <label class="layui-form-label">邮箱账户</label>
@@ -88,6 +98,7 @@
                         <div class="layui-form-item">
                             <div class="layui-input-block">
 								<input type="hidden" name="stockcontrol" id="stockcontrol" value="<?php echo $product['stockcontrol'];?>">
+								<input type="hidden" name="limitorderqty" id="limitorderqty" value="<?php echo $config['limitorderqty'];?>">
 								<input type="hidden" name="pid" id="pid" value="<?php echo $product['id'];?>">
                                 <button class="layui-btn" id="buy" lay-submit lay-filter="buy" <?php if($product['stockcontrol']>0 AND $product['qty']<1):?>disabled="disabled"<?php endif;?>>立即提交</button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -113,5 +124,10 @@
 <script>
 layui.use('product');
 var LAYERAD = "";
-
+var PASSWORD_PRODUCT = 0;
+<?php if(strlen($pifa)>0):?>
+var PIFA = <?php echo $pifa;?>;
+<?php else:?>
+var PIFA = "";
+<?php endif;?>
 </script>

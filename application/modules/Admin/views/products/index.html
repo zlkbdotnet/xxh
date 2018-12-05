@@ -42,6 +42,9 @@
     <span class="layui-badge layui-bg-gray">停售</span>
     {{# } }}
 </script>
+<script type="text/html" id="pifa">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/productspifa/?id={{d.id}}">批发</a>
+</script>
 <script type="text/html" id="opt">
     <a class="layui-btn layui-btn-warm layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/products/edit/?id={{d.id}}">编辑</a>
 	{{# if(d.active == 0){ }}

@@ -43,8 +43,8 @@ class SetptwoController extends BasicController
 		
 		if($host AND $port AND $user AND $password AND $dbname){
             try {
-				if(!preg_match("/^[a-zA-Z\s]+$/",$dbname)){
-					$data = array('code' => 1002, 'msg' =>"数据库名必须为全英文字母格式");
+				if(!preg_match("/^[A-Za-z\\0-9\\_\\\-]+$/",$dbname)){
+					$data = array('code' => 1002, 'msg' =>"数据库名只能包含英文字母、中划线以及下划线");
 					Helper::response($data);
 				}
 				if(file_exists($this->install_sql) AND is_readable($this->install_sql)){

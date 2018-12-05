@@ -18,11 +18,14 @@ class zlkbcodepaywx
 	{
 		try{
 			$config =array(
+				'paymethod'=>1,
 				'appid'=>$payconfig['app_id'],
 				'ordersn'=>$params['orderid'],
 				'subject'=>$params['productname'],
 				'money'=>(float)$params['money'],
 				'overtime'=>$payconfig['overtime'],
+				'return_url' => $params['weburl']. '/product/query/?zlkbmethod=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
+				'notify_url' => $params['weburl'] . '/product/notify/?paymethod='.$this->paymethod,
 			);
 			$config['sign'] = $this->_signParams($config,$payconfig['app_secret']);
 			$curl_data =  $this->_curlPost($this->apiHost,$config);
@@ -40,8 +43,6 @@ class zlkbcodepaywx
 			}else{
 				return array('code'=>1001,'msg'=>"支付接口请求失败",'data'=>'');
 			}
-		} catch (PayException $e) {
-			return array('code'=>1000,'msg'=>$e->errorMessage(),'data'=>'');
 		} catch (\Exception $e) {
 			return array('code'=>1000,'msg'=>$e->getMessage(),'data'=>'');
 		}
@@ -70,7 +71,7 @@ class zlkbcodepaywx
 				}
 			}
 		}else{
-			return 'error|Notify: '.$data['msg'];
+			return 'error|Notify: empty';
 		}
 	}
 	

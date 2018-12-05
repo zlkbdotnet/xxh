@@ -43,7 +43,7 @@ class RegisterController extends PcBasicController
 		$password = $this->getPost('password');
 		$nickname = $this->getPost('nickname');
 		$csrf_token = $this->getPost('csrf_token', false);
-		
+
 		if($email AND $password AND $nickname AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
@@ -65,6 +65,8 @@ class RegisterController extends PcBasicController
 						//检查邮箱是否已经使用
 					$checkEmailUser = $this->m_user->checkEmail($email);
 					if(empty($checkEmailUser)){
+						$nickname_string = new \Safe\MyString($nickname);
+						$nickname = $nickname_string->trimall()->getValue();
 						$m = array('email'=>$email,'password'=>$password,'nickname'=>$nickname);
 						$newUser = $this->m_user->newRegister($m);
 						if($newUser){

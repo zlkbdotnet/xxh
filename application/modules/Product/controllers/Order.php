@@ -11,6 +11,7 @@ class OrderController extends PcBasicController
 	private $m_order;
 	private $m_user;
 	private $m_payment;
+	private $m_products_pifa;
 	
     public function init()
     {
@@ -19,6 +20,7 @@ class OrderController extends PcBasicController
 		$this->m_order = $this->load('order');
 		$this->m_user = $this->load('user');
 		$this->m_payment = $this->load('payment');
+		$this->m_products_pifa = $this->load('products_pifa');
     }
 
     public function buyAction()
@@ -29,6 +31,10 @@ class OrderController extends PcBasicController
 		$chapwd = $this->getPost('chapwd');
 		$addons = $this->getPost('addons');
 		$csrf_token = $this->getPost('csrf_token', false);
+		
+		$chapwd_string = new \Safe\MyString($chapwd);
+		$chapwd = $chapwd_string->trimall()->qufuhao2()->getValue();
+		
 		
 		if(is_numeric($pid) AND $pid>0 AND is_numeric($number) AND $number>0  AND $chapwd AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
@@ -69,6 +75,11 @@ class OrderController extends PcBasicController
 						$data = array('code' => 1004, 'msg' => '库存不足');
 						Helper::response($data);
 					}
+					if(isset($this->config['limitorderqty']) AND $this->config['limitorderqty']<$number){
+						$data = array('code' => 1005, 'msg' => '下单数量超限');
+						Helper::response($data);
+					}
+					
 					
 					$starttime = strtotime(date("Y-m-d"));
 					$endtime = strtotime(date("Y-m-d 23:59:59"));
@@ -122,6 +133,17 @@ class OrderController extends PcBasicController
 					$prefix = isset($this->config['orderprefix'])?$this->config['orderprefix']:'zlkb';
 					$orderid = $prefix. date('Y') . date('m') . date('d') . date('H') . date('i') . date('s') . mt_rand(10000, 99999);
 					
+					//先拿折扣再算订单价格
+					$money = $product['price']*$number;
+					$pifa = $this->m_products_pifa->getPifa($pid);
+					if(!empty($pifa)){
+						foreach($pifa AS $pf){
+							if($number>=$pf['qty']){
+								$money = $money*$pf['discount'];
+							}
+						}
+					}
+					
 					//开始下单，入库
 					$m=array(
 						'orderid'=>$orderid,
@@ -132,7 +154,7 @@ class OrderController extends PcBasicController
 						'productname'=>$product['name'],
 						'price'=>$product['price'],
 						'number'=>$number,
-						'money'=>$product['price']*$number,
+						'money'=>$money,
 						'chapwd'=>$chapwd,
 						'ip'=>$myip,
 						'status'=>0,
@@ -142,6 +164,9 @@ class OrderController extends PcBasicController
 					$id=$this->m_order->Insert($m);
 					if($id>0){
 						$oid = base64_encode($id);
+						//设置orderidSESSION
+						$this->setSession('order_id',$id);
+						$this->setSession('order_email',$email);
 						$data = array('code' => 1, 'msg' => '下单成功','data'=>array('oid'=>$oid));	
 					}else{
 						$data = array('code' => 1003, 'msg' => '订单异常');
@@ -176,21 +201,27 @@ class OrderController extends PcBasicController
 				}
 			}
 			
-			if(is_numeric($oid) AND $id>0){
-				$order = $this->m_order->Where(array('id'=>$id,'isdelete'=>0))->SelectOne();
-				if(!empty($order)){
-					//获取支付方式
-					$payments = $this->m_payment->getConfig();
-					$data['order']=$order;
-					$data['payments']=$payments;
-					$data['code']=1;
+			$order_id = $this->getSession('order_id');
+			if($order_id AND is_numeric($order_id) AND $order_id>0 AND $order_id ==$id ){
+				if(is_numeric($id) AND $id>0){
+					$order = $this->m_order->Where(array('id'=>$id,'isdelete'=>0))->SelectOne();
+					if(!empty($order)){
+						//获取支付方式
+						$payments = $this->m_payment->getConfig();
+						$data['order']=$order;
+						$data['payments']=$payments;
+						$data['code']=1;
+					}else{
+						$data['code']=1002;
+						$data['msg']='订单不存在';
+					}
 				}else{
-					$data['code']=1002;
+					$data['code']=1001;
 					$data['msg']='订单不存在';
 				}
 			}else{
-				$data['code']=1001;
-				$data['msg']='订单不存在';
+				$data['code']=1003;
+				$data['msg']='拒绝查询';
 			}
 		}else{
 			$data['code']=1001;

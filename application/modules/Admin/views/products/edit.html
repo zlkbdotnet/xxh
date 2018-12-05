@@ -5,7 +5,7 @@
         <div class="layui-tab layui-tab-brief" lay-filter="email">
             <ul class="layui-tab-title" id="LAY_mine">
                 <li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/products/">商品管理</a></li>
-                <li class="layui-this" lay-id="info">编辑</a></li>
+                <li class="layui-this" lay-id="info">编辑</li>
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form-pane layui-tab-item layui-show">
@@ -106,6 +106,7 @@
                             <div class="layui-input-inline">
                                 <input type="text" id="password" name="password" autocomplete="off" value="<?php echo $product['password'];?>" class="layui-input">
                             </div>
+							<div class="layui-form-mid layui-word-aux">可留空</div>
                         </div>
                         <div class="layui-form-item">
                             <label for="sort_num" class="layui-form-label">排序</label>

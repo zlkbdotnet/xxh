@@ -6,18 +6,50 @@
 	
 	//手机适配调整
 	if(device.weixin || device.android || device.ios){
-		$(".layui-form-item").addClass("layui-form-text");
+		$(".productname").addClass("layui-form-text");
 		$(".layui-input-inline").attr("class", "layui-input-block");
 	}
+	
+	//订单金额
+    $("#number").on('input',function(e){
+		var stockcontrol = Number($('#stockcontrol').val());
+		var number = Number($('#number').val());
+		var qty = Number($('#qty').val());
+		if(stockcontrol>0){
+			if(number>qty){
+				$('#number').val(qty);
+				number = qty;
+			}
+		}
+		var money = $('#money').val();
+		var price = parseFloat($('#price').val());
+		money = price*number;
+		if(PIFA!=""){
+			for (var i = 0, j = PIFA.length; i < j; i++) {
+				var myqty = PIFA[i].qty;
+				if(number>=myqty){
+					money = money*PIFA[i].discount;
+					break;
+				}
+			}
+		}
+		money = changeTwoDecimal_f(money);
+		$('#money').val(money);
+    });
+	
 	form.verify({
 		numberCheck: function(value, item){ //value：表单的值、item：表单的DOM对象
 			var qty = $('#qty').val();
 			var number = $('#number').val();
 			var stockcontrol = $('#stockcontrol').val();
+			var limitorderqty = $('#limitorderqty').val();
 			if(stockcontrol>0){
 				if(parseInt(number) > parseInt(qty)){
-					return '下单数量超限';
+					return '下单数量超出库存';
 				}
+			}
+			if(parseInt(number)>limitorderqty){
+				return '下单数量超限';
 			}
 		}
 		,chapwd: function(value, item){ //value：表单的值、item：表单的DOM对象
@@ -25,8 +57,26 @@
 				return '查询密码不能有特殊字符';
 			}
 		}
-	});	
+	});
 	
+	function changeTwoDecimal_f(x) {
+		var f_x = parseFloat(x);
+		if (isNaN(f_x)) {
+			alert('function:changeTwoDecimal->parameter error');
+			return false;
+		}
+		var f_x = Math.round(x * 100) / 100;
+		var s_x = f_x.toString();
+		var pos_decimal = s_x.indexOf('.');
+		if (pos_decimal < 0) {
+			pos_decimal = s_x.length;
+			s_x += '.';
+		}
+		while (s_x.length <= pos_decimal + 2) {
+			s_x += '0';
+		}
+		return s_x;
+	}	
     function htmlspecialchars_decode(str){
 		if(str.length>0){
 			str = str.replace(/&amp;/g, '&');
@@ -92,6 +142,7 @@
 									$('#productlist').html("<option value=\"0\">请选择</option>" + html);
 									$('#price').val('');
 									$('#qty').val('');
+									$('#number').val('1');
 									$('#prodcut_description').html('');
 									$("#buy").attr("disabled","true");
 									$("#addons").remove();
@@ -113,6 +164,7 @@
 					$('#productlist').html("");
 					$('#price').val('');
 					$('#qty').val('');
+					$('#number').val('1');
 					$('#prodcut_description').html('');
 					$("#buy").attr("disabled","true");
 					$("#addons").remove();
@@ -125,6 +177,7 @@
 					$('#productlist').html("");
 					$('#price').val('');
 					$('#qty').val('');
+					$('#number').val('1');
 					$('#prodcut_description').html('');
 					$("#buy").attr("disabled","true");
 					$("#addons").remove();
@@ -156,6 +209,7 @@
 						$('#productlist').html("<option value=\"0\">请选择</option>" + html);
 						$('#price').val('');
 						$('#qty').val('');
+						$('#number').val('1');
 						$('#prodcut_description').html('');
 						$("#buy").attr("disabled","true");
 						$("#addons").remove();
@@ -167,6 +221,7 @@
 						$(data.elem).find("option").eq(0).attr("selected",true);
 						$('#productlist').html("");
 						$('#price').val('');
+						$('#number').val('1');
 						$('#qty').val('');
 						$('#prodcut_description').html('');
 						$("#buy").attr("disabled","true");
@@ -212,6 +267,7 @@
 									var product = res.data.product;
 									var html =""
 									$('#price').val(product.price);
+									$('#money').val(product.price);
 									if(product.stockcontrol>0){
 										if(product.qty>0){
 											$('#qty').val(product.qty);
@@ -234,12 +290,14 @@
 									html = str + htmlspecialchars_decode(product.description);
 									$('#prodcut_description').html(html);
 									
+									PIFA = res.data.pifa;
 									$("#addons").remove();
 									var addons = '';
 									var list = res.data.addons;
 									for (var i = 0, j = list.length; i < j; i++) {
 										addons += '<div id="addons"><div class="layui-form-item"><label class="layui-form-label">'+list[i]+'</label><div class="layui-input-block"><input type="text" name="addons[]" id="addons'+i+'" class="layui-input" required lay-verify="required" placeholder=""></div></div></div>';
 									}
+									$('#number').val('1');
 									$('#product_input').append(addons);
 									$('#prodcut_num').height('auto');
 									form.render();
@@ -263,6 +321,7 @@
 					$('#prodcut_description').html('');
 					$("#buy").attr("disabled","true");
 					$("#addons").remove();
+					$('#number').val('1');
 					form.render('select');
 					$(data.elem).find("option").eq(0).attr("selected",false);
 				}
@@ -274,6 +333,7 @@
 					$('#prodcut_description').html('');
 					$("#buy").attr("disabled","true");
 					$("#addons").remove();
+					$('#number').val('1');
 					form.render('select');
 					$(data.elem).find("option").eq(0).attr("selected",false);
 				}
@@ -291,6 +351,7 @@
 						var product = res.data.product;
 						var html =""
 						$('#price').val(product.price);
+						$('#money').val(product.price);
 						if(product.stockcontrol>0){
 							if(product.qty>0){
 								$('#qty').val(product.qty);
@@ -312,7 +373,7 @@
 						
 						html = str + htmlspecialchars_decode(product.description);
 						$('#prodcut_description').html(html);
-						
+						PIFA = res.data.pifa;
 						$("#addons").remove();
 						var addons = '';
 						var list = res.data.addons;
@@ -321,7 +382,7 @@
 						}
 						$('#product_input').append(addons);
 						$('#prodcut_num').height('auto');
-						
+						$('#number').val('1');
 						form.render();
 						autoHeight();
 					} else {
@@ -330,6 +391,7 @@
 						$(data.elem).find("option").eq(0).attr("selected",true);
 						$('#price').val('');
 						$('#qty').val('');
+						$('#number').val('1');
 						$('#prodcut_description').html('');
 						$("#buy").attr("disabled","true");
 						$("#addons").remove();
@@ -448,6 +510,7 @@
 									var product = res.data.product;
 									var html =""
 									$('#price').val(product.price);
+									$('#money').val(product.price);
 									if(product.stockcontrol>0){
 										if(product.qty>0){
 											$('#qty').val(product.qty);

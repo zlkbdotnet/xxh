@@ -34,13 +34,22 @@ class notify
 			if(!empty($order)){
 				if($order['status']>0){
 					$data =array('code'=>1,'msg'=>'订单已处理,请勿重复推送');
+					return $data;
 				}else{
+					if($paymoney < $order['money']){
+						//原本检测支付金额是否与订单金额一致,但由于码支付这样的收款模式导致支付金额有时会与订单不一样,所以这里进行小于判断;
+						//所以,在这里如果存在类似码支付这样的第三方支付辅助工具时,有变动金额时,一定要做递增不能递减
+						$data =array('code'=>1005,'msg'=>'支付金额小于订单金额');
+						return $data;
+					}
+					
 					//2.先更新支付总金额
 					$update = array('status'=>1,'paytime'=>time(),'tradeid'=>$tradeid,'paymethod'=>$paymethod,'paymoney'=>$paymoney);
 					$u = $m_order->Where(array('orderid'=>$orderid,'status'=>0))->Update($update);
 					if(!$u){
 						$data =array('code'=>1004,'msg'=>'更新失败');
-					}else{
+						return $data;
+					}else{ 
 						//3.开始进行订单处理
 						$product = $m_products->SelectByID('auto,stockcontrol,qty',$order['pid']);
 						if(!empty($product)){

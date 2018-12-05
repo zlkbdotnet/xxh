@@ -10,11 +10,13 @@ class GetController extends PcBasicController
 {
 	private $m_products;
 	private $m_products_type;
+	private $m_products_pifa;
     public function init()
     {
         parent::init();
 		$this->m_products = $this->load('products');
 		$this->m_products_type = $this->load('products_type');
+		$this->m_products_pifa = $this->load('products_pifa');
     }
 	
     public function indexAction()
@@ -188,6 +190,15 @@ class GetController extends PcBasicController
 							Helper::response($result);
 						}
 					}
+					//先拿折扣
+					$pifa = $this->m_products_pifa->getPifa($pid);
+					if(!empty($pifa)){
+						$data['pifa'] = $pifa;
+					}else{
+						$data['pifa'] = "";
+					}
+					
+					
 					$data['product'] = $product;	
 					if($product['addons']){
 						$addons = explode(',',$product['addons']);

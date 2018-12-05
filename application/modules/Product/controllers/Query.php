@@ -34,8 +34,11 @@ class QueryController extends PcBasicController
 				}else{
 					$order_email = $this->getSession('order_email');
 				}
-					
-				if($order_email){
+				
+				$orderid_string = new \Safe\MyString($orderid);
+				$orderid = $orderid_string->trimall()->qufuhao2()->getValue();
+				
+				if($order_email AND isEmail($order_email)){
 					$order = $this->m_order->Where(array('orderid'=>$orderid,'email'=>$order_email))->Where(array('isdelete'=>0))->SelectOne();
 					if(!empty($order)){
 						$data['order'] = $order;
@@ -97,6 +100,10 @@ class QueryController extends PcBasicController
 									Helper::response($data);
 								}
 							}
+							
+							$chapwd_string = new \Safe\MyString($chapwd);
+							$chapwd = $chapwd_string->trimall()->qufuhao2()->getValue();
+							
 							$starttime = strtotime("-1 month");
 							$order = $this->m_order->Where(array('email'=>$email,'chapwd'=>$chapwd))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
 							if(empty($order)){
@@ -112,7 +119,7 @@ class QueryController extends PcBasicController
 					}
 				//订单号查询	
 				}elseif($zlkbmethod == 'orderid'){
-					$orderid    = $this->getPost('orderid');
+					$orderid  = $this->getPost('orderid');
 					if($orderid){
 						if ($this->VerifyCsrfToken($csrf_token)) {
 							if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
@@ -129,6 +136,10 @@ class QueryController extends PcBasicController
 									Helper::response($data);
 								}
 							}
+							
+							$orderid_string = new \Safe\MyString($orderid);
+							$orderid = $orderid_string->trimall()->qufuhao2()->getValue();
+							
 							$starttime = strtotime("-1 month");
 							$order = $this->m_order->Where(array('orderid'=>$orderid))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
 							if(empty($order)){
@@ -149,6 +160,10 @@ class QueryController extends PcBasicController
 						if ($this->VerifyCsrfToken($csrf_token)) {
 							$l_encryption = new Encryption();
 							$cookie_oid = $l_encryption->decrypt($orderid);
+							
+							$orderid_string = new \Safe\MyString($cookie_oid);
+							$cookie_oid = $orderid_string->trimall()->qufuhao2()->getValue();
+							
 							$starttime = strtotime("-1 month");
 							$order = $this->m_order->Where(array('orderid'=>$cookie_oid))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
 							if(empty($order)){
@@ -180,6 +195,8 @@ class QueryController extends PcBasicController
 		$csrf_token = $this->getPost('csrf_token', false);
 		if($orderid AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
+				$orderid_string = new \Safe\MyString($orderid);
+				$orderid = $orderid_string->trimall()->qufuhao2()->getValue();
 				$order = $this->m_order->Where(array('orderid'=>$orderid,'status'=>2))->SelectOne();
 				if(empty($order)){
 					$data=array('code'=>1005,'msg'=>'没有订单');

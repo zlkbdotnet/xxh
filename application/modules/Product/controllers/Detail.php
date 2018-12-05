@@ -9,10 +9,12 @@
 class DetailController extends PcBasicController
 {
 	private $m_products;
+	private $m_products_pifa;
     public function init()
     {
         parent::init();
 		$this->m_products = $this->load('products');
+		$this->m_products_pifa = $this->load('products_pifa');
     }
 
     public function indexAction()
@@ -22,6 +24,14 @@ class DetailController extends PcBasicController
 			$product = $this->m_products->Where(array('id'=>$pid,'active'=>1,'isdelete'=>0))->SelectOne();
 			if(!empty($product)){
 				$data = array();
+				//先拿折扣
+				$pifa = $this->m_products_pifa->getPifa($pid);
+				if(!empty($pifa)){
+					$data['pifa'] = json_encode($pifa);
+				}else{
+					$data['pifa'] = "";
+				}
+				
 				//如果是密码商品
 				if(strlen($product['password'])>0){
 					$tpl = "password";

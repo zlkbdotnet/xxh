@@ -50,6 +50,9 @@ class ForgetpwdController extends PcBasicController
                 $id = (int)$key_array[1];
 				$email = $key_array[2];
 				
+				$code_string = new \Safe\MyString($code);
+				$code = $code_string->trimall()->qufuhao2()->getValue();
+				
                 if (false != $code AND is_numeric($id) AND $id > 0 AND isEmail($email)) {
                     //从数据库中读取
                     $where = array('email' => $email, 'id' => $id, 'code' => $code, 'status' => 1,'action'=>'forgetpwd');

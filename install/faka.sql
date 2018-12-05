@@ -97,7 +97,10 @@ INSERT INTO `t_config` (`id`, `catid`, `name`, `value`, `tag`, `lock`, `updateti
 (20, 1, 'layerad', '', '弹窗广告', 1, 1453452674),
 (21, 1, 'loginswitch', '1', '登录开关', 1, 1453452674),
 (22, 1, 'forgetpwdswitch', '0', '找回密码开关', 1, 1453452674),
-(23, 1, 'adminyzmswitch', '1', '后台登录验证码开关', 1, 1453452674);
+(23, 1, 'adminyzmswitch', '1', '后台登录验证码开关', 1, 1453452674),
+(24, 1, 'shortcuticon', '', 'ICO图标,格式必须是png或者ico或者gif', 1, 1453452674),
+(25, 1, 'limitorderqty', '5', '单笔订单数量限制', 1, 1453452674),
+(26, 1, 'discountswitch', '0', '折扣开关', 1, 1453452674);
 -- --------------------------------------------------------
 
 --
@@ -257,8 +260,9 @@ INSERT INTO `t_payment` (`id`, `payment`, `payname`, `payimage`, `alias`, `sign_
 (5, '支付宝电脑网站支付', '支付宝', '/res/images/pay/alipay.jpg', 'zfbweb', 'RSA2', '2018********', '', '', '', '',0, 0),
 (6, '微信扫码支付', '微信', '/res/images/pay/weixin.jpg', 'wxf2f', 'MD5', '', '', '', '', '', 0, 0),
 (7, '有赞接口', '微信', '/res/images/pay/yzpay.jpg', 'yzpay', 'RSA2', '', '', '', '', '', 0, 0),
-(8, '收款宝', '微信', '/res/images/pay/weixin.jpg', 'zlkbcodepaywx', 'RSA2', '', '', '', '', '', 300, 0);
-
+(8, '收款宝(微信)', '微信', '/res/images/pay/weixin.jpg', 'zlkbcodepaywx', 'RSA2', '', '', '', '', '', 300, 0),
+(9, '收款宝(支付宝)', '支付宝', '/res/images/pay/alipay.jpg', 'zlkbcodepayalipay', 'RSA2', '', '', '', '', '', 300, 0),
+(10, '收款宝(QQ)', 'QQ', '/res/images/pay/qqpay.jpg', 'zlkbcodepayqq', 'RSA2', '', '', '', '', '', 300, 0);
 
 -- --------------------------------------------------------
 
@@ -425,10 +429,22 @@ CREATE TABLE IF NOT EXISTS `t_user_login_logs` (
   `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '登录时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE IF NOT EXISTS `t_products_pifa` (
+  `id` int(11) NOT NULL,
+  `pid` int(11) NOT NULL DEFAULT '0' COMMENT '商品d',
+  `qty` int(11) NOT NULL DEFAULT '0' COMMENT '数量',
+  `money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '优惠价格',
+  `tag` varchar(255) NOT NULL COMMENT '简单说明',
+  `addtime` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `isdelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未删除,1已删除'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
-
+ALTER TABLE `t_products_pifa`
+  ADD PRIMARY KEY (`id`);
 --
 -- Indexes for table `t_admin_login_log`
 --
@@ -629,6 +645,10 @@ ALTER TABLE `t_user_group`
 --
 -- AUTO_INCREMENT for table `t_user_login_logs`
 --
+
+ALTER TABLE `t_products_pifa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
 ALTER TABLE `t_user_login_logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

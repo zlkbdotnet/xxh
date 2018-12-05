@@ -13,9 +13,9 @@ layui.define(['layer', 'form','code'], function(exports){
 	
 	form.verify({
 		dbname:function(value){
-			var reg= /^[A-Za-z]+$/;
+			var reg= /^[A-Za-z\\0-9\\_\\\-]+$/;
 			if (!reg.test(value)) {
-				return '数据库必须为全英文字母';
+				return '数据库名只能包含英文字母、中划线以及下划线';
 			}
 		}
 	});
