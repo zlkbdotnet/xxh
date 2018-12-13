@@ -18,13 +18,14 @@ class zlkbcodepayalipay
 	{
 		try{
 			$config =array(
+				'version'=>1,
 				'paymethod'=>2,
 				'appid'=>$payconfig['app_id'],
 				'ordersn'=>$params['orderid'],
 				'subject'=>$params['productname'],
 				'money'=>(float)$params['money'],
 				'overtime'=>$payconfig['overtime'],
-				'return_url' => $params['weburl']. '/product/query/?zlkbmethod=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
+				'return_url' => $params['weburl']. "/query/auto/{$params['orderid']}.html",
 				'notify_url' => $params['weburl'] . '/product/notify/?paymethod='.$this->paymethod,
 			);
 			$config['sign'] = $this->_signParams($config,$payconfig['app_secret']);
@@ -37,7 +38,7 @@ class zlkbcodepayalipay
 					$money = isset($curl_data['data']['money'])?$curl_data['data']['money']:$params['money'];
 					//计算关闭时间
 					$closetime = (int)($curl_data['data']['closetime']-$curl_data['data']['servertime']-3);
-					$result = array('type'=>0,'subjump'=>0,'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".urlencode($curl_data['data']['qr_content']),'payname'=>$payconfig['payname'],'overtime'=>$closetime,'money'=>$money);
+					$result = array('type'=>0,'subjump'=>1,'subjumpurl'=>$curl_data['data']['qr_content'],'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".urlencode($curl_data['data']['qr_content']),'payname'=>$payconfig['payname'],'overtime'=>$closetime,'money'=>$money);
 					return array('code'=>1,'msg'=>'success','data'=>$result);
 				}
 			}else{
@@ -97,9 +98,8 @@ class zlkbcodepayalipay
 			reset($params);
 			
 			foreach ($params AS $key => $val) {
-				if ($val == ''||$key == 'sign') continue;
+				if ($key == 'sign') continue;
 				if ($signstr != '') {
-					$signstr .= "&";
 					$signstr .= "&";
 				}
 				$signstr .= "$key=$val";

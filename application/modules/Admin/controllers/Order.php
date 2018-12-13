@@ -196,7 +196,7 @@ class OrderController extends AdminBasicController
 						$data = array('code' => 1, 'msg' => '订单已支付', 'data' => '');
 					}else{
 						//业务处理
-						$config = array('paymethod'=>'admin','tradeid'=>0,'paymoney'=>0,'orderid'=>$order['orderid'] );
+						$config = array('paymethod'=>'admin','tradeid'=>0,'paymoney'=>$order['money'],'orderid'=>$order['orderid'] );
 						$notify = new \Pay\notify();
 						$data = $notify->run($config);
 					}

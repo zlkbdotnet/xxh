@@ -9,35 +9,6 @@
 	var lodding;
 	console.log("注意：本页js用的比较多，请小心谨慎!");
 	
-    function htmlspecialchars_decode(str){
-		if(str.length>0){
-			str = str.replace(/&amp;/g, '&');
-			str = str.replace(/&lt;/g, '<');
-			str = str.replace(/&gt;/g, '>');
-			str = str.replace(/&quot;/g, '"');
-			str = str.replace(/&#039;/g, "'");
-		}
-        return str;  
-    }	
-	
-	function isJSON(str) {
-		if (typeof str == 'string') {
-			try {
-				var obj=JSON.parse(str);
-				if(typeof obj == 'object' && obj ){
-					return true;
-				}else{
-					return false;
-				}
-
-			} catch(e) {
-				console.log('error：'+str+'!!!'+e);
-				return false;
-			}
-		}
-		console.log('It is not a string!')
-	}
-	
 	$('.orderpaymethod').on('click', function(event) {
 		event.preventDefault();
 		var paymethod = $(this).attr("data-type");
@@ -56,7 +27,6 @@
 				layer.close(lodding);
 			},
             success: function(res) {
-				if(isJSON(res)){
 					if (res.code == 1) {
 						queryRadio = 1;
 						if(res.data.type>0){
@@ -155,13 +125,6 @@
 					} else {
 						layer.msg(res.msg,{icon:2,time:5000});
 					}
-				}else{
-					var html = res;
-					layer.open({
-						 type: 1
-						,content: html
-					 });
-				}
                 return;
             }
         });

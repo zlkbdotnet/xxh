@@ -13,9 +13,9 @@ layui.define(['layer', 'table','base64'], function(exports){
 			{field: 'productname', title: '订单名称',minWidth:200},
 			{field: 'price', title: '单价',width:80},
 			{field: 'number', title: '数量',width:80},
-			{field: 'money', title: '金额',width:100},
-			{field: 'addtime', title: '下单时间', width:200, templet: '#addtime',align:'center'},
-			{field: 'status', title: '状态',templet: '#status',width:100},
+			{field: 'money', title: '金额',width:80},
+			{field: 'addtime', title: '下单时间', width:150, templet: '#addtime',align:'center'},
+			{field: 'status', title: '状态',templet: '#status',width:80},
 			{field: 'opt', title: '操作',templet: '#opt',width:120},
 		]]
 	});

@@ -1,0 +1,1 @@
+UPDATE `t_payment` SET `payimage` = '/res/images/pay/qqpay.jpg' WHERE `id` = 10;

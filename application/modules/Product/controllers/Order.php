@@ -271,7 +271,7 @@ class OrderController extends PcBasicController
 								$orderid = $order['orderid'];
 								$payclass = "\\Pay\\".$paymethod."\\".$paymethod;
 								$PAY = new $payclass();
-								$params =array('orderid'=>$orderid,'money'=>$order['money'],'productname'=>$order['productname'],'weburl'=>$this->config['weburl']);
+								$params =array('pid'=>$order['pid'],'orderid'=>$orderid,'money'=>$order['money'],'productname'=>$order['productname'],'weburl'=>$this->config['weburl']);
 								$data = $PAY->pay($payconfig,$params);
 							} catch (\Exception $e) {
 								$data = array('code' => 1005, 'msg' => $e->getMessage());
@@ -316,5 +316,46 @@ class OrderController extends PcBasicController
 			echo '参数丢失';
 			exit();
 		}
+	}
+	
+	//专门针对第三种支付接口,获取
+	public function payjumpAction()
+	{
+		$paymethod = $this->get('paymethod');
+		$orderid = $this->get('orderid');
+		if($paymethod AND $orderid AND strlen($orderid)>0){
+			$payments = $this->m_payment->getConfig();
+			if(isset($payments[$paymethod]) AND !empty($payments[$paymethod])){
+				$payconfig = $payments[$paymethod];
+				if($payconfig['active']>0){
+					//获取订单信息
+					$order = $this->m_order->Where(array('orderid'=>$orderid,'isdelete'=>0))->SelectOne();
+					if(is_array($order) AND !empty($order)){
+						if($order['status']>0){
+							$msg = '订单已支付成功';
+						}else{
+							try{
+								$payclass = "\\Pay\\".$paymethod."\\".$paymethod;
+								$PAY = new $payclass();
+								$params =array('orderid'=>$orderid,'money'=>$order['money'],'productname'=>$order['productname'],'weburl'=>$this->config['weburl']);
+								$msg = $PAY->jump($payconfig,$params);
+							} catch (\Exception $e) {
+								$msg = $e->getMessage();
+							}
+						}
+					}else{
+						$msg = '订单不存在';
+					}
+				}else{
+					$msg = '支付渠道已关闭';
+				}
+			}else{
+				$msg = '支付渠道异常';
+			}
+		}else{
+			$msg = '丢失参数';
+		}
+		echo $msg;
+		exit();
 	}
 }

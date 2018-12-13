@@ -43,7 +43,11 @@
     {{# } }}
 </script>
 <script type="text/html" id="pifa">
+	<?php if($config['discountswitch']):?>
     <a class="layui-btn layui-btn-normal layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/productspifa/?id={{d.id}}">批发</a>
+	<?php else:?>
+	<button class="layui-btn layui-btn-disabled layui-btn-xs">批发</button>
+	<?php endif;?>
 </script>
 <script type="text/html" id="opt">
     <a class="layui-btn layui-btn-warm layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/products/edit/?id={{d.id}}">编辑</a>

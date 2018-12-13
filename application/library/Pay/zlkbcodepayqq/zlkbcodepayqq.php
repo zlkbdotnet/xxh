@@ -18,13 +18,14 @@ class zlkbcodepayqq
 	{
 		try{
 			$config =array(
+				'version'=>1,
 				'paymethod'=>3,
 				'appid'=>$payconfig['app_id'],
 				'ordersn'=>$params['orderid'],
 				'subject'=>$params['productname'],
 				'money'=>(float)$params['money'],
 				'overtime'=>$payconfig['overtime'],
-				'return_url' => $params['weburl']. '/product/query/?zlkbmethod=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
+				'return_url' => $params['weburl']. "/query/auto/{$params['orderid']}.html",
 				'notify_url' => $params['weburl'] . '/product/notify/?paymethod='.$this->paymethod,
 			);
 			$config['sign'] = $this->_signParams($config,$payconfig['app_secret']);
@@ -97,9 +98,8 @@ class zlkbcodepayqq
 			reset($params);
 			
 			foreach ($params AS $key => $val) {
-				if ($val == ''||$key == 'sign') continue;
+				if ($key == 'sign') continue;
 				if ($signstr != '') {
-					$signstr .= "&";
 					$signstr .= "&";
 				}
 				$signstr .= "$key=$val";
