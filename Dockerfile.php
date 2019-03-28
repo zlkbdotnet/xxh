@@ -9,7 +9,7 @@ COPY ./php.ini /usr/local/etc/php/
 
 COPY ./php.conf /usr/local/etc/php/conf.d/php.conf
 
-COPY ./site /usr/share/nginx/html
+COPY ./ /usr/share/nginx/html
 
 RUN chmod a+w /usr/share/nginx/html/conf/application.ini && \
     chmod -R a+w+r /usr/share/nginx/html/install/ && \
