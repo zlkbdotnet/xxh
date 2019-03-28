@@ -17,14 +17,9 @@ class callback implements PayNotifyInterface
 	//处理返回回调callback
 	public function notifyProcess(array $params)
 	{
-		if($params['body']=='wxf2f'){
-			$config = array('paymethod'=>$params['body'],'tradeid'=>$params['trade_no'],'paymoney'=>$params['total_amount'],'orderid'=>$params['out_trade_no'] );
-			$notify = new \Pay\notify();
-			$data = $notify->run($config);
-		}else{
-			$data =array('code'=>1002,'msg'=>'支付方式不对');
-		}
-		return $data;
+		$config = array('paymethod'=>"wxf2f",'tradeid'=>$params['transaction_id'],'paymoney'=>$params['total_fee'],'orderid'=>$params['out_trade_no']);
+		$notify = new \Pay\notify();
+		return	$data = $notify->run($config);
 	}
 	
 }

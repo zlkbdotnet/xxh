@@ -21,6 +21,12 @@ function createGateWayPOST($url,$postData){
     exit;
 }
 
+if ( ! function_exists( 'exif_imagetype' ) ) {
+	function exif_imagetype($file){
+        list($width, $height, $type2, $attr) = getimagesize($file);
+        return $type2;
+	}
+}
 
 //判断PHP版本
 if ( ! function_exists('is_php')){

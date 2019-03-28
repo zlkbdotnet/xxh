@@ -33,7 +33,7 @@ layui.define(['layer', 'table', 'form'], function(exports){
 			if (res.code == '1') {
 				layer.open({
 					title: '提示',
-					content: '修改成功',
+					content: '成功',
 					btn: ['确定'],
 					yes: function(index, layero){
 					    location.reload();

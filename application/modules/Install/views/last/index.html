@@ -8,14 +8,31 @@
 					<blockquote class="layui-elem-quote layui-text">
 						<p>恭喜您，已经完成项目安装；</p>
 						<p>请登录<a href="/admin">管理后台</a>，进行基础配置。默认管理账户：43036456@qq.com,密码:123456</p>
-						<p>如有疑问，请联系QQ:43036456</p>
+						<p>如有疑问，请加QQ交流群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=00975ec2a71a8f2469b0f1d2d0b630735edf7f6f0cc703695a0f9c32a1bad120"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="资料空白-开源程序群" title="资料空白-开源程序群"></a>	 </p>
 					</blockquote>
 					
 					<blockquote class="layui-elem-quote layui-quote-nm">
-						补充:最后需要在服务器上配置定时计划,用于定时发送邮件;
+						最后需要在服务器上配置定时计划,用于定时发送邮件.
 					</blockquote>
-					<pre class="layui-code layui-box layui-code-view">*/2 * * * * php -q <?php echo APP_PATH;?>/public/cli.php request_uri="/crontab/sendemail/index"    #lnmp等linux环境用户,请复制此条.</pre>
-					<pre class="layui-code layui-box layui-code-view">php -q <?php echo APP_PATH;?>/public/cli.php request_uri="/crontab/sendemail/index"    #宝塔环境用户,请复制此条.</pre>
+					<div class="layui-collapse" lay-accordion="">
+						<div class="layui-colla-item">
+							<h2 class="layui-colla-title">1.LNMP环境(定时计划)</h2>
+							<div class="layui-colla-content">
+								<p>参考：<a href="https://github.com/zlkbdotnet/zfaka/wiki/lnmp%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1" target="_blank">lnmp环境中如何部署计划任务</a></p>
+								<pre class="layui-code layui-box layui-code-view">*/2 * * * * php -q <?php echo APP_PATH;?>/public/cli.php request_uri="/crontab/sendemail/index"  </pre>
+							</div>
+						</div>
+
+						<div class="layui-colla-item">
+							<h2 class="layui-colla-title">2.宝塔环境(定时计划)</h2>
+							<div class="layui-colla-content">
+								<p>参考：<a href="https://github.com/zlkbdotnet/zfaka/wiki/%E5%AE%9D%E5%A1%94%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1" target="_blank">宝塔环境中如何部署计划任务</a></p>
+								<pre class="layui-code layui-box layui-code-view">php -q <?php echo APP_PATH;?>/public/cli.php request_uri="/crontab/sendemail/index"   </pre>
+							</div>
+						</div>
+					</div>
+
+					
 				</div>
 			  </div>
 			</div>

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * 功能：会员中心－个人中心
  * Author:资料空白
@@ -28,15 +27,18 @@ class QueryController extends PcBasicController
 		if($zlkbmethod == "auto"){
 			$data['order'] = $data['cnstatus'] = array();
 			//如果有订单号过来，就是直接去自动查询页面
-			$orderid  = $this->get('orderid',false);
+			$orderid  = $this->get('orderid');
 			if($orderid){
 				if (false != $this->login AND $this->userid) {
 					$order_email = $this->uinfo['email'];
 				}else{
 					$order_email = $this->getSession('order_email');
 				}
-					
-				if($order_email){
+				
+				$orderid_string = new \Safe\MyString($orderid);
+				$orderid = $orderid_string->trimall()->qufuhao2()->getValue();
+				
+				if($order_email AND isEmail($order_email)){
 					$order = $this->m_order->Where(array('orderid'=>$orderid,'email'=>$order_email))->Where(array('isdelete'=>0))->SelectOne();
 					if(!empty($order)){
 						$data['order'] = $order;
@@ -58,12 +60,12 @@ class QueryController extends PcBasicController
 	
 	public function ajaxAction()
 	{
-		$zlkbmethod = $this->getPost('zlkbmethod',false);
+		$zlkbmethod = $this->getPost('zlkbmethod');
 		$csrf_token = $this->getPost('csrf_token', false);
 		if($zlkbmethod AND $csrf_token){
 			if(in_array($zlkbmethod,$this->method_array)){
 				if($zlkbmethod == 'contact'){
-					$chapwd    = $this->getPost('chapwd',false);
+					$chapwd    = $this->getPost('chapwd');
 					if($chapwd){
 						if ($this->VerifyCsrfToken($csrf_token)) {
 							if(isset($this->config['orderinputtype']) AND $this->config['orderinputtype']=='2'){
@@ -85,7 +87,7 @@ class QueryController extends PcBasicController
 							}
 							
 							if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
-								$vercode = $this->getPost('vercode',false);
+								$vercode = $this->getPost('vercode');
 								if($vercode){
 									if(strtolower($this->getSession('productqueryCaptcha')) == strtolower($vercode)){
 										$this->unsetSession('productqueryCaptcha');
@@ -98,10 +100,14 @@ class QueryController extends PcBasicController
 									Helper::response($data);
 								}
 							}
+							
+							$chapwd_string = new \Safe\MyString($chapwd);
+							$chapwd = $chapwd_string->trimall()->qufuhao2()->getValue();
+							
 							$starttime = strtotime("-1 month");
 							$order = $this->m_order->Where(array('email'=>$email,'chapwd'=>$chapwd))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
 							if(empty($order)){
-								$data=array('code'=>1005,'msg'=>'订单不存在');
+								$data=array('code'=>1005,'msg'=>'订单不存在(最近1个月)');
 							}else{
 								$data=array('code'=>1,'msg'=>'查询成功','data'=>$order,'count'=>count($order));
 							}
@@ -113,11 +119,11 @@ class QueryController extends PcBasicController
 					}
 				//订单号查询	
 				}elseif($zlkbmethod == 'orderid'){
-					$orderid    = $this->getPost('orderid',false);
+					$orderid  = $this->getPost('orderid');
 					if($orderid){
 						if ($this->VerifyCsrfToken($csrf_token)) {
 							if(isset($this->config['yzmswitch']) AND $this->config['yzmswitch']>0){
-								$vercode = $this->getPost('vercode',false);
+								$vercode = $this->getPost('vercode');
 								if($vercode){
 									if(strtolower($this->getSession('productqueryCaptcha')) == strtolower($vercode)){
 										$this->unsetSession('productqueryCaptcha');
@@ -130,10 +136,16 @@ class QueryController extends PcBasicController
 									Helper::response($data);
 								}
 							}
+							
+							$orderid_string = new \Safe\MyString($orderid);
+							$orderid = $orderid_string->trimall()->qufuhao2()->getValue();
+							
 							$starttime = strtotime("-1 month");
-							$order = $this->m_order->Where(array('orderid'=>$orderid))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
+							//20190115,通过订单查询增加IP条件
+							$ip = getClientIP();
+							$order = $this->m_order->Where(array('orderid'=>$orderid,'isdelete'=>0,'ip'=>$ip))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
 							if(empty($order)){
-								$data=array('code'=>1005,'msg'=>'订单不存在');
+								$data=array('code'=>1005,'msg'=>'订单不存在(最近1个月)');
 							}else{
 								$data=array('code'=>1,'msg'=>'查询成功','data'=>$order,'count'=>count($order));
 							}
@@ -148,10 +160,16 @@ class QueryController extends PcBasicController
 					$orderid = $this->getCookie('oid');
 					if($orderid){
 						if ($this->VerifyCsrfToken($csrf_token)) {
+							$l_encryption = new Encryption();
+							$cookie_oid = $l_encryption->decrypt($orderid);
+							
+							$orderid_string = new \Safe\MyString($cookie_oid);
+							$cookie_oid = $orderid_string->trimall()->qufuhao2()->getValue();
+							
 							$starttime = strtotime("-1 month");
-							$order = $this->m_order->Where(array('orderid'=>$orderid))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
+							$order = $this->m_order->Where(array('orderid'=>$cookie_oid))->Where(array('isdelete'=>0))->Where("addtime>={$starttime}")->Order(array('id'=>'desc'))->Select();
 							if(empty($order)){
-								$data=array('code'=>1005,'msg'=>'订单不存在');
+								$data=array('code'=>1005,'msg'=>'订单不存在(最近1个月)');
 							}else{
 								$data=array('code'=>1,'msg'=>'查询成功','data'=>$order,'count'=>count($order));
 							}
@@ -175,16 +193,22 @@ class QueryController extends PcBasicController
 	
 	public function kamiAction()
 	{
-		$orderid    = $this->getPost('orderid',false);
+		$orderid    = $this->getPost('orderid');
 		$csrf_token = $this->getPost('csrf_token', false);
 		if($orderid AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
-				$order = $this->m_order->Where(array('orderid'=>$orderid,'status'=>2))->SelectOne();
+				$orderid_string = new \Safe\MyString($orderid);
+				$orderid = $orderid_string->trimall()->qufuhao2()->getValue();
+				$starttime = strtotime("-1 month");
+				$order = $this->m_order->Where(array('orderid'=>$orderid,'status'=>2))->Where("addtime>={$starttime}")->SelectOne();
 				if(empty($order)){
-					$data=array('code'=>1005,'msg'=>'没有订单');
+					$data=array('code'=>1005,'msg'=>'订单不存在(最近1个月)');
 				}else{
+					$cards = "";
 					$card_mi_str = $order['kami'];
-					$cards = explode(',',$card_mi_str);
+					if(strlen($card_mi_str)>0){
+						$cards = explode(',',$card_mi_str);
+					}
 					$data=array('code'=>1,'msg'=>'查询成功','data'=>$cards);
 				}
 			} else {
@@ -198,25 +222,35 @@ class QueryController extends PcBasicController
 	
 	public function payAction()
 	{
-		$oid    = $this->getPost('oid',false);
+		$oid    = $this->getPost('oid');
 		$csrf_token = $this->getPost('csrf_token', false);
-		if($oid AND $csrf_token){
-			if ($this->VerifyCsrfToken($csrf_token)) {
-				$order = $this->m_order->Where(array('id'=>$oid,'isdelete'=>0))->SelectOne();
-				if(empty($order)){
-					$data=array('code'=>1002,'msg'=>'没有订单');
-				}else{
-					if($order['status']<1){
-						$data = array('code' => 1003, 'msg' => '未支付');
+		if($oid AND strlen($oid)>0 AND $csrf_token){
+			$oid = base64_decode($oid);
+			if($oid AND strlen($oid)>0){
+				if ($this->VerifyCsrfToken($csrf_token)) {
+					$orderid_string = new \Safe\MyString($oid);
+					$oid = $orderid_string->trimall()->qufuhao2()->getValue();
+					$starttime = strtotime("-1 day");
+					$order = $this->m_order->Where(array('orderid'=>$oid,'isdelete'=>0))->Where("addtime>={$starttime}")->SelectOne();
+					if(empty($order)){
+						$data=array('code'=>1002,'msg'=>'订单不存在(最近1天)');
 					}else{
-						$this->setSession('order_email',$order['email']);
-						$this->clearCookie('oid');
-						$this->setCookie('oid',$order['orderid']);
-						$data = array('code' => 1, 'msg' => 'success','data'=>$order);
+						if($order['status']<1){
+							$data = array('code' => 1003, 'msg' => '未支付');
+						}else{
+							$this->setSession('order_email',$order['email']);
+							$this->clearCookie('oid');
+							$l_encryption = new Encryption();
+							$cookie_oid = $l_encryption->encrypt($order['orderid']);
+							$this->setCookie('oid',$cookie_oid);
+							$data = array('code' => 1, 'msg' => 'success','data'=>array('orderid'=>$order['orderid']));
+						}
 					}
+				}else{
+					$data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');
 				}
 			} else {
-				$data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');
+				$data = array('code' => 1000, 'msg' => '丢失参数');
             }
 		}else{
 			$data = array('code' => 1000, 'msg' => '丢失参数');

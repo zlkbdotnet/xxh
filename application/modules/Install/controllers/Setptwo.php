@@ -29,18 +29,22 @@ class SetptwoController extends BasicController
 	
 	public function ajaxAction()
 	{
-		$host = $this->getPost('host',false);
-		$port = $this->getPost('port',false);
-		$user = $this->getPost('user', false);
-		$password = $this->getPost('password', false);
-		$dbname = $this->getPost('dbname', false);
+		if(file_exists(INSTALL_LOCK)){
+			$data = array('code' => 1001, 'msg' => '已经安装过了');
+			Helper::response($data);
+		}
+		$host = $this->getPost('host');
+		$port = $this->getPost('port');
+		$user = $this->getPost('user');
+		$password = $this->getPost('password');
+		$dbname = $this->getPost('dbname');
 		
 		$data = array();
 		
 		if($host AND $port AND $user AND $password AND $dbname){
             try {
-				if(!preg_match("/^[a-zA-Z\s]+$/",$dbname)){
-					$data = array('code' => 1002, 'msg' =>"数据库名必须为全英文字母格式");
+				if(!preg_match("/^[A-Za-z\\0-9\\_\\\-]+$/",$dbname)){
+					$data = array('code' => 1002, 'msg' =>"数据库名只能包含英文字母、中划线以及下划线");
 					Helper::response($data);
 				}
 				if(file_exists($this->install_sql) AND is_readable($this->install_sql)){
@@ -80,7 +84,8 @@ class SetptwoController extends BasicController
 				$pdo->query("CREATE DATABASE IF NOT EXISTS `{$dbname}` CHARACTER SET utf8 COLLATE utf8_general_ci;");
 				$pdo->query("USE `{$dbname}`");
 				$pdo->exec($sql);
-					
+				//20190319，这里添加一个延时，避免sql操作时间过长导致异常
+				sleep(3);	
 				$ini = new WriteiniFile($this->install_config);
 				$ini->update([
 					'product : common' => ['READ_HOST' => $host,'WRITE_HOST' => $host,'READ_PORT' => $port,'WRITE_PORT' => $port,'READ_USER' => $user,'WRITE_USER' => $user,'READ_PSWD' => $password,'WRITE_PSWD' => $password,'Default' => $dbname]

@@ -13,6 +13,10 @@
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
                     <div class="layui-form-item layui-show">
+						<blockquote class="layui-elem-quote">
+							<p> 注意事项： </p>
+							<p> 如果配置中心列表中出现了"数据接口请求异常"，<button lay-submit class="layui-btn" lay-filter="repair">点击修复</button></p>
+						</blockquote>
 						<div class="layui-form layui-row layui-col-space10">
 							<div class="layui-inline layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
 								<input type="text" name="card" class="layui-input" value="" placeholder="卡密" />
@@ -41,6 +45,9 @@
 						</div>
 						<div class="layui-inline layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
 							<button class="layui-btn layui-btn-danger" id="deleteALL"><i class="layui-icon">&#xe640;</i>批量删除</button>
+						</div>
+						<div class="layui-inline layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
+							<button class="layui-btn layui-btn-danger" id="deleteempty"><i class="layui-icon">&#xe640;</i>最终回收站</button>
 						</div>
                         <table class="layui-table" id="table" lay-filter="table"></table>
                     </div>

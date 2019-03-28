@@ -28,11 +28,15 @@ class SendemailController extends BasicController
         file_put_contents(CRONTAB_FILE, CUR_DATETIME . '-' . 'start' . PHP_EOL, FILE_APPEND);
         $results = array();
         //1.先查询
-        $queue = $this->m_email_queue->Where(array('status' => 0))->Limit(10)->Select();
+        $queue = $this->m_email_queue->Where(array('status' => 0,'isdelete'=>0))->Limit(10)->Select();
         if (is_array($queue) AND !empty($queue)) {
 			$emainConfig = $this->m_email->getConfig();
-			$config=array();
-			$config['smtp_host'] = 'ssl://' . $emainConfig['host'];
+			$config = array();
+			if($emainConfig['isssl']>0){
+				$config['smtp_host'] = 'ssl://' . $emainConfig['host'];
+			}else{
+				$config['smtp_host'] = $emainConfig['host'];
+			}
 			$config['smtp_user'] = $emainConfig['mailaddress'];
 			$config['smtp_pass'] = $emainConfig['mailpassword'];
 			$config['smtp_port'] = $emainConfig['port'];
@@ -66,14 +70,14 @@ class SendemailController extends BasicController
 			if($isSend){
 				$data = array('code' => 1, 'msg' => '邮件发送成功，请稍候！');
 			}else{
-				$data = array('code' => 1007, 'msg' => '失败'.strip_tags ($lib_email->print_debugger()));
+				$data = array('code' => 1007, 'msg' => '失败'.getRawText($lib_email->print_debugger()));
 			}
 		} catch (\Exception $e) {
 			$data = array('code' => 1006, 'msg' => $e->getMessage());
 		}
 		//2.记录发送结果
 		if($data['code']>1){
-			$this->m_email_queue->UpdateByID(array('status'=>-1,'sendresult'=>$data['msg']),$params['id']);
+			$this->m_email_queue->UpdateByID(array('status'=>2,'sendresult'=>$data['msg']),$params['id']);
 		}else{
 			$this->m_email_queue->UpdateByID(array('sendtime'=>time(),'status'=>1,'sendresult'=>$data['msg']),$params['id']);
 		}

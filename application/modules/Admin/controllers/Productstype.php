@@ -97,9 +97,11 @@ class ProductstypeController extends AdminBasicController
     }
 	public function editajaxAction()
 	{
-		$method = $this->getPost('method',false);
-		$id = $this->getPost('id',false);
-		$name = $this->getPost('name',false);
+		$method = $this->getPost('method');
+		$id = $this->getPost('id');
+		$name = $this->getPost('name');
+		$description = $this->getPost('description',false);
+		$password = $this->getPost('password',false);
 		$sort_num = $this->getPost('sort_num',false);
 		$active = $this->getPost('active',false);
 		$csrf_token = $this->getPost('csrf_token', false);
@@ -116,6 +118,8 @@ class ProductstypeController extends AdminBasicController
 				$m=array(
 					'name'=>$name,
 					'sort_num'=>$sort_num,
+					'description'=>$description,
+					'password'=>$password,
 					'active'=>$active,
 				);
 				if($method == 'edit' AND $id>0){
@@ -129,7 +133,7 @@ class ProductstypeController extends AdminBasicController
 					}
 				}elseif($method == 'add'){
 					$u = $this->m_products_type->Insert($m);
-					if($u){
+					if($u>0){
 						//更新缓存 
 						//$this->m_products_type->getConfig(1);
 						$data = array('code' => 1, 'msg' => '新增成功');

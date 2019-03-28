@@ -28,6 +28,16 @@ class Base
     }
 
 	/**
+	* 获取内容
+	* 
+	* return int
+	*/
+    public function getValue()
+    {
+        return $this->value;
+    }
+	
+	/**
 	* 获取长度
 	* 
 	* return int

@@ -129,7 +129,7 @@ class ProductscardController extends AdminBasicController
 		if($method AND $pid AND $card AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if($method == 'add'){
-					$card = str_replace(array("\r","\n"), "\\n", $card);
+					$card = getRawText($card,false);
 					$m=array(
 						'pid'=>$pid,
 						'card'=>$card,
@@ -153,7 +153,7 @@ class ProductscardController extends AdminBasicController
 					$newTxtFileData_array = explode($replace,$newTxtFileData);
 					foreach($newTxtFileData_array AS $line){
 						if(strlen($line)>0){
-							$line = str_replace(array("\r","\n"), "\\n", $line);
+							$line = getRawText($line,false);
 							$m[]=array('pid'=>$pid,'card'=>$line,'addtime'=>time());
 						}
 					}
@@ -238,6 +238,35 @@ class ProductscardController extends AdminBasicController
 		Helper::response($data);
 	}
 	
+	public function deleteemptyAction()
+	{
+		$method = $this->get('method',false);
+		$csrf_token = $this->getPost('csrf_token', false);
+		
+		$data = array();
+		
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $data = array('code' => 1000, 'msg' => '请登录');
+			Helper::response($data);
+        }
+		
+		if($method AND $csrf_token){
+			if ($this->VerifyCsrfToken($csrf_token)) {
+				if($method =="empty"){
+					$this->m_products_card->Query("DELETE FROM `t_products_card` WHERE `isdelete` = 1");
+					 $data = array('code' => 1, 'msg' => '清空已删除卡密');
+				}else{
+					 $data = array('code' => 1002, 'msg' => '方法错误');
+				}
+			} else {
+                $data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');
+            }
+		}else{
+			$data = array('code' => 1000, 'msg' => '丢失参数');
+		}
+		Helper::response($data);
+	}
+	
     public function importAction()
     {
         if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
@@ -284,7 +313,7 @@ class ProductscardController extends AdminBasicController
 						$newTxtFileData_array = explode($replace,$newTxtFileData);
 						foreach($newTxtFileData_array AS $line){
 							if(strlen($line)>0){
-								$line = trim(str_replace(array("\t"), "", $line));
+								$line = getRawText($line,false);
 								if(strlen($line)>0){
 									$m[]=array('pid'=>$pid,'card'=>$line,'addtime'=>time());
 								}
@@ -384,7 +413,41 @@ class ProductscardController extends AdminBasicController
 		echo $content;
 		exit();
 	}
-	
+	public function repairajaxAction()
+	{
+		$method = $this->getPost('method',false);
+		$csrf_token = $this->getPost('csrf_token', false);
+		
+		$data = array();
+		
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $data = array('code' => 1000, 'msg' => '请登录');
+			Helper::response($data);
+        }
+		
+		if($method AND $csrf_token){
+			if ($this->VerifyCsrfToken($csrf_token)) {
+				$field = array('id','card');
+				$items = $this->m_products_card->Field($field)->Order(array('id'=>'DESC'))->Select();
+				if (empty($items)) {
+					$data = array('code' => 1004, 'msg' => '无数据，不需要修复');
+				} else {
+					foreach($items AS $item){
+						$card = getRawText($item['card'],false);
+						$m = array('card'=>$card);
+						$this->m_products_card->UpdateByID($m,$item['id']);
+						unset($card,$m);
+					}
+					$data = array('code' => 1, 'msg' => '修复完成');
+				}
+			} else {
+                $data = array('code' => 1001, 'msg' => '页面超时，请刷新页面后重试!');
+            }
+		}else{
+			$data = array('code' => 1000, 'msg' => '丢失参数');
+		}
+		Helper::response($data);
+	}		
     private function conditionSQL($param,$alias='')
     {
         $condition = "1";

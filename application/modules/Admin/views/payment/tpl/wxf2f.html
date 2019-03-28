@@ -9,6 +9,13 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p> 注意事项： </p>
+                        <p> 本支付接口同步支付回调地址(第一种):<?php echo $config['weburl'];?>/product/query/?zlkbmethod=auto&paymethod=<?php echo $item['alias'];?>&orderid={订单号}</p>
+						<p> 本支付接口同步支付回调地址(第二种):<?php echo $config['weburl'];?>/query/auto/{订单号}.html</p>
+						<p> 本支付接口异步支付回调地址:<?php echo $config['weburl'];?>/product/notify/?paymethod=<?php echo $item['alias'];?></p>
+						<p> 本接口对应微信支付产品为:Native支付</p>
+                    </blockquote>
                     <form class="layui-form layui-show" method="post">
                         <div class="layui-form-item">
                             <label for="t_payment" class="layui-form-label">支付渠道</label>
@@ -19,7 +26,7 @@
                         <div class="layui-form-item">
                             <label for="payname" class="layui-form-label">显示名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="payname" name="payname" ay-verify="required" autocomplete="off" value="<?php echo $item['payname'];?>" class="layui-input">
+                                <input type="text" id="payname" name="payname" lay-verify="required" autocomplete="off" value="<?php echo $item['payname'];?>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -36,7 +43,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="app_secret" class="layui-form-label">MD5密钥</label>
+                            <label for="app_secret" class="layui-form-label">密钥</label>
                             <div class="layui-input-inline">
                                 <input type="text" id="app_secret" name="app_secret" required lay-verify="required" autocomplete="off" value="<?php echo $item['app_secret'];?>" class="layui-input">
                             </div>
@@ -51,6 +58,16 @@
                             <label for="app_key_pem" class="layui-form-label">app_key_pem</label>
                             <div class="layui-input-block">
                                 <input type="text" disabled readonly value="<?php echo LIB_PATH.'Pay/wxf2f/pem/weixin_app_key.pem';?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">签名方式</label>
+                            <div class="layui-input-inline">
+                                <select name="sign_type" lay-filter="required">
+                                    <option value=""></option>
+                                    <option value="MD5" <?php if($item['sign_type']=='MD5' ):?>selected=""<?php endif;?>>MD5</option>
+                                    <option value="HMAC-SHA256" <?php if($item['sign_type']=='HMAC-SHA256' ):?>selected=""<?php endif;?>>HMAC-SHA256</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-form-item">

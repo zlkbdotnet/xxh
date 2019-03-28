@@ -25,7 +25,7 @@ class codepayqq
 			"act" => 0,//此参数即将弃用
 			"outTime" => $payconfig['overtime'],//二维码超时设置
 			"page" => 4,//订单创建返回JS 或者JSON
-			"return_url" => $params['weburl'] . '/product/query/?zlkbmethod=auto&paymethod='.$this->paymethod.'&orderid='.$params['orderid'],
+			"return_url" => $params['weburl']. "/query/auto/{$params['orderid']}.html",
 			"notify_url" => $params['weburl'] . '/product/notify/?paymethod='.$this->paymethod,
 			"style" =>1,//付款页面风格
 			"pay_type" => 1,//支付宝使用官方接口
@@ -64,8 +64,6 @@ class codepayqq
 			}else{
 				return array('code'=>1001,'msg'=>"支付接口请求失败",'data'=>'');
 			}
-		} catch (PayException $e) {
-			return array('code'=>1000,'msg'=>$e->errorMessage(),'data'=>'');
 		} catch (\Exception $e) {
 			return array('code'=>1000,'msg'=>$e->getMessage(),'data'=>'');
 		}

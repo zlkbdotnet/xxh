@@ -34,25 +34,34 @@ class LoginController extends AdminBasicController
 	
 	public function ajaxAction()
 	{
-		$email    = $this->getPost('email',false);
-		$password = $this->getPost('password',false);
-		$vercode = $this->getPost('vercode',false);
+		$email    = $this->getPost('email');
+		$password = $this->getPost('password');
 		$csrf_token = $this->getPost('csrf_token', false);
 		
-		if($email AND $password AND $csrf_token AND $vercode){
+		if($email AND $password AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				if(isEmail($email)){
-					if(strtolower($this->getSession('adminloginCaptcha')) ==strtolower($vercode)){
-						$this->unsetSession('adminloginCaptcha');
-						$resultAdminUser = $this->m_admin_user->checkLogin($email,$password);
-						if($resultAdminUser){
-							$this->setLogin($resultAdminUser);
-							$data = array('code' => 1, 'msg' =>'success');
+					if(isset($this->config['adminyzmswitch']) AND $this->config['adminyzmswitch']>0){
+						$vercode = $this->getPost('vercode');
+						if($vercode){
+							if(strtolower($this->getSession('adminloginCaptcha')) == strtolower($vercode)){
+								$this->unsetSession('adminloginCaptcha');
+							}else{
+								$data=array('code'=>1004,'msg'=>'图形验证码错误');
+								Helper::response($data);
+							}
 						}else{
-							$data = array('code' => 1002, 'msg' =>'账户密码错误');
+							$data = array('code' => 1000, 'msg' => '丢失参数');
+							Helper::response($data);
 						}
+					}					
+
+					$resultAdminUser = $this->m_admin_user->checkLogin($email,$password);
+					if($resultAdminUser){
+						$this->setLogin($resultAdminUser);
+						$data = array('code' => 1, 'msg' =>'success');
 					}else{
-						$data=array('code'=>1004,'msg'=>'图形验证码错误');
+						$data = array('code' => 1002, 'msg' =>'账户密码错误');
 					}
 				}else{
 					 $data = array('code' => 1003, 'msg' => '邮箱账户有误!');

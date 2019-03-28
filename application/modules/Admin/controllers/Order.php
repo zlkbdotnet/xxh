@@ -61,7 +61,7 @@ class OrderController extends AdminBasicController
 		$limit = $this->get('limit');
 		$limit = is_numeric($limit) ? $limit : 10;
 		
-		$total=$this->m_order->Where($where1)->Where($where)->Total();
+		$total = $this->m_order->Where($where1)->Where($where)->Total();
 		
         if ($total > 0) {
             if ($page > 0 && $page < (ceil($total / $limit) + 1)) {
@@ -72,7 +72,7 @@ class OrderController extends AdminBasicController
 			
             $limits = "{$pagenum},{$limit}";
 			$field = array('id','orderid','email','productname','addtime','status','paymoney','number');
-			$items=$this->m_order->Field($field)->Where($where1)->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
+			$items = $this->m_order->Field($field)->Where($where1)->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
 			
             if (empty($items)) {
                 $data = array('code'=>1002,'count'=>0,'data'=>array(),'msg'=>'无数据');
@@ -196,7 +196,7 @@ class OrderController extends AdminBasicController
 						$data = array('code' => 1, 'msg' => '订单已支付', 'data' => '');
 					}else{
 						//业务处理
-						$config = array('paymethod'=>'admin','tradeid'=>0,'paymoney'=>0,'orderid'=>$order['orderid'] );
+						$config = array('paymethod'=>'admin','tradeid'=>0,'paymoney'=>$order['money'],'orderid'=>$order['orderid'] );
 						$notify = new \Pay\notify();
 						$data = $notify->run($config);
 					}

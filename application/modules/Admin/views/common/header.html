@@ -12,6 +12,11 @@
     <meta name="description" content="FAKA平台正在由资料空白开发">
     <link rel="stylesheet" href="/res/layui/css/layui.css">
     <link rel="stylesheet" href="/res/css/global.css">
+	<?php if(isset($config['shortcuticon']) AND strlen($config['shortcuticon'])>0):?>
+	<link rel="shortcut icon" href="<?php echo $config['shortcuticon'];?>" /> 
+	<?php else:?>
+	<link rel="shortcut icon" href="/favicon.ico" /> 
+	<?php endif;?>
     <script>
     var TOKEN = "<?php echo $csrf_token;?>";
 	var ADMIN_DIR = "<?php echo ADMIN_DIR;?>";
@@ -22,9 +27,9 @@
 </head>
 
 <body>
-    <div class="fly-header layui-bg-black">
+    <div class="fly-header <?php if(isset($config['headermenucolor']) AND strlen($config['headermenucolor'])>0):?><?php echo $config['headermenucolor'];?><?php else:?>layui-bg-black<?php endif;?>">
         <div class="layui-container">
-            <div class="layui-hide-xs"><a class="fly-logo" href="/<?php echo ADMIN_DIR;?>"><img src="/res/images/logo.png" alt="layui"></a></div>
+            <div class="layui-hide-xs"><a class="fly-logo" href="/<?php echo ADMIN_DIR;?>"><img src="<?php if(isset($config['logo']) AND strlen($config['logo'])>0):?><?php echo $config['logo'];?><?php else:?>/res/images/logo.png<?php endif;?>" alt="zfaka"></a></div>
             <ul class="layui-nav fly-nav" id="webmenu">
 				<li class="layui-nav-item layui-hide-lg layui-hide-md layui-hide-sm layadmin-flexible">
 					<a href="javascript:;" title="侧边伸缩">

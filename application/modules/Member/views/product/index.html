@@ -8,7 +8,7 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
-                    <table class="layui-table" id="order"></table>
+                    <table class="layui-table" id="order" lay-filter="table"></table>
                     <script type="text/javascript">
                         function createTime(v){
                             var date = new Date();
@@ -32,7 +32,8 @@
                         {{ createTime(d.addtime) }}
                     </script>
                     <script type="text/html" id="opt">
-						 <a href="/product/query?orderid={{d.orderid}}" class="layui-btn layui-btn-warm layui-btn-xs">查看</a>
+						 <a href="/product/query/?zlkbmethod=auto&orderid={{d.orderid}}" class="layui-btn layui-btn-warm layui-btn-xs">查看</a>
+						 <a data-href="/member/product/delete/?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
                     </script>
                 <script type="text/html" id="status">
                     {{# if(d.status =='0'){ }}

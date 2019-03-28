@@ -46,7 +46,8 @@ class M_Email extends Model
 
 	private function _getData()
 	{
-		$email = $this->Select();
+		$where = array('isdelete'=>0);
+		$email = $this->Where($where)->Select();
 		return $email;
 	}
 

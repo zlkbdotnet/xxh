@@ -11,7 +11,8 @@ class PcBasicController extends BasicController
 	protected $uinfo=array();
 	protected $userid=0;
 	protected $login=FALSE;
-	public $serverPrivateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKrU5gne1HvK18yk9aFX+LIgf8bIZvW/TgAAQWUkLkVDf1s91r6JmlmJsvGDz1KWuFEtU5k+ZTY+znh0ncLfgdTcmVvymp1D4fhEKt/JSaZNZe7Fb3kfl7iT15pQBivirrkpP1dwyM5EzafkRo5wKOktbQLYglW/e+ChVf4L+mqXAgMBAAECgYBcweb6Wwzi/rv4OWXKKps2FSFsTSpiq3Jt27WmdmPNZh4D6+rrYIn3riYEr35mKMKCCWuIHPIV5zpy+1ciFfxHNifvwVs9zpWGYkuvyI2Ar41zODI8doYFaQjWUBf/xJziabTEn1pFsH+Q8xWqr0fXdFdKYt6lYnjZR3bJIL79yQJBANaEQ0MqPqbj4s6L++igcgizkPOQ00a0kRdv6R0wQWqXg5fseg776sUv301XYbTnc7BlmHsQUQsYcROOqzhZlNsCQQDL3f2ehMGecX2qnImBGbXIRIIF1DnjULDzBpz/ijMYg1trIRRjBirWFj6cQOEOxlW2A8qpz1ZxR9zfSzjYXG/1AkBPn8xvs9CJlfDsBd29XUC2piBZqBokFoX8kxeONAk0DYVU8Pvlb/CWvMxAIv0rbvXsNenBVC8g1TOztLMtOWMdAkEAgC1ZyXHknm7yuPNkzOPSVFEmgu21W8OfDZ2p1k0Y5R+puch5ne0Bv8sKoIl2NyjiOOdXY761tdGeAFK2MeqkhQJALGjfBtrV9c3u3XVVbpASadkkOcUvXOb8fyRvTv03Bg3cbF3hP6ucb5SPEg6dDHixRj25S+JTiYH5WxbtyYni5g==";
+    public $serverPrivateKey = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAPiKwTi/M+PNwqvKI37LyTDWF3sRDHuOariVfBpIEv3976jViWDsTHNL5oxd+D2mRqdty3KM3SySItPE2DCQj/j7FoDn7Gz+F34GiqOmGKoRIBZy4N6C2P4d7G2x2DtMk2dMwg6/ZMzXumuyeziEXUMnPlpIomroaTCGWPr2/tmxAgMBAAECgYEAjK3FNoCLN2sUwDX3J2Ljqx/TRJZe0WTIJVh/WUTocxmT2KWdT94QW8ZfZZ4ez45ZOZWc7WasHflNez5U/BAnXLH89XmCuAWdCUqbkDm7fD76qa0gO0ScQrZQ34fTkBYaW2EAM40Mqd8rCAEuCBu6JVkP7wnaAU1MeQEvmVtv0H0CQQD848oh3WYoWZacUmq84udlnbycRAySka/J8/VImYVmQ2O/i4Y/GAZOeHtjrtfNZAtOxCbAkpnpmZfdgoIx3bd3AkEA+5lGwc5krprOHFVsJLiWLLpV+aFBPD5IrATaJ6X+l6EAxl1gUhaGlz85r9Jy6HCGi6Mv07gmPmgzUVjb+XsSFwJAKtzhEcRY4FXu9Sfy93juB4coxMOz7dPLm8tBs8Bxn9ekPH8FjgQgbYR2RXsJEML4N61/c/xlIfbqipzoPFN8GQJBAMnp+ZoBvFVQEUc12sMhjAu7QtJCcmsZhRLgFf+pvMcNQ+Tt/SYDw+HPsMkEuIkH/UJFJVXhPHfrAfwvtuHhveMCQQCMXoBkqc8GhjaXPvW0ZJ2IVu+5lo/YhCG4GY2YsLPysA7XMJMwojuETHwcuqMJ2fXvIxrlGTLjGJmV9Bi7nebO";
+    public $serverPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD4isE4vzPjzcKryiN+y8kw1hd7EQx7jmq4lXwaSBL9/e+o1Ylg7ExzS+aMXfg9pkanbctyjN0skiLTxNgwkI/4+xaA5+xs/hd+BoqjphiqESAWcuDegtj+Hextsdg7TJNnTMIOv2TM17prsns4hF1DJz5aSKJq6Gkwhlj69v7ZsQIDAQAB";
   	
 	public function init(){	
 		parent::init();
@@ -52,7 +53,7 @@ class PcBasicController extends BasicController
         $tokenKey = array(
             "iss" => "http://zlkb.net",  //jwt签发者
             "aud" => 'RPC',                     //接收jwt的一方
-            "exp" => time() + 60,               //过期时间
+            "exp" => time() + 600,               //过期时间
         );
         return JWT::encode($tokenKey, self::readRSAKey($this->serverPrivateKey), 'RS256');
     }
@@ -77,8 +78,28 @@ class PcBasicController extends BasicController
 	
 	//生成csrftoken　防csrf攻击
     private function createCsrfToken(){
-    	$csrf_token=$this->getSession('csrf_token');
-    	if(!$csrf_token){
+    	$csrf_token = $this->getSession('csrf_token');
+		$isCreate = false;
+		if($csrf_token){
+			try {
+				if(!isAjax()){
+					$decoded = JWT::decode($csrf_token, self::readRSAKey($this->serverPublicKey), array('RS256'));
+					$tokenKey = (array)$decoded;
+					if (is_array($tokenKey) AND !empty($tokenKey)) {
+						
+		
+					} else {
+						$isCreate = true;
+					}
+				}
+			}catch(\Exception $e){
+				$isCreate = true;
+			}
+		}else{
+			$isCreate = true;
+		}
+		
+    	if($isCreate == true){
     		$csrf_token=$this->createToken(); 
 			$this->setSession('csrf_token',$csrf_token);
     	}
@@ -86,13 +107,23 @@ class PcBasicController extends BasicController
 	}
 	//验证csrftoken 防csrf攻击
 	public function VerifyCsrfToken($csrf_token=''){
-		$csrf_token=$csrf_token?$csrf_token:$this->getPost('csrf_token',false);
-		$session_csrf_token=$this->getSession('csrf_token'); 
+		$csrf_token = $csrf_token?$csrf_token:$this->getPost('csrf_token',false);
+		$session_csrf_token = $this->getSession('csrf_token',false); 
 		if($session_csrf_token && $session_csrf_token==$csrf_token){
-			if(!isAjax()){
-				$this->setSession('csrf_token','');
+			try {
+				$decoded = JWT::decode($csrf_token, self::readRSAKey($this->serverPublicKey), array('RS256'));
+                $tokenKey = (array)$decoded;
+                if (is_array($tokenKey) AND !empty($tokenKey)) {
+					if(!isAjax()){
+						$this->setSession('csrf_token','');
+					}
+					return true;
+                } else {
+                    return false;
+                }
+			}catch(\Exception $e){
+				return false;
 			}
-			return true;
 		}else{
 			return false;
 		}

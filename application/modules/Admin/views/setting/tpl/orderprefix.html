@@ -1,0 +1,51 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/setting-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="" lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/setting">配置中心</a></li>
+                <li class="layui-this" lay-id="info">编辑</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <form class="layui-form layui-show" method="post">
+                        <div class="layui-form-item">
+                            <label for="name" class="layui-form-label">配置名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" name="name" readonly="readonly" disabled lay-verify="required" autocomplete="off" value="<?php echo $item['name'];?>" class="layui-input">
+                            </div>
+                        </div>
+
+
+						<div class="layui-form-item">
+							<label for="value" class="layui-form-label">值</label>
+							<div class="layui-input-inline">
+								<input type="text" id="value" name="value" required lay-verify="required" autocomplete="off" value="<?php echo $item['value'];?>" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux">订单前缀只能是英文和数字,且长度不要超过5个字符串</div>
+						</div>
+
+                       
+                        <div class="layui-form-item layui-form-text">
+                            <label for="tag" class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="" id="tag" name="tag" readonly="readonly" disabled autocomplete="off" class="layui-textarea" style="height: 80px;"><?php echo $item['tag'];?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="hidden" name="id" value="<?php echo $item['id'];?>">
+                            <input type="hidden" name="method" value="edit">
+                            <button class="layui-btn" key="set-mine" lay-filter="edit" lay-submit>确认修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminsetting');
+</script>

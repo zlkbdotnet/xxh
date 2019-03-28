@@ -1,0 +1,66 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/products-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="" lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/products/">商品管理</a></li>
+				<li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/productspifa/?id=<?php echo $pid;?>">批发</a></li>
+				<li class="layui-this" lay-id="info">添加批发</li>
+                </li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p> 注意事项： </p>
+                        <p> 我还没想到要注意啥;</p>
+                    </blockquote>
+                    <form class="layui-form layui-show" method="post" id="products_form">
+                        <div class="layui-form-item">
+                            <label for="name" class="layui-form-label">商品名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" name="name" disabled readonly autocomplete="off" value="<?php echo $product['name'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="price" class="layui-form-label">单价</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="price" name="price" disabled readonly autocomplete="off" value="<?php echo $product['price'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="qty" class="layui-form-label">数量</label>
+                            <div class="layui-input-inline">
+                                <input type="number" id="qty" name="qty" lay-verify="required" autocomplete="off" value="" class="layui-input">
+                            </div>
+                        </div>
+						
+                        <div class="layui-form-item">
+                            <label for="discount" class="layui-form-label">折扣</label>
+                            <div class="layui-input-inline">
+                                <input type="number" id="discount" name="discount" lay-verify="required" autocomplete="off" value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label for="tag" class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="" id="tag" name="tag" autocomplete="off" class="layui-textarea" style="height: 80px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="hidden" name="method" value="add">
+							<input type="hidden" name="id" id="id" value="0">
+                            <input type="hidden" name="pid" id="pid" value="<?php echo $pid;?>">
+                            <button class="layui-btn" key="set-mine" lay-filter="edit" lay-submit>确认新增</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminproductspifa');
+</script>

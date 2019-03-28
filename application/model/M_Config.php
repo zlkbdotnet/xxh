@@ -44,10 +44,14 @@ class M_Config extends Model
 
 	private function _getData()
 	{
-		$result=$this->Select();
-		foreach($result AS $i){
-			$config[$i['name']]=htmlspecialchars_decode($i['value'],ENT_QUOTES);
+		$result = $this->Select();
+		$config = array();
+		if(!empty($result)){
+			foreach($result AS $i){
+				$config[$i['name']]=htmlspecialchars_decode($i['value'],ENT_QUOTES);
+			}
 		}
+
 		return $config;
 	}
 

@@ -1,0 +1,86 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/setting-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="" lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/payment">支付设置</a></li>
+                <li class="layui-this" lay-id="info">编辑</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p> 注意事项： </p>
+                        <p> 本支付接口同步支付回调地址(第一种):<?php echo $config['weburl'];?>/product/query/?zlkbmethod=auto&paymethod=<?php echo $item['alias'];?>&orderid={订单号}</p>
+						<p> 本支付接口同步支付回调地址(第二种):<?php echo $config['weburl'];?>/query/auto/{订单号}.html</p>
+						<p> 本支付接口异步支付回调地址:<?php echo $config['weburl'];?>/product/notify/?paymethod=<?php echo $item['alias'];?></p>
+                    </blockquote>
+					<blockquote class="layui-elem-quote">嗯嗯，强烈推荐使用本接口（因为就是我写的）；<a class="layui-btn layui-btn-danger layui-btn-xs" target="_blank" href="https://codepay.zlkb.net">点击注册</a></blockquote>
+                    <form class="layui-form layui-show" method="post">
+                        <div class="layui-form-item">
+                            <label for="t_payment" class="layui-form-label">支付渠道</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="t_payment" name="payment" readonly disabled lay-verify="required" autocomplete="off" value="<?php echo $item['payment'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="payname" class="layui-form-label">显示名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="payname" name="payname" lay-verify="required" autocomplete="off" value="<?php echo $item['payname'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="app_id" class="layui-form-label">AppID</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="app_id" name="app_id" required lay-verify="required" autocomplete="off" value="<?php echo $item['app_id'];?>" class="layui-input">
+                            </div>
+                        </div>
+						
+                        <div class="layui-form-item">
+                            <label for="app_secret" class="layui-form-label">AppSecret</label>
+                            <div class="layui-input-inline">
+								<input type="text" id="app_secret" name="app_secret" required lay-verify="required" autocomplete="off" value="<?php echo $item['app_secret'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="configure3" class="layui-form-label">网关地址</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="configure3" name="configure3" required lay-verify="required" autocomplete="off" value="<?php echo $item['configure3'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">支付页面</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="configure4" value="0" title="本地" <?php if($item['configure4']=='0' ):?>checked=""<?php endif;?>>
+                                <input type="radio" name="configure4" value="1" title="云端" <?php if($item['configure4']=='1' ):?>checked=""<?php endif;?>>
+                            </div>
+                        </div>	
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否激活</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="active" value="1" title="激活" <?php if($item['active']=='1' ):?>checked=""<?php endif;?>>
+                                <input type="radio" name="active" value="0" title="取消" <?php if($item['active']=='0' ):?>checked=""<?php endif;?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="overtime" class="layui-form-label">超时设置</label>
+                            <div class="layui-input-inline">
+                                <input type="number" id="overtime" name="overtime" required lay-verify="required" autocomplete="off" value="<?php echo $item['overtime'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="hidden" name="id" value="<?php echo $item['id'];?>">
+                            <input type="hidden" name="method" value="edit">
+                            <button class="layui-btn" key="set-mine" lay-filter="edit" lay-submit>确认修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminpayment');
+</script>

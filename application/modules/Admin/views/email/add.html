@@ -1,0 +1,83 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/setting-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/email/">邮箱管理</a></li>
+				<li class="layui-this" lay-id="info">添加</a></li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+						<blockquote class="layui-elem-quote">
+							<p> 注意事项： </p>
+							<p> 1.邮件发送模式只支持SMTP</p>
+							<p> 2.注意看清楚是否使用SSL</p>
+							<p> 3.端口号参考：SSL协议下一般为465/587,非SSL协议下一般为25;当然最好根据邮件服务商的说明来进行配置</p>
+						</blockquote>
+                    <form class="layui-form layui-show" method="post">
+                        <div class="layui-form-item">
+                            <label for="mailaddress" class="layui-form-label">邮箱地址</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="mailaddress" name="mailaddress" lay-verify="required|email" autocomplete="off" value="" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">这个是邮箱账号</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="mailpassword" class="layui-form-label">邮箱密码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="mailpassword" name="mailpassword" required lay-verify="required" autocomplete="off" value="" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">这个是邮箱密码，也可能是授权码</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="sendmail" class="layui-form-label">发件人邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="sendmail" name="sendmail" autocomplete="off" lay-verify="required|email" value="" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">这个是用来显示发件人邮箱地址的</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="sendname" class="layui-form-label">发件人昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="sendname" name="sendname" autocomplete="off" lay-verify="required" value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="host" class="layui-form-label">发送服务器</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="host" name="host" autocomplete="off" lay-verify="required" value="smtp.exmail.qq.com" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">smtp.exmail.qq.com是QQ企业邮箱smtp地址</div>
+                        </div>
+						<div class="layui-form-item">
+							<label for="isssl" class="layui-form-label">使用SSL</label>
+							<div class="layui-input-inline">
+								 <select name="isssl">
+									<option value="0" selected="">不使用</option>
+									<option value="1" >使用</option>
+								  </select>
+							</div>
+						</div> 
+                        <div class="layui-form-item">
+                            <label for="port" class="layui-form-label">端口号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="port" name="port" autocomplete="off" lay-verify="required" value="465" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+							<input type="hidden" name="id" value="0">
+							<input type="hidden" name="method" value="add">
+                            <button class="layui-btn" key="set-mine" lay-filter="email" lay-submit>确认新增</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+    layui.use('adminemail');
+</script>

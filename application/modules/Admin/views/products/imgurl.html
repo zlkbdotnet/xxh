@@ -1,0 +1,49 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/products-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/products/">商品管理</a></li>
+				<li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/products/edit/?id=<?php echo $product['id'];?>">编辑</a></li>
+                <li class="layui-this" lay-id="upload">上传图片</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p> 注意事项： </p>
+                        <p> 1.图片限制5M大小;
+						<br/>2.图片尺寸比例必须为1:1,例如:宽300px,高300px
+						</p>
+                    </blockquote>
+                    <form class="layui-form layui-show" method="post" id="products_imgurl_form">
+						<div class="layui-row">
+							<div class="up-block" style="text-align: center;">
+								<div class="layui-upload">
+									<?php if($product['imgurl']):?>
+									<div class="btnbox_top"><button type="button" class="layui-btn" id="upload">更换图片</button></div>
+									<?php else:?>
+									<div class="btnbox_top"><button type="button" class="layui-btn" id="upload">上传图片</button></div>
+									<?php endif;?>
+									<div class="layui-upload-list">
+										<img class="layui-upload-img" width="210" id="preview" <?php if($product['imgurl']):?> src="<?php echo $product['imgurl'];?>" <?php else:?>src="/res/images/noimg.jpg"<?php endif;?>>
+									</div>
+								</div>
+								<div id="imgblock"></div>
+								<div class="btnbox">
+									<input type="hidden" name="pid" value="<?php echo $product['id'];?>">
+									<button class="layui-btn layui-btn-normal layui-btn-disabled" lay-filter="upload" lay-submit id="btnbox" disabled="disabled">立即保存</button>
+								</div>
+							</div>
+						</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminproducts');
+</script>

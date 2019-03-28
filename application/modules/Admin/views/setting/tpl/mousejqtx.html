@@ -21,16 +21,16 @@
 							<label for="value" class="layui-form-label">值</label>
 							<div class="layui-input-inline">
 								 <select name="value">
-									<option value="0" <?php if($item['value']=="0"):?>selected=""<?php endif;?>>无效果</option>
+									<option value="0" <?php if($item['value']=="0" OR $item['value']=="" ):?>selected=""<?php endif;?>>无效果</option>
 									<option value="mousejqtxstars" <?php if($item['value']=="mousejqtxstars"):?>selected=""<?php endif;?>>星星效果</option>
 								  </select>
 							</div>
 						</div> 
                        
                         <div class="layui-form-item layui-form-text">
-                            <label for="L_sign" class="layui-form-label">备注</label>
+                            <label for="tag" class="layui-form-label">备注</label>
                             <div class="layui-input-block">
-                                <textarea placeholder="" id="L_sign" name="tag" autocomplete="off" class="layui-textarea" style="height: 80px;"><?php echo $item['tag'];?></textarea>
+                                <textarea placeholder="" id="tag" name="tag" readonly="readonly" disabled autocomplete="off" class="layui-textarea" style="height: 80px;"><?php echo $item['tag'];?></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">

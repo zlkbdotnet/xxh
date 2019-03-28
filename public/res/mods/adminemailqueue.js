@@ -1,8 +1,8 @@
-layui.define(['layer', 'table'], function(exports){
+layui.define(['layer', 'table', 'form'], function(exports){
 	var $ = layui.jquery;
 	var layer = layui.layer;
 	var table = layui.table;
-
+	var form = layui.form;
 
 	table.render({
 		elem: '#table',
@@ -15,12 +15,25 @@ layui.define(['layer', 'table'], function(exports){
 			{field: 'status', title: '状态', width:80, templet: '#status',align:'center'},
 			{field: 'email', title: '收件人', minWidth:160},
 			{field: 'subject', title: '主题', minWidth:160},
-			{field: 'addtime', title: '添加时间', width:200, templet: '#addtime',align:'center'},
 			{field: 'sendtime', title: '发送时间', width:200, templet: '#sendtime',align:'center'},
 			{field: 'opt', title: '操作', templet: '#opt',align:'center',fixed: 'right', width: 160},
 		]]
 	});
-
+    form.on('submit(search)', function(data){
+        table.reload('table', {
+            url: '/'+ADMIN_DIR+'/emailqueue/ajax',
+            where: data.field
+        });
+        return false;
+    });
+	
+	table.on('tool(table)', function(obj){
+		var data = obj.data;
+		if(obj.event === 'detail'){
+			layer.msg('失败原因:'+ data.sendresult );
+		}
+	});
+  
     $('#deleteALL').on('click',function () {
         var checkStatus = table.checkStatus('table');
         var data=checkStatus.data;

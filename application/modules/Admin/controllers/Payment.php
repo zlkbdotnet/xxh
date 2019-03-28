@@ -100,6 +100,7 @@ class PaymentController extends AdminBasicController
 		$ali_public_key = $this->getPost('ali_public_key',false);
 		$rsa_private_key = $this->getPost('rsa_private_key',false);
 		$configure3 = $this->getPost('configure3',false);
+		$configure4 = $this->getPost('configure4',false);
 		$active = $this->getPost('active',false);
 		$overtime = $this->getPost('overtime',false);
 		$csrf_token = $this->getPost('csrf_token', false);
@@ -124,7 +125,7 @@ class PaymentController extends AdminBasicController
 					$m['payimage']=$payimage;
 				}
 				
-				$sign=array('RSA','RSA2');
+				$sign=array('RSA','RSA2','MD5','HMAC-SHA256');
 				if(isset($sign_type) AND strlen($sign_type)>0 AND in_array($sign_type,$sign)){
 					$m['sign_type']=$sign_type;
 				}
@@ -139,6 +140,9 @@ class PaymentController extends AdminBasicController
 				}
 				if(isset($configure3) AND strlen($configure3)>0){
 					$m['configure3']=$configure3;
+				}
+				if(isset($configure4) AND strlen($configure4)>0){
+					$m['configure4']=$configure4;
 				}
 				if(isset($overtime) AND is_numeric($overtime)){
 					$m['overtime']=$overtime;

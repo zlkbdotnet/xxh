@@ -34,7 +34,14 @@ class EmailqueueController extends AdminBasicController
 			Helper::response($data);
         }
 		
+		$where1 = "1";
+		$status = $this->get('status');
+		if(is_numeric($status) AND $status>-1){
+			$where1 .= " AND status = {$status}"; 
+		}
+		
 		$where = array('isdelete'=>0);
+		
 		
 		$page = $this->get('page');
 		$page = is_numeric($page) ? $page : 1;
@@ -42,7 +49,7 @@ class EmailqueueController extends AdminBasicController
 		$limit = $this->get('limit');
 		$limit = is_numeric($limit) ? $limit : 10;
 		
-		$total=$this->m_email_queue->Where($where)->Total();
+		$total=$this->m_email_queue->Where($where)->Where($where1)->Total();
 		
         if ($total > 0) {
             if ($page > 0 && $page < (ceil($total / $limit) + 1)) {
@@ -52,7 +59,7 @@ class EmailqueueController extends AdminBasicController
             }
 			
             $limits = "{$pagenum},{$limit}";
-			$items=$this->m_email_queue->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
+			$items=$this->m_email_queue->Where($where)->Where($where1)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
 			
             if (empty($items)) {
                 $data = array('code'=>1001,'count'=>0,'data'=>array(),'msg'=>'无数据');

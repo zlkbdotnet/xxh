@@ -103,7 +103,7 @@ class AdminBasicController extends BasicController
 	//验证csrftoken 防csrf攻击
 	public function VerifyCsrfToken($csrf_token=''){
 		$csrf_token=$csrf_token?$csrf_token:$this->getPost('csrf_token',false);
-		$session_csrf_token=$this->getSession('csrf_token'); 
+		$session_csrf_token=$this->getSession('csrf_token',false); 
 		if($session_csrf_token && $session_csrf_token==$csrf_token){
 			if(!isAjax()){
 				$this->setSession('csrf_token','');

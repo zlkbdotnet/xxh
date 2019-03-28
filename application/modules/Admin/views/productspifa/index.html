@@ -1,0 +1,44 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/products-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/products/">商品管理</a></li>
+                <li class="layui-this" lay-id="pifa">批发</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <form class="layui-form layui-show">
+                        <div class="layui-form-item">
+                            <label for="name" class="layui-form-label">商品名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" name="name" disabled readonly autocomplete="off" value="<?php echo $product['name'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="price" class="layui-form-label">单价</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="price" name="price" disabled readonly autocomplete="off" value="<?php echo $product['price'];?>" class="layui-input">
+                            </div>
+                        </div>
+					</form>
+					<div class="layui-inline layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
+						<a class="layui-btn" href="/<?php echo ADMIN_DIR;?>/productspifa/add/?pid=<?php echo $product['id'];?>">添加</a>
+					</div>
+					<input type="hidden" name="pid" id ="pid" value="<?php echo $product['id'];?>">
+					<table class="layui-table" id="table" lay-filter="table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="opt">
+    <a class="layui-btn layui-btn-warm layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/productspifa/edit/?id={{d.id}}">编辑</a>
+	<a data-href="/<?php echo ADMIN_DIR;?>/productspifa/delete/?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+</script>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminproductspifa');
+</script>

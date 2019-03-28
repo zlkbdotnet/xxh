@@ -104,16 +104,16 @@
 			</div>
 			<?php endif;?>
 
-			<div class="fly-panel" style="margin-top:-20px;padding-bottom: 20px;">
+			<div class="fly-panel" id="query-pane" style="margin-top:-20px;padding-bottom: 20px;">
 				<?php if($order['status']>0):?>
-					<p style="margin-bottom: 0;text-align:center"><button class="layui-btn layui-btn-warm">已支付</button></p>
+					<p style="margin-bottom: 0;text-align:center"><button class="layui-btn layui-btn-warm">已支付</button><button class="layui-btn view_kami" data-orderid="<?php echo $order['orderid'];?>">查看卡密</button></p>
 				<?php else:?>
 					<?php if(!empty($payments)):?>
 						<div class="layui-tab-content">
 							<div class="layui-tab-item layui-show">
 								<div class="layui-form-pane">
 									<div class="layerPay" id="layerPay" style="margin-bottom: 0;text-align:center">
-										<input type="hidden" id="oid" value="<?php echo $order['id'];?>">
+										<input type="hidden" id="oid" value="<?php echo base64_encode($order['orderid']);?>">
 										<?php foreach($payments AS $payment):?>
 											<?php if($payment['active']>0):?><a class="orderpaymethod" data-type="<?php echo $payment['alias'];?>"><img src="<?php echo $payment['payimage'];?>"></a><?php endif;?>
 										<?php endforeach;?>

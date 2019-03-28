@@ -39,6 +39,20 @@ class ReportController extends AdminBasicController
 			$today_report['money'] = 0.00;
 		}
 		$data['today_report'] = $today_report;
+		//本周统计
+		$week_report = array();
+		$starttime = mktime(0,0,0,date('m'),date('d')-date('w')+1,date('y')); 
+		$endtime = strtotime(date("Y-m-d 23:59:59"));
+		$sql ="SELECT count(*) AS total,sum(money) AS shouru FROM `t_order` Where isdelete=0 AND status>0 AND addtime>={$starttime} AND addtime<={$endtime}";
+		$total_result = $this->m_order->Query($sql);
+		if(is_array($total_result) AND !empty($total_result)){
+			$week_report['total'] = $total_result[0]['total'];
+			$week_report['money'] = number_format($total_result[0]['shouru'],2,".",".");
+		}else{
+			$week_report['total'] = 0;
+			$week_report['money'] = 0.00;
+		}
+		$data['week_report'] = $week_report;
 		//当月统计
 		$month_report = array();
 		$firstday = date('Y-m-01', strtotime(date("Y-m-d")));

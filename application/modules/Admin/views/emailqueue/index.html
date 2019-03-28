@@ -9,6 +9,20 @@
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
                     <div class="layui-form-item layui-show">
+						<div class="layui-form layui-row layui-col-space10">
+							<div class="layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
+								<select name="status">
+									<option value="-1" >筛选状态</option>
+									<option value="0">待发送</option>
+									<option value="1">已发送</option>
+									<option value="2">处理失败</option>
+								</select>
+							</div>
+
+							<div class="layui-inline layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
+								<button lay-submit class="layui-btn" lay-filter="search">查询</button>
+							</div>
+						</div>
 						<div class="layui-inline layui-col-xs12 layui-col-sm4 layui-col-md3 layui-col-lg2">
 							<button class="layui-btn layui-btn-danger" id="deleteALL"><i class="layui-icon">&#xe640;</i>批量删除</button>
 						</div>
@@ -57,6 +71,8 @@
 <script type="text/html" id="opt">
 {{# if(d.status =='1'){ }}
 	<a data-href="/<?php echo ADMIN_DIR;?>/emailqueue/delete/?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+{{# } else { }}
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看结果</a>
 {{# } }}
 </script>
 <!--引入公共底文件-->

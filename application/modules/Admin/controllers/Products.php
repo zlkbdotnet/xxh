@@ -92,6 +92,87 @@ class ProductsController extends AdminBasicController
 		}
     }
 	
+	//图片管理
+    public function imgurlAction()
+    {
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $this->redirect('/'.ADMIN_DIR."/login");
+            return FALSE;
+        }
+		$id = $this->get('id');
+		if($id AND $id>0){
+			$data = array();
+			$product=$this->m_products->SelectByID('',$id);
+			$data['product'] = $product;
+			$this->getView()->assign($data);
+		}else{
+            $this->redirect('/'.ADMIN_DIR."/products");
+            return FALSE;
+		}
+    }
+	
+	public function imgurlajaxAction(){
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $data = array('code' => 1000, 'msg' => '请登录');
+			Helper::response($data);
+        }
+		if(is_array($_FILES) AND !empty($_FILES) AND isset($_FILES['file'])){
+			if(isset($_FILES["file"]["error"]) AND $_FILES["file"]["error"]){
+				$data = array('code' => 1000, 'msg' =>$_FILES["file"]["error"]);
+				Helper::response($data); 
+			}else{
+				$pid = $this->getPost('pid');
+				if(is_numeric($pid) AND $pid>0){
+						try{
+							$ext = pathinfo($_FILES['file']['name']);
+							$ext = strtolower($ext['extension']);
+							$tempFile = $_FILES['file']['tmp_name'];
+							$targetPath  = UPLOAD_PATH.'/'.CUR_DATE;
+							if( !is_dir($targetPath) ){
+								mkdir($targetPath,0777,true);
+							}
+							$filename=date("His");
+							$new_file_name = $filename.'.'.$ext;
+							$targetFile = $targetPath .'/'. $new_file_name;
+							move_uploaded_file($tempFile,$targetFile);
+							if( !file_exists( $targetFile ) ){
+								$data = array('code' => 1000, 'msg' => '上传失败');
+							} elseif( !$imginfo=getimagesize($targetFile) ) {
+								$data = array('code' => 1000, 'msg' => '上传失败,文件不存在 ');
+							} else {
+								if($imginfo[0]!=$imginfo[1]){
+									//裁减图片
+									if($imginfo[0]>$imginfo[1]){
+										$w = $imginfo[1];
+									}else{
+										$w = $imginfo[0];
+									}
+									\Yaf\Loader::import(FUNC_PATH.'/F_Img.php');
+									image_center_crop($targetFile, $w, $w, $targetFile);
+								}
+								
+								$img = '/res/upload/'.CUR_DATE.'/'.$new_file_name;
+								$data['code'] = 1;
+								$data['img'] =$img ;
+								//保存到数据库
+								$m=array('imgurl'=>$img);
+								$this->m_products->UpdateByID($m,$pid);
+								$data = array('code' => 1, 'msg' => 'success');
+							}
+						}catch(\Exception $e) {
+							$data = array('code' => 1002, 'msg' => $e->getMessage(),'data'=>array());
+						}
+				}else{
+					$data = array('code' => 1001, 'msg' => '请选择商品','data'=>array());
+				}
+			}
+		}else{
+			$data = array('code' => 1000, 'msg' => '上传内容为空,请重新上传','data'=>array());
+		}
+		Helper::response($data);
+	}
+	
+	
     public function addAction()
     {
         if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
@@ -110,6 +191,7 @@ class ProductsController extends AdminBasicController
 		$id = $this->getPost('id',false);
 		$typeid = $this->getPost('typeid',false);
 		$name = $this->getPost('name',false);
+		$password = $this->getPost('password',false);
 		$description = $this->getPost('description',false);
 		$stockcontrol = $this->getPost('stockcontrol',false);
 		$qty = $this->getPost('qty',false);
@@ -135,9 +217,10 @@ class ProductsController extends AdminBasicController
 				}
 				
 				$description = str_replace(array("\r","\n","\t"), "", $description);
-				$m=array(
+				$m = array(
 					'typeid'=>$typeid,
 					'name'=>$name,
+					'password'=>$password,
 					'description'=>htmlspecialchars($description),
 					'stockcontrol'=>$stockcontrol,
 					'qty'=>$qty,
@@ -169,6 +252,7 @@ class ProductsController extends AdminBasicController
 						$m['qty'] = 0;
 					}
 					$m['addtime'] = time();
+					$m['imgurl'] = "";
 					$u = $this->m_products->Insert($m);
 					if($u){
 						$data = array('code' => 1, 'msg' => '新增成功');
@@ -232,7 +316,7 @@ class ProductsController extends AdminBasicController
 				//检查是否存在可用的卡密
 				$qty = $this->m_products_card->Where(array('pid'=>$id,'active'=>0,'isdelete'=>0))->Total();
 				if($qty>0){
-					$data = array('code' => 1004, 'msg' => '存在可用卡密，请导出', 'data' => '');
+					$data = array('code' => 1004, 'msg' => '存在可用卡密，请先导出并删除卡密', 'data' => '');
 				}else{
 					$where = 'active=0';//只有未激活的才可以删除
 					$delete = $this->m_products->Where($where)->UpdateByID(array('isdelete'=>1),$id);

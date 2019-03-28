@@ -42,6 +42,26 @@ input[readonly]{
 input.readonly{
 	background-color:#F5F5F5;
 }
+
+textarea:disabled{
+	background-color:#F5F5F5;
+}
+textarea[disabled]{
+	background-color:#F5F5F5;
+}
+textarea.disabled{
+	background-color:#F5F5F5;
+}
+textarea:readonly{
+	background-color:#F5F5F5;
+}
+textarea[readonly]{
+	background-color:#F5F5F5;
+}
+textarea.readonly{
+	background-color:#F5F5F5;
+}
+
 .layui-btn.disabled, .layui-btn[disabled], fieldset[disabled] .layui-btn {
     pointer-events: none;
     cursor: not-allowed;
@@ -170,6 +190,7 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 /* 头部 */
 .fly-header{position: fixed; left: 0; top: 0; z-index: 10000; width: 100%; height: 60px; border-bottom: 1px solid #404553; border-right: 1px solid #404553; border-radius: 0;}
 .fly-logo{position: absolute;top: 11px;}
+.fly-logo img{height:40px;}
 .fly-nav{margin-left: 150px;}
 @media screen and (max-width: 450px){
 	.fly-nav{margin-left: 0;}
@@ -595,8 +616,9 @@ body .fly-user-main{position: relative; min-height: 600px;}
 .orderpaymethod img{width: 100%;max-width: 150px;border: 1px solid #EAEAEA;cursor: pointer;}
 .mod-title {height: 60px;line-height: 60px;text-align: center;border-bottom: 1px solid #ddd;background: #fff}
 .ico_log {display: inline-block;width: 130px;height: 38px;vertical-align: middle;margin-right: 7px}
-.ico-codepayalipay,.ico-zfbf2f,.ico-zfbweb{background: url("/res/images/pay/alipay.jpg") no-repeat;}
-.ico-codepayqq {background: url("/res/images/pay/qqpay.jpg") no-repeat;}
+.ico-codepayalipay,.ico-zfbf2f,.ico-zlkbcodepayalipay{background: url("/res/images/pay/alipay.jpg") no-repeat;}
+.ico-zfbweb{background: url("/res/images/pay/alipayweb.jpg") no-repeat;}
+.ico-codepayqq ,.ico-zlkbcodepayqq{background: url("/res/images/pay/qqpay.jpg") no-repeat;}
 .ico-yzpay {background: url("/res/images/pay/yzpay.jpg") no-repeat;}
 .ico-codepaywx,.ico-zlkbcodepaywx {background: url("/res/images/pay/weixin.jpg") no-repeat;}
 .mod-title .text {font-size: 20px;color: #333;font-weight: normal;vertical-align: middle}
@@ -607,3 +629,28 @@ body .fly-user-main{position: relative; min-height: 600px;}
 .item-title {background: none;line-height: 25px;font-size: 24px;padding: 0 10px;float: left;}
 #prodcut_description {vertical-align: middle;word-break:break-all;overflow:auto;white-space:normal; }
 #prodcut_description img{ width: 100%;height: auto;}
+
+/*20181228 新商品详情页*/
+.trade-goodname {font-size: 20px;color: #3C3C3C;}
+.good-trade p {font-size: 15px;line-height: 30px;}
+.trade-price {color: #F40;font-size: 26px;font-weight: 700;}
+.trade-goodinfo {background-color: #FFF2E8;padding: 10px; margin-bottom: 5px;padding-left: 35px;}
+.trade-youhui {background-color: #fff2e9;padding: 10px; margin-bottom: 5px;padding-left: 35px;}
+/*20181231 新增首页列表*/
+.goodsdetail{}
+.goodsdetail-img{padding: 10px;}
+.goodsdetail-container {background: #fff;border: 1px dashed #d2d2d2;}
+.goodsdetail-container img {width: 100%;}
+.goodsdetail-text {padding: 10px;}
+.goodsdetail-text .info {text-overflow: ellipsis;white-space: nowrap;font-size: 14px;line-height: 20px;width: 100%;overflow: hidden;color: #666;}
+.goodsdetail-text .price {color: red;font-size: 14px;}
+.goodsdetail-text .price b {margin-right: 20px;}
+.goodsdetail-text .price p {display: inline-block;}
+/*20190102 新增移动端*/
+.goodsdetail-mobile{background: #fff;border: 1px dashed #d2d2d2;padding: 10px;position: relative;display: -webkit-box;display: -webkit-flex;display: flex;-webkit-box-align: center;-webkit-align-items: center;align-items: center;}
+.goodsdetail-mobile-img{position: relative;margin-right: 10px;}
+.goodsdetail-mobile-img img{width: 50px;display: block;}
+.goodsdetail-mobile-text{-webkit-box-flex: 1;-webkit-flex: 1;flex: 1;overflow: hidden;}
+.goodsdetail-mobile-text .info{text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+.goodsdetail-mobile-text .price{color: red;font-size: 13px;}
+.goodsdetail-mobile-btn {}

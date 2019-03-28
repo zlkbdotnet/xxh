@@ -4,7 +4,7 @@
 
 >演示地址：https://faka.zlkb.net/
 
->永久免费、绝对开源、没有商业版，不支持特殊定制，欢迎提供各种需求和意见与建议。
+>永久免费、绝对开源，不支持特殊定制，欢迎提供各种需求和意见与建议。
 
 
 # 一、系统介绍
@@ -28,14 +28,13 @@
 
 * 码支付(第三方辅助工具)
 
-* 有赞支付(第三方支付平台)---[有赞云－支付API开通教程](https://github.com/zlkbdotnet/zfaka/wiki/%E6%9C%89%E8%B5%9E%E4%BA%91%EF%BC%8D%E6%94%AF%E4%BB%98API%E5%BC%80%E9%80%9A%E6%95%99%E7%A8%8B)
+* 有赞支付(第三方支付平台)---[有赞云(听说新注册账户已经不支持申请API接口了)－支付API开通教程](https://github.com/zlkbdotnet/zfaka/wiki/%E6%9C%89%E8%B5%9E%E4%BA%91%EF%BC%8D%E6%94%AF%E4%BB%98API%E5%BC%80%E9%80%9A%E6%95%99%E7%A8%8B)
 
 * 强烈推荐，收款宝(第三方辅助工具)---[收款宝](https://github.com/zlkbdotnet/zfaka/wiki/%E6%94%AF%E4%BB%98%E6%8E%A5%E5%8F%A3-%E6%94%B6%E6%AC%BE%E5%AE%9D)
 
->不要问我可不可以支持，只要你提供测试账户与接口文档，一般1－4周我都会更新上去；
-
 
 # 二、系统部署
+>**友情提示：很多人安装失败都是因为没有仔细看所有的wiki，所以请仔细看完所有的wiki再操作**
 
 ## 2.1 环境安装
 
@@ -77,9 +76,8 @@
 >参考：[系统安装指南](https://github.com/zlkbdotnet/zfaka/wiki/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97).
 
 ### 2.2.1 下载代码
-<pre>
-	git clone https://github.com/zlkbdotnet/zfaka.git [这是最新测试版]
-</pre> 
+>测试版：
+<pre>git clone https://github.com/zlkbdotnet/zfaka.git [这是最新测试版]</pre> 
 
 >稳定版：请访问这里下载：https://github.com/zlkbdotnet/zfaka/releases
 
@@ -99,10 +97,8 @@
 ### 2.2.4 直接访问安装
 
 ### 2.2.5 安装计划任务crontab模块,配置定时计划,用于定时发送邮件
-* 常规计划任务crontab的部署,/alidata/wwwroot/faka.zlkb.net/路径请替换成自己的
-<pre>
-*/2 * * * * php -q /alidata/wwwroot/faka.zlkb.net/public/cli.php request_uri="/crontab/sendemail/index"
-</pre> 	
+* lnmp环境计划任务crontab的部署
+>参考：[lnmp环境中如何部署计划任务](https://github.com/zlkbdotnet/zfaka/wiki/lnmp%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1)
 
 * 宝塔环境计划任务crontab的部署
 >参考：[宝塔环境中如何部署计划任务](https://github.com/zlkbdotnet/zfaka/wiki/%E5%AE%9D%E5%A1%94%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1).
@@ -114,15 +110,15 @@
 >参考： [后台地址安全增强处理](https://github.com/zlkbdotnet/zfaka/wiki/%E5%90%8E%E5%8F%B0%E5%9C%B0%E5%9D%80%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA%E5%A4%84%E7%90%86)
 
 # 三、系统升级
-> 升级时，请直接下载最新代码后直接覆盖，登录后台即可按照提示完成升级；
+> 参考：[系统如何升级？](https://github.com/zlkbdotnet/zfaka/wiki/%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%8D%87%E7%BA%A7%EF%BC%9F)
 
 # 四、BUG与问题反馈
-* 相关问题QQ交流群：701035212
+* 相关问题QQ交流群：701035212 [收费群]
    
 # 五、推广时间
 * 全国IDC行业精英群:572511758   
 * DirectAdmin用户交流群:337686498
-* 短视频去水印：　[https://dsp.zlkb.net/](https://dsp.zlkb.net/)
+* 收款宝: [https://codepay.zlkb.net/](https://codepay.zlkb.net/)
 * 新的开源项目预告：[https://github.com/zlkbdotnet/zspay](https://github.com/zlkbdotnet/zspay)
 
 # 六、捐赠&打赏

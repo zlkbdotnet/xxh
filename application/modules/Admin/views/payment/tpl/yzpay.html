@@ -9,6 +9,12 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p> 注意事项： </p>
+                        <p> 本支付接口同步支付回调地址(第一种):<?php echo $config['weburl'];?>/product/query/?zlkbmethod=auto&paymethod=<?php echo $item['alias'];?>&orderid={订单号}</p>
+						<p> 本支付接口同步支付回调地址(第二种):<?php echo $config['weburl'];?>/query/auto/{订单号}.html</p>
+						<p> 本支付接口异步支付回调地址:<?php echo $config['weburl'];?>/product/notify/?paymethod=<?php echo $item['alias'];?></p>
+                    </blockquote>
                     <form class="layui-form layui-show" method="post">
                         <div class="layui-form-item">
                             <label for="t_payment" class="layui-form-label">支付渠道</label>
@@ -19,13 +25,13 @@
                         <div class="layui-form-item">
                             <label for="payname" class="layui-form-label">显示名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="payname" name="payname" ay-verify="required" autocomplete="off" value="<?php echo $item['payname'];?>" class="layui-input">
+                                <input type="text" id="payname" name="payname" lay-verify="required" autocomplete="off" value="<?php echo $item['payname'];?>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="payimage" class="layui-form-label">支付图片</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="payimage" name="payimage" ay-verify="required" autocomplete="off" value="<?php echo $item['payimage'];?>" class="layui-input">
+                                <input type="text" id="payimage" name="payimage" lay-verify="required" autocomplete="off" value="<?php echo $item['payimage'];?>" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">

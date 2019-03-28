@@ -26,10 +26,10 @@ class yzpay
 			
 			$result = $yzclient->YzQrPayServie();	
 			if(is_array($result) AND isset($result['response']['qr_code']) AND $result['response']['qr_code']){
-				$result_params = array('type'=>0,'subjump'=>0,'paymethod'=>$this->paymethod,'qr'=>"/product/order/showqr/?url=".urlencode($result['response']['qr_url']),'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$params['money']);
+				$result_params = array('type'=>0,'subjump'=>0,'paymethod'=>$this->paymethod,'qr'=>$params['qrserver'].urlencode($result['response']['qr_url']),'payname'=>$payconfig['payname'],'overtime'=>$payconfig['overtime'],'money'=>$params['money']);
 				return array('code'=>1,'msg'=>'success','data'=>$result_params);
 			} else {
-				return array('code'=>1002,'msg'=>'二维码生成失败','data'=>'');
+				return array('code'=>1002,'msg'=>'支付接口请求失败','data'=>'');
 			}
 		} catch (\Exception $e) {
 			return array('code'=>1000,'msg'=>$e->getMessage(),'data'=>'');

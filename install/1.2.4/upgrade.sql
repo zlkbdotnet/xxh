@@ -1,0 +1,1 @@
+ALTER TABLE `t_products_type` ADD `description` VARCHAR(255) NOT NULL COMMENT '分类描述' AFTER `name`;

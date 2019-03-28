@@ -5,7 +5,7 @@
 		<div class="layui-tab-brief layui-hide-md"><ul class="layui-tab-title"><li class=""><a href="/product/">购买商品</a></li><li class="layui-this">查询订单</li></ul></div>
         <div class="layui-card-body layui-tab layui-tab-brief" lay-filter="user">
 			<blockquote class="layui-elem-quote">
-				友情提示:订单查询仅能查询最近30天的数据；移动端模式下，仅能查询最近一笔订单。
+				友情提示:订单查询仅能查询最近30天的数据。
 			</blockquote>
             <div class="layui-tab-content">
 
@@ -77,55 +77,61 @@
 <!--引入公共底文件-->
 <?php include COMMON_PATH.'/footer.html';?>
 <script id="query_ajax_mobile" type="text/html">
-{{#  layui.each(d.data, function(index, item){ }}
-	{{# if(index ==0){ }}
+{{#  if(d.data.length === 0){ }}
+	<blockquote class="layui-elem-quote">无数据....</blockquote>
+{{# }else{ }}
 	<div class="layui-hide-lg layui-hide-md layui-hide-sm">
-		<div class="layui-card-header">
-		订单信息-{{ converStatus(item.status)}}
-		{{#  if(item.status == '0'){ }}
-			<button class="layui-btn layui-btn-disabled layui-btn-xs" >未支付订单</button>
-		{{# }else if(item.status =="2"){ }}
-			<button class="layui-btn layui-btn-xs layui-btn-warm view_kami" id="buy" data-orderid="{{ item.orderid}}">提取卡密</button>
-		{{#  } }} 
+		<div class="layui-collapse" lay-accordion="" lay-filter="query-m-result">
+		{{# layui.each(d.data, function(index, item){ }}
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">订单{{ item.orderid}} --- {{ converStatus(item.status)}}</h2>
+				<div class="layui-colla-content">
+					<div id="prodcut_num">
+						<div class="layui-form-item">
+						{{#  if(item.status == '0'){ }}
+							<!--<button class="layui-btn layui-btn-disabled layui-btn-xs layui-btn-fluid">未支付订单</button>-->
+						{{# }else if(item.status =="2"){ }}
+							<button class="layui-btn layui-btn-xs layui-btn-warm view_kami layui-btn-fluid" id="buy" data-orderid="{{ item.orderid}}">提取卡密</button>
+						{{#  } }} 
+						</div>
+					
+						<div class="layui-form-item">
+							<label class="layui-form-label">订单</label>
+							<div class="layui-input-block">
+								<input type="text" value="{{ item.orderid}}" readonly disabled class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">商品</label>
+							<div class="layui-input-block">
+								<input type="text" value="{{ item.productname}}" readonly disabled class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">数量</label>
+							<div class="layui-input-block">
+								<input type="text" value="{{ item.number}}" readonly disabled class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">金额</label>
+							<div class="layui-input-block">
+								<input type="text" value="{{ item.money}}" readonly disabled class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">时间</label>
+							<div class="layui-input-block">
+								<input type="text" value="{{ createTime(item.addtime)}}" readonly disabled class="layui-input" >
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{#  }); }}
 		</div>
-		<div id="prodcut_num">
-			<div class="layui-form-item">
-				<label class="layui-form-label">订单</label>
-				<div class="layui-input-block">
-					<input type="text" value="{{ item.orderid}}" readonly disabled class="layui-input">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">商品</label>
-				<div class="layui-input-block">
-					<input type="text" value="{{ item.productname}}" readonly disabled class="layui-input">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">数量</label>
-				<div class="layui-input-block">
-					<input type="text" value="{{ item.number}}" readonly disabled class="layui-input">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">金额</label>
-				<div class="layui-input-block">
-					<input type="text" value="{{ item.money}}" readonly disabled class="layui-input">
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">时间</label>
-				<div class="layui-input-block">
-					<input type="text" value="{{ createTime(item.addtime)}}" readonly disabled class="layui-input" >
-				</div>
-			</div>
-		</div>
-	</div>
-	{{#  } }} 
-{{#  }); }}
-	{{#  if(d.data.length === 0){ }}
-		<blockquote class="layui-elem-quote">无数据....</blockquote>
-	{{#  } }} 
+	</div>		
+{{#  } }} 
 </script>
 <script>
 layui.use('productquery');
