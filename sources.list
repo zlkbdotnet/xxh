@@ -1,0 +1,3 @@
+deb http://mirrors.163.com/debian/ jessie main
+deb http://mirrors.163.com/debian/ jessie-updates main
+deb http://mirrors.163.com/debian-security/ jessie/updates main
