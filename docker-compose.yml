@@ -5,14 +5,14 @@ services:
         restart: always
         container_name: nginx-zfaka
         ports:
-            - "80:80"
+            - "810:80"
         networks:
             - frontend
         depends_on:
             - php
             - mysql
     php:
-        image: "zsnmwy/zfaka:php"
+        image: "newfuture/yaf:php7 "
         restart: always
         container_name: php-zfaka
         networks:
@@ -25,8 +25,8 @@ services:
         container_name: mysql-zfaka
         environment:
           TZ: 'Asia/Shanghai'
-          MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
-          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: zfaka
+          MYSQL_ROOT_PASSWORD: baiyueone
         volumes:
           - /opt/zfaka/mysql:/var/lib/mysql
         networks:
@@ -39,7 +39,7 @@ services:
         - PMA_ARBITRARY=1
       restart: always
       ports:
-        - 8080:80
+        - 8089:80
       volumes:
         - /sessions
       networks:
