@@ -1,6 +1,6 @@
 FROM nginx:1.11
 
-MAINTAINER zsnmwy <szlszl35622@gmail.com>
+MAINTAINER azure <baiyue.one>
 
 ENV TZ=Asia/Shanghai
 
