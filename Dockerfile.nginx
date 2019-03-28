@@ -6,7 +6,7 @@ ENV TZ=Asia/Shanghai
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY ./site /usr/share/nginx/html
+COPY ./ /usr/share/nginx/html
 
 RUN chmod a+w /usr/share/nginx/html/conf/application.ini && \
     chmod -R a+w+r /usr/share/nginx/html/install/ && \
