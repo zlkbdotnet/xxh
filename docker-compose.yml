@@ -12,7 +12,7 @@ services:
             - php
             - mysql
     php:
-        image: "newfuture/yaf:php7 "
+        image: "newfuture/yaf "
         restart: always
         container_name: php-zfaka
         networks:
