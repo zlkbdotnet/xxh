@@ -1,5 +1,0 @@
-preset: recommended
-
-disabled:
-  - trailing_comma_in_multiline_array
-  - phpdoc_var_without_name

@@ -1,49 +1,48 @@
-version: '2'
+version: '3.1'
 services:
     nginx:
-        image: "zsnmwy/zfaka:nginx"
+        image: "baiyuetribe/zfaka:nginx${ZFAKA_Version}"
         restart: always
-        container_name: nginx-zfaka
+        volumes:
+            - /opt/zfaka/upload:/usr/share/nginx/html/public/res/upload       
         ports:
-            - "810:80"
+            - "80:80"
         networks:
             - frontend
         depends_on:
             - php
-            - mysql
     php:
-        image: "newfuture/yaf:fpm"
+        image: "baiyuetribe/zfaka:php${ZFAKA_Version}"      
         restart: always
-        container_name: php-zfaka
         networks:
             - frontend
             - backend
-
+        depends_on:
+            - mysql
     mysql:
-        image: "mysql:5.5"
-        restart: always
-        container_name: mysql-zfaka
-        environment:
-          TZ: 'Asia/Shanghai'
-          MYSQL_DATABASE: zfaka
-          MYSQL_ROOT_PASSWORD: baiyueone
+        image: mysql:5.7
         volumes:
-          - /opt/zfaka/mysql:/var/lib/mysql
+            - /opt/zfaka/mysql:/var/lib/mysql
+        environment:
+            TZ: 'Asia/Shanghai'
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        command: ['mysqld', '--character-set-server=utf8']
         networks:
             - backend
 
     phpmyadmin:
-      image: phpmyadmin/phpmyadmin
-      container_name: phpmyadmin-zfaka
-      environment:
-        - PMA_ARBITRARY=1
-      restart: always
-      ports:
-        - 8089:80
-      volumes:
-        - /sessions
-      networks:
-        - backend
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 8080:80
+        depends_on:
+            - mysql
+        environment:
+            PMA_HOST: mysql
+            TZ: 'Asia/Shanghai'
+        networks:
+            - backend
+
 networks:
     frontend:
     backend:
+
