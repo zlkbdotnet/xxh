@@ -42,7 +42,8 @@ docker-compose up -d    #启动
 
 ![](https://ws2.sinaimg.cn/large/007rd8E4ly1g1v826jg6gj30mo05e761.jpg)
 
-
+公益免费主机运行体验：
+[![Try in PWD](https://github.com/play-with-docker/stacks/raw/cff22438cb4195ace27f9b15784bbb497047afa7/assets/images/button.png)](https://labs.play-with-docker.com/)
 
 ## 其他备注
 
