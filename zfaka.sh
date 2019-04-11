@@ -16,6 +16,7 @@
 #
 #一键脚本
 #
+#
 # 设置字体颜色函数
 function blue(){
     echo -e "\033[34m\033[01m $1 \033[0m"
@@ -86,27 +87,27 @@ restart_zfaka(){
 
 install_zfaka1.4.0(){
     greenbg "开始安装zfaka1.4.0版本"
-    sed -i 's/baiyue.one/$rootpwd/g' /opt/zfaka/.env
-    sed -i 's/1.4.0/1.4.0/g' /opt/zfaka/.env
-    sed -i 's/PORT=80/PORT=$port/g' /opt/zfaka/.env
+    sed -i 's/${MYSQL_ROOT_PASSWORD}/$rootpwd/g' /opt/zfaka/docker-compose.yml
+    sed -i 's/${ZFAKA_Version}/1.4.0/g' /opt/zfaka/docker-compose.yml
+    sed -i 's/"${PORT}/"$port/g' /opt/zfaka/docker-compose.yml
     greenbg "已完成配置部署"
     greenbg "程序将下载镜像，请耐心等待下载完成"
     docker-compose up -d
 }
 install_zfaka1.3.9(){
     greenbg "开始安装zfaka1.3.9版本"
-    sed -i 's/baiyue.one/$rootpwd/g' /opt/zfaka/.env
-    sed -i 's/1.4.0/1.3.9/g' /opt/zfaka/.env
-    sed -i 's/PORT=80/PORT=$port/g' /opt/zfaka/.env
+    sed -i 's/${MYSQL_ROOT_PASSWORD}/$rootpwd/g' /opt/zfaka/docker-compose.yml
+    sed -i 's/${ZFAKA_Version}/1.3.9/g' /opt/zfaka/docker-compose.yml
+    sed -i 's/"${PORT}/"$port/g' /opt/zfaka/docker-compose.yml
     greenbg "已完成配置部署"
     greenbg "程序将下载镜像，请耐心等待下载完成"
     docker-compose up -d
 }
 install_zfaka1.3.8(){
     greenbg "开始安装zfaka1.3.8版本"
-    sed -i 's/baiyue.one/$rootpwd/g' /opt/zfaka/.env
-    sed -i 's/1.4.0/1.3.8/g' /opt/zfaka/.env
-    sed -i 's/PORT=80/PORT=$port/g' /opt/zfaka/.env
+    sed -i 's/${MYSQL_ROOT_PASSWORD}/$rootpwd/g' /opt/zfaka/docker-compose.yml
+    sed -i 's/${ZFAKA_Version}/1.3.8/g' /opt/zfaka/docker-compose.yml
+    sed -i 's/"${PORT}/"$port/g' /opt/zfaka/docker-compose.yml
     greenbg "已完成配置部署"
     greenbg "程序将下载镜像，请耐心等待下载完成"
     docker-compose up -d
@@ -130,9 +131,9 @@ notice(){
 # 开始安装zfaka
 install_main(){
     blue "获取配置文件"
-    mkdir -p /opt/zfaka && cd /opt/zfaka  
-    wget https://github.com/baiyuetribe/zfaka/raw/master/docker-compose.yml   
-    wget https://github.com/baiyuetribe/zfaka/raw/master/.env   
+    mkdir -p /opt/zfaka && cd /opt/zfaka
+    rm -f docker-compose.yml  
+    wget https://github.com/baiyuetribe/zfaka/raw/master/docker-compose.yml      
     blue "配置文件获取成功"
     sleep 3s
     white "请仔细填写参数，部署完毕会反馈已填写信息"
