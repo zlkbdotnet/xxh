@@ -114,7 +114,7 @@ install_main(){
     white "请仔细填写参数，部署完毕会反馈已填写信息"
     green "访问端口：如果想通过域名访问，请设置80端口，其余端口可随意设置"
     read -p "请输入访问端口：" port
-    green "请填写数据库ROOT密码"
+    green "设置数据库ROOT密码"
     read -p "请输入ROOT密码：" rootpwd
     green "请选择安装版本"
     yellow "1.[zfaka1.4.0](稳定版)"
@@ -123,31 +123,32 @@ install_main(){
     yellow "4.[zfaka-dev]（开发版，同步zfaka官网最新git分支）"
     echo
     read -p "请输入数字[1~4]:" vnum
+    $port $rootpwd
    
-   
+
 	if [[ "${vnum}" == "1" ]]; then
         greenbg "开始安装zfaka1.4.0版本"
-        sed -i 's/${MYSQL_ROOT_PASSWORD}/$rootpwd/g' /opt/zfaka/docker-compose.yml
-        sed -i 's/${ZFAKA_Version}/1.4.0/g' /opt/zfaka/docker-compose.yml
-        sed -i 's/"${PORT}/"$port/g' /opt/zfaka/docker-compose.yml
+        sed -i "s/${MYSQL_ROOT_PASSWORD}/$rootpwd/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/${ZFAKA_Version}/1.4.0/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"${PORT}/" $port /g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
         docker-compose up -d
 	elif [[ "${vnum}" == "2" ]]; then
         greenbg "开始安装zfaka1.3.9版本"
-        sed -i 's/${MYSQL_ROOT_PASSWORD}/$rootpwd/g' /opt/zfaka/docker-compose.yml
-        sed -i 's/${ZFAKA_Version}/1.3.9/g' /opt/zfaka/docker-compose.yml
-        sed -i 's/"${PORT}/"$port/g' /opt/zfaka/docker-compose.yml
+        sed -i "s/${MYSQL_ROOT_PASSWORD}/$rootpwd/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/${ZFAKA_Version}/1.3.9/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"${PORT}/"$port/g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
         docker-compose up -d
 	elif [[ "${vnum}" == "3" ]]; then
         greenbg "开始安装zfaka1.3.8版本"
-        sed -i 's/${MYSQL_ROOT_PASSWORD}/$rootpwd/g' /opt/zfaka/docker-compose.yml
-        sed -i 's/${ZFAKA_Version}/1.3.8/g' /opt/zfaka/docker-compose.yml
-        sed -i 's/"${PORT}/"$port/g' /opt/zfaka/docker-compose.yml
+        sed -i "s/${MYSQL_ROOT_PASSWORD}/$rootpwd/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/${ZFAKA_Version}/1.3.8/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"${PORT}/"$port/g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
@@ -219,7 +220,7 @@ start_menu(){
     greenbg "简介：ZFAKA一键安装脚本                                          "
     greenbg "系统：Centos7、Ubuntu等                                         "
     greenbg "作者：Azure                                                     "
-    greenbg "开发者：资料空白                                                 "
+    greenbg "开发者：资料空白 Github:zlkbdotnet/zfaka                                            "
     greenbg "网站： https://baiyue.one                                       "
     greenbg "主题：专注分享优质web资源                                        "
     greenbg "Youtube/B站： 佰阅部落                                          "
