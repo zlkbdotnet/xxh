@@ -123,8 +123,6 @@ install_main(){
     yellow "4.[zfaka-dev]（开发版，同步zfaka官网最新git分支）"
     echo
     read -p "请输入数字[1~4]:" vnum
-    $port $rootpwd
-   
 
 	if [[ "${vnum}" == "1" ]]; then
         greenbg "开始安装zfaka1.4.0版本"
@@ -156,30 +154,6 @@ install_main(){
     elif [[ "${vnum}" == "4" ]]; then
         white "项目正在路上。。。"
 	fi   
-   
-   case "$vnum" in
-    1)
-    install_zfaka1.4.0
-    notice
-	;;
-    2)
-    install_zfaka1.3.9
-    notice
-	;;
-    3)
-    install_zfaka1.3.8 
-    notice
-	;;    
-    4)
-    yellow "暂未适配，镜像开发中"
-	;;
-	*)
-	clear
-	echo "请输入正确数字[1~4]"
-	sleep 5s
-	install_main
-	;;
-    esac
 }
 
 # 停止服务
