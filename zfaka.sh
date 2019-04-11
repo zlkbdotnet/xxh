@@ -128,27 +128,27 @@ install_main(){
 
 	if [[ "${vnum}" == "1" ]]; then
         greenbg "开始安装zfaka1.4.0版本"
-        sed -i "s/${MYSQL_ROOT_PASSWORD}/$rootpwd/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/${ZFAKA_Version}/1.4.0/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"${PORT}/" $port /g" /opt/zfaka/docker-compose.yml
+        sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/版本号/1.4.0/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"访问端口/" $port /g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
         docker-compose up -d
 	elif [[ "${vnum}" == "2" ]]; then
         greenbg "开始安装zfaka1.3.9版本"
-        sed -i "s/${MYSQL_ROOT_PASSWORD}/$rootpwd/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/${ZFAKA_Version}/1.3.9/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"${PORT}/"$port/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/版本号/1.3.9/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"访问端口/"$port/g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
         docker-compose up -d
 	elif [[ "${vnum}" == "3" ]]; then
         greenbg "开始安装zfaka1.3.8版本"
-        sed -i "s/${MYSQL_ROOT_PASSWORD}/$rootpwd/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/${ZFAKA_Version}/1.3.8/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"${PORT}/"$port/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/版本号/1.3.8/g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"访问端口/"$port/g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
