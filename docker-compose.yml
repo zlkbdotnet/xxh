@@ -1,18 +1,18 @@
 version: '3.1'
 services:
     nginx:
-        image: "baiyuetribe/zfaka:nginx${ZFAKA_Version}"
+        image: "baiyuetribe/zfaka:nginx版本号"
         restart: always
         volumes:
             - /opt/zfaka/upload:/usr/share/nginx/html/public/res/upload       
         ports:
-            - "${PORT}:80"
+            - "访问端口:80"
         networks:
             - frontend
         depends_on:
             - php
     php:
-        image: "baiyuetribe/zfaka:php${ZFAKA_Version}"      
+        image: "baiyuetribe/zfaka:php版本号"      
         restart: always
         networks:
             - frontend
@@ -25,7 +25,7 @@ services:
             - /opt/zfaka/mysql:/var/lib/mysql
         environment:
             TZ: 'Asia/Shanghai'
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_ROOT_PASSWORD: 数据库密码
         command: ['mysqld', '--character-set-server=utf8']
         networks:
             - backend
