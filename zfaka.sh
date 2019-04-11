@@ -130,7 +130,7 @@ install_main(){
         greenbg "开始安装zfaka1.4.0版本"
         sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
         sed -i "s/版本号/1.4.0/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"访问端口/" $port /g" /opt/zfaka/docker-compose.yml
+        sed -i "s/"访问端口/"$port/g" /opt/zfaka/docker-compose.yml
         greenbg "已完成配置部署"
         greenbg "程序将下载镜像，请耐心等待下载完成"
         cd /opt/zfaka
