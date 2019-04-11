@@ -6,7 +6,7 @@ services:
         volumes:
             - /opt/zfaka/upload:/usr/share/nginx/html/public/res/upload       
         ports:
-            - "80:80"
+            - "${PORT}:80"
         networks:
             - frontend
         depends_on:
