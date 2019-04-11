@@ -169,6 +169,7 @@ install_main(){
 	sleep 5s
 	install_main
 	;;
+    esac
 }
 
 # 停止服务
