@@ -113,17 +113,19 @@ install_main(){
     sleep 3s
     white "请仔细填写参数，部署完毕会反馈已填写信息"
     green "访问端口：如果想通过域名访问，请设置80端口，其余端口可随意设置"
-    read -p "请输入访问端口：" port
+    read -e -p "请输入访问端口(默认端口2020)：" port
+    [[ -z "${port}" ]] && port="2020"
     green "设置数据库ROOT密码"
-    read -p "请输入ROOT密码：" rootpwd
+    read -e -p "请输入ROOT密码(默认baiyue.one)：" rootpwd
+    [[ -z "${rootpwd}" ]] && rootpwd="baiyue.one"    
     green "请选择安装版本"
     yellow "1.[zfaka1.4.0](稳定版)"
     yellow "2.[zfaka1.3.9](稳定版)"
     yellow "3.[zfaka1.3.8](稳定版)" 
     yellow "4.[zfaka-dev]（开发版，同步zfaka官网最新git分支）"
     echo
-    read -p "请输入数字[1~4]:" vnum
-
+    read -e -p "请输入数字[1~4](默认1)：" vnum
+    [[ -z "${vnum}" ]] && vnum="1"       
 	if [[ "${vnum}" == "1" ]]; then
         greenbg "开始安装zfaka1.4.0版本"
         sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
@@ -154,6 +156,7 @@ install_main(){
     elif [[ "${vnum}" == "4" ]]; then
         white "项目正在路上。。。"
 	fi   
+   
 }
 
 # 停止服务
