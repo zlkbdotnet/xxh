@@ -192,6 +192,8 @@ init_step(){
     git clone -b master https://github.com/zlkbdotnet/zfaka.git && mv zfaka/* . && rm -rf zfaka
     git clone -b docker https://github.com/Baiyuetribe/zfaka.git && mv zfaka/* . && rm -rf zfaka
     cp conf/application.ini.new conf/application.ini
+    sed -i "s/baiyue.one/$rootpwd/g" docker-compose.yml
+    sed -i "s/"80:80/"$port:80/" docker-compose.yml
     sed -i 's/127.0.0.1/mysql/' application/modules/Install/views/setptwo/index.html
     sed -i "30s/root/$rootpwd/" application/modules/Install/views/setptwo/index.html
     sed -i "s/43036456@qq.com/$admin_user/" application/modules/Install/views/last/index.html
