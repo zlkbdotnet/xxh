@@ -98,10 +98,29 @@ notice(){
     green " phpadmin地址： http://ip:8080"
     green "---------------------------"
     white "其他信息"
-    white "已配置的端口：$port  数据库root密码：$pwd "
+    white "已配置的端口：$port  数据库root密码：$rootpwd "
     green "=================================================="
     white "开发者：资料空白   Dcocker by 佰阅部落  "
     white "项目地址： https://github.com/zlkbdotnet/zfaka"
+}
+
+notice2(){
+    green "=================================================="
+    green "搭建成功，现在您可以直接访问了"
+    green "---------------------------"
+    green " 首页地址： http://ip:$port"
+    green " 后台地址：http://ip:$port/admin"
+    green " phpadmin地址： http://ip:8080"
+    green " kodexplore源码编辑器：http://ip:899 "
+    green " 源码编辑ZFAKA目录地址:/var/www/zfaka"
+    green "---------------------------"
+    white "其他信息"
+    white "已设置的端口：$port  数据库root密码：$rootpwd"
+    white "ZFAKA后台登录账号：$admin_user  默认密码：123456  "
+    green "=================================================="
+    white "开发者：资料空白   Dcocker by 佰阅部落  "
+    white "项目地址： https://github.com/zlkbdotnet/zfaka"
+    greenbg "一键脚本说明文档 ：https://baiyue.one/archives/478.html"
 }
 # 开始安装zfaka
 install_main(){
@@ -122,7 +141,7 @@ install_main(){
     yellow "1.[zfaka1.4.0](稳定版)"
     yellow "2.[zfaka1.3.9](稳定版)"
     yellow "3.[zfaka1.3.8](稳定版)" 
-    yellow "4.[zfaka-dev]（开发版，同步zfaka官网最新git分支）"
+    green "4.[zfaka-dev]（开发版，同步zfaka官网最新git分支）"
     echo
     read -e -p "请输入数字[1~4](默认1)：" vnum
     [[ -z "${vnum}" ]] && vnum="1"       
@@ -154,9 +173,43 @@ install_main(){
         cd /opt/zfaka
         docker-compose up -d
     elif [[ "${vnum}" == "4" ]]; then
-        white "项目正在路上。。。"
+        white "此版本实时同步官方开发版"
+        green "请设置网站管理员账号"
+        read -e -p "请输入网站管理员账号(默认admin)：" admin_user
+        [[ -z "${admin_user}" ]] && admin_user="admin"  
+        init_step       
+        zfaka_master
 	fi   
    
+}
+
+
+# 初始化zfaka程序
+init_step(){
+    rm -rf /opt/zfaka
+    mkdir -p /opt/zfaka/
+    cd /opt/zfaka
+    git clone -b master https://github.com/zlkbdotnet/zfaka.git && mv zfaka/* . && rm -rf zfaka
+    git clone -b docker https://github.com/Baiyuetribe/zfaka.git && mv zfaka/* . && rm -rf zfaka
+    cp conf/application.ini.new conf/application.ini
+    sed -i 's/127.0.0.1/mysql/' application/modules/Install/views/setptwo/index.html
+    sed -i "30s/root/$rootpwd/" application/modules/Install/views/setptwo/index.html
+    sed -i "s/43036456@qq.com/$admin_user/" application/modules/Install/views/last/index.html
+    sed -i "s/43036456@qq.com/$admin_user/s" install/faka.sql
+    chmod a+w conf/application.ini
+    chmod -R a+w+r install
+    chmod -R a+w+r public/res/upload 
+    chmod -R a+w+r temp 
+    chmod -R a+w log
+    greenbg "本地初始化完成"
+}
+
+zfaka_master(){
+    cd /opt/zfaka
+    docker-compose up -d
+    greenbg "服务已启动，等待初始化约5s"
+    sleep 5s
+    notice2
 }
 
 # 停止服务
