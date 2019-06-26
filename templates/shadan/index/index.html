@@ -1,16 +1,22 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container fly-marginTop fly-user-main">
     <div class="layui-row">
-		<script type="text/javascript">
-			(function() {
-				var s = "_" + Math.random().toString(36).slice(2);
-				document.write('<div style="" id="' + s + '"></div>');
-				(window.slotbydup = window.slotbydup || []).push({
-					id: "u3977403",
-					container:  s
-				});
-			})();
-		</script>
+		<!-- 广告位-->
+		<div class="layui-card layui-hide-md">
+			<div class="layui-card-header">广告位</div>
+			<div class="layui-card-body">
+			<script type="text/javascript">
+				(function() {
+					var s = "_" + Math.random().toString(36).slice(2);
+					document.write('<div style="" id="' + s + '"></div>');
+					(window.slotbydup = window.slotbydup || []).push({
+						id: "u3977403",
+						container:  s
+					});
+				})();
+			</script>
+			</div>
+		</div>
 		<!-- 公告-->
 		<?php if(isset($config['notice']) AND $config['notice']):?>
 		<blockquote class="layui-elem-quote layui-text" style="background-color: #ffffff;">
