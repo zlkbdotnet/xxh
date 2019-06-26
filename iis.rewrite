@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <rewrite>
+            <rules>
+                <clear />
+                <rule name="tool.apizl.com rewriteTools3" patternSyntax="ECMAScript" stopProcessing="false">
+                    <match url=".*" ignoreCase="false" />
+                    
+                    <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+                    <action type="Rewrite" url="index.php" appendQueryString="false" />
+                </rule>
+            </rules>
+        </rewrite>
+        <httpErrors>
+
+</httpErrors>
+    </system.webServer>
+</configuration>
