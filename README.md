@@ -8,7 +8,20 @@ Docker版优势
 - 新手从0开始，也可以快速搭建，全自动部署
 - 不用手动去配置yaf、扩展插件、伪静态等等
 - 采用前后端数据分离、更安全
-## 一键脚本
+**正式商用环境部署**
+有时候需要`phpadmin`来管理数据库或使用`kodexplorer`来管理源码文件，这时候需要增加多个容器。因此，本站也做了`docker-compose.yml`来直接启动所有工具，一步到位。
+
+```
+wget https://raw.githubusercontent.com/Baiyuetribe/zfaka/docker/docker-compose.yml
+docker-compose up -d
+```
+
+说明：
+
+- ZFAKA主程序入口为：`http://域名:3002` 打开后填入数据库密码即可完成安装步骤。
+- phpadmin入口：`http://域名:8080` 用来修改数据库
+- kodexplore入口：`http://域名:999` 用来管理源码或替换图片等等。
+## 一键脚本(旧)
 ```
 bash <(curl -L -s https://raw.githubusercontent.com/Baiyuetribe/zfaka/master/zfaka.sh)
 ```
