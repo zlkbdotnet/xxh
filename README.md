@@ -22,6 +22,11 @@ docker-compose up -d
 - ZFAKA主程序入口为：`http://域名:3002` 打开后填入数据库密码即可完成安装步骤。
 - phpadmin入口：`http://域名:8080` 用来修改数据库
 - kodexplore入口：`http://域名:999` 用来管理源码或替换图片等等。
+
+## 安装后相关问题：
+![](https://img.baiyue.one/upload/2019/07/5d1c896077502.png)
+更多资料，请参考：[【佰阅书籍】](https://book.baiyue.one/document/zfaka/)
+
 ## 一键脚本(旧)
 ```
 bash <(curl -L -s https://raw.githubusercontent.com/Baiyuetribe/zfaka/master/zfaka.sh)
