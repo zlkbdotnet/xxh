@@ -1,10 +1,10 @@
 #!/bin/bash                                                                                               
 #===================================================================#
-#   System Required:  CentOS 7                                 #
-#   Description: Install rrshare for CentOS7 #
+#   System Required:  CentOS 7 、Unbutu、Debian、Fedora、Raspberry Pi#
+#   Description: Install rrshare for CentOS7                        #
 #   Author: Azure <2894049053@qq.com>                               #
-#   github: @baiyutribe <https://github.com/baiyuetribe>                     #
-#   Blog:  佰阅部落 https://baiyue.one                           #
+#   github: @baiyutribe <https://github.com/baiyuetribe>            #
+#   Blog:  佰阅部落 https://baiyue.one                               #
 #===================================================================#
 #
 #  .______        ___       __  ____    ____  __    __   _______      ______   .__   __.  _______ 
@@ -88,131 +88,46 @@ restart_zfaka(){
 
 
 
-# 输出结果
-notice(){
-    green "=================================================="
-    green "搭建成功，现在您可以直接访问了"
-    green "---------------------------"
-    green " 首页地址： http://ip:$port"
-    green " 后台地址：http://ip:$port/admin"
-    green " phpadmin地址： http://ip:8080"
-    green "---------------------------"
-    white "其他信息"
-    white "已配置的端口：$port  数据库root密码：$rootpwd "
-    green "=================================================="
-    white "开发者：资料空白   Dcocker by 佰阅部落  "
-    white "项目地址： https://github.com/zlkbdotnet/zfaka"
-}
 
 notice2(){
     green "=================================================="
+    green "主程序已搭建完毕，让我们来完成最后几步，之后就可以访问了"
+    green "=================================================="
+    green " 首页地址： http://ip:3002   打开网站安装数据库时请修改如下信息" 
+    yellow "Docker版请将数据库127.0.0.1改为：mysql"
+    yellow "Docker版请将数据库密码改为：baiyue.one"
+    green "=================================================="
     green "搭建成功，现在您可以直接访问了"
     green "---------------------------"
-    green " 首页地址： http://ip:$port"
-    green " 后台地址：http://ip:$port/admin"
-    green " phpadmin地址： http://ip:8080"
-    green " kodexplore源码编辑器：http://ip:899 "
-    green " 源码编辑ZFAKA目录地址:/var/www/zfaka"
+    green " 文件管理器地址：http://ip:999   源码路径：/code/code"  
+    green " phpadmin地址：http://ip:8080"
     green "---------------------------"
-    white "其他信息"
-    white "已设置的端口：$port  数据库root密码：$rootpwd"
-    white "ZFAKA后台登录账号：$admin_user  默认密码：123456  "
+    white "其他信息(宿主机挂载路径)"
+    white "网页源文件路径：/opt/zfaka/code"
+    white "数据库存储路径：/opt/zfaka/mysql"
     green "=================================================="
-    white "开发者：资料空白   Dcocker by 佰阅部落  "
-    white "项目地址： https://github.com/zlkbdotnet/zfaka"
-    greenbg "一键脚本说明文档 ：https://baiyue.one/archives/478.html"
+    white "Dcocker by 佰阅部落  https://baiyue.one"
+    white "Docker版问题反馈地址：https://github.com/Baiyuetribe/zfaka/pulls"
 }
+
 # 开始安装zfaka
 install_main(){
     blue "获取配置文件"
+    start=$(date "+%s")
     mkdir -p /opt/zfaka && cd /opt/zfaka
     rm -f docker-compose.yml  
-    wget https://github.com/baiyuetribe/zfaka/raw/master/docker-compose.yml      
+    wget https://raw.githubusercontent.com/Baiyuetribe/zfaka/docker/docker-compose.yml      
     blue "配置文件获取成功"
-    sleep 3s
-    white "请仔细填写参数，部署完毕会反馈已填写信息"
-    green "访问端口：如果想通过域名访问，请设置80端口，其余端口可随意设置"
-    read -e -p "请输入访问端口(默认端口2020)：" port
-    [[ -z "${port}" ]] && port="2020"
-    green "设置数据库ROOT密码"
-    read -e -p "请输入ROOT密码(默认baiyue.one)：" rootpwd
-    [[ -z "${rootpwd}" ]] && rootpwd="baiyue.one"    
-    green "请选择安装版本"
-    yellow "1.[zfaka1.4.0](稳定版)"
-    yellow "2.[zfaka1.3.9](稳定版)"
-    yellow "3.[zfaka1.3.8](稳定版)" 
-    green "4.[zfaka-dev]（开发版，同步zfaka官网最新git分支）"
-    echo
-    read -e -p "请输入数字[1~4](默认1)：" vnum
-    [[ -z "${vnum}" ]] && vnum="1"       
-	if [[ "${vnum}" == "1" ]]; then
-        greenbg "开始安装zfaka1.4.0版本"
-        sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/版本号/1.4.0/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"访问端口/"$port/g" /opt/zfaka/docker-compose.yml
-        greenbg "已完成配置部署"
-        greenbg "程序将下载镜像，请耐心等待下载完成"
-        cd /opt/zfaka
-        docker-compose up -d
-	elif [[ "${vnum}" == "2" ]]; then
-        greenbg "开始安装zfaka1.3.9版本"
-        sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/版本号/1.3.9/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"访问端口/"$port/g" /opt/zfaka/docker-compose.yml
-        greenbg "已完成配置部署"
-        greenbg "程序将下载镜像，请耐心等待下载完成"
-        cd /opt/zfaka
-        docker-compose up -d
-	elif [[ "${vnum}" == "3" ]]; then
-        greenbg "开始安装zfaka1.3.8版本"
-        sed -i "s/数据库密码/$rootpwd/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/版本号/1.3.8/g" /opt/zfaka/docker-compose.yml
-        sed -i "s/"访问端口/"$port/g" /opt/zfaka/docker-compose.yml
-        greenbg "已完成配置部署"
-        greenbg "程序将下载镜像，请耐心等待下载完成"
-        cd /opt/zfaka
-        docker-compose up -d
-    elif [[ "${vnum}" == "4" ]]; then
-        white "此版本实时同步官方开发版"
-        green "请设置网站管理员账号"
-        read -e -p "请输入网站管理员账号(默认admin)：" admin_user
-        [[ -z "${admin_user}" ]] && admin_user="admin"  
-        init_step       
-        zfaka_master
-	fi   
-   
-}
-
-
-# 初始化zfaka程序
-init_step(){
-    rm -rf /opt/zfaka
-    mkdir -p /opt/zfaka/
-    cd /opt/zfaka
-    git clone -b master https://github.com/zlkbdotnet/zfaka.git && mv zfaka/* . && rm -rf zfaka
-    git clone -b docker https://github.com/Baiyuetribe/zfaka.git && mv zfaka/* . && rm -rf zfaka
-    cp conf/application.ini.new conf/application.ini
-    sed -i "s/baiyue.one/$rootpwd/g" docker-compose.yml
-    sed -i "7s/"80:80/"$port:80/" docker-compose.yml
-    sed -i 's/127.0.0.1/mysql/' application/modules/Install/views/setptwo/index.html
-    sed -i "30s/root/$rootpwd/" application/modules/Install/views/setptwo/index.html
-    sed -i "s/43036456@qq.com/$admin_user/" application/modules/Install/views/last/index.html
-    sed -i "s/43036456@qq.com/$admin_user/s" install/faka.sql
-    chmod a+w conf/application.ini
-    chmod -R a+w+r install
-    chmod -R a+w+r public/res/upload 
-    chmod -R a+w+r temp 
-    chmod -R a+w log
-    greenbg "本地初始化完成"
-}
-
-zfaka_master(){
-    cd /opt/zfaka
+    greenbg "首次启动会拉取镜像，国内速度比较慢，请耐心等待完成"
     docker-compose up -d
-    greenbg "服务已启动，等待初始化约5s"
-    sleep 5s
     notice2
+    end=$(date "+%s")
+    echo 安装总耗时:$[$end-$start]"秒"
+    echo
+ 
 }
+
+
 
 # 停止服务
 stop_zfaka(){
@@ -249,16 +164,17 @@ start_menu(){
   ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝                                                            
     "
     greenbg "==============================================================="
-    greenbg "简介：ZFAKA一键安装脚本                                          "
-    greenbg "系统：Centos7、Ubuntu等                                         "
-    greenbg "作者：Azure                                                     "
-    greenbg "开发者：资料空白 Github:zlkbdotnet/zfaka                                            "
-    greenbg "网站： https://baiyue.one                                       "
-    greenbg "主题：专注分享优质web资源                                        "
+    greenbg "简介：ZFAKA一键安装脚本（Docker版）                               "
+    greenbg "适用系统：CentOS 7、Unbutu、Debian、Fedora、Raspberry Pi等     "
+    greenbg "脚本作者：Azure  QQ群：635925514                                 "
+    greenbg "程序开发者：资料空白 Github:zlkbdotnet/zfaka                      "
+    greenbg "演示站： https://mall.baiyue.one                                "
+    greenbg "说明：程序集成zfaka（主程序）+mysql（数据库）+kodexplore(文件管理器)  "
+    greenbg "+phpadmin(数据库管理)                                          "
     greenbg "Youtube/B站： 佰阅部落                                          "
     greenbg "==============================================================="
     echo
-    yellow "使用前提：脚本会自动安装docker，国外服务器搭建只需30s~1min"
+    yellow "使用前提：脚本会自动安装docker，国外服务器搭建只需1min~2min"
     yellow "国内服务器下载镜像稍慢，请耐心等待"
     blue "备注：非80端口可以用caddy反代，自动申请ssl证书，到期自动续期"
     echo
@@ -268,8 +184,9 @@ start_menu(){
     white "2.停止ZFAKA"
     white "3.重启ZFAKA"
     white "4.卸载ZFAKA"
+    white "5.清除本地缓存（仅限卸载后操作）"
     white "—————————————域名访问——————————————" 
-    white "5.Caddy域名反代一键脚本(可以实现非80端口使用域名直接访问)"
+    white "6.Caddy域名反代一键脚本(可以实现非80端口使用域名直接访问)"
     blue "0.退出脚本"
     echo
     echo
@@ -282,16 +199,20 @@ start_menu(){
 	;;
 	2)
     stop_zfaka
-    green "ZFAKA程序已停止运行"
+    green "zfaka程序已停止运行"
 	;;
 	3)
     restart_zfaka
-    green "ZFAKA程序已重启完毕"
+    green "zfaka程序已重启完毕"
 	;;
 	4)
     remove_all
 	;;
 	5)
+    rm -fr /opt/zfaka
+    green "清除完毕"
+	;;    
+	6)
     bash <(curl -L -s https://raw.githubusercontent.com/Baiyuetribe/codes/master/caddy/caddy.sh)
 	;;
 	0)
