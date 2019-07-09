@@ -53,7 +53,7 @@ class HelpController extends MemberBasicController
             }
 			
             $limits = "{$pagenum},{$limit}";
-			$items=$this->m_help->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
+			$items = $this->m_help->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
 			
             if (empty($items)) {
                 $data = array('code'=>0,'count'=>0,'data'=>array(),'msg'=>'无数据');

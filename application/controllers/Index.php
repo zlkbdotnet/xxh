@@ -6,7 +6,8 @@
  */
 class IndexController extends IndexBasicController
 {
-
+	private $m_help;
+	
 	public function init()
 	{
         parent::init();
@@ -16,6 +17,12 @@ class IndexController extends IndexBasicController
 	{
 		if(file_exists(INSTALL_LOCK)){
 			$data = array();
+			//获取帮助中心文章
+			$this->m_help = $this->load('help');
+			$where = array('isactive'=>1);
+			$items_help = $this->m_help->Where($where)->Limit("10")->Order(array('id'=>'DESC'))->Select();
+			$data['items_help'] = $items_help;
+			
 			$data['title'] = "首页";
 			$this->getView()->assign($data);
 		}else{
