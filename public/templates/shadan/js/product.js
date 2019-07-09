@@ -488,25 +488,6 @@
 	}*/
 	autoHeight();
 	
-	//首页广告弹窗
-	var layerad = $("#layerad").html(); 
-	if(typeof(layerad)!="undefined"){
-		if(layerad.length>0){
-			layer.open({
-				type: 1
-				,title: false
-				,closeBtn: false
-				,area: '300px;'
-				,shade: 0.8
-				,id: 'zlkbAD'
-				,btn: [ '关闭']
-				,btnAlign: 'c'
-				,moveType: 1 //拖拽模式，0或者1
-				,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">'+layerad+'</div>'
-			});
-		}
-	}
-	
 	//密码商品
 	if(typeof(PASSWORD_PRODUCT)!="undefined"){
 		if(PASSWORD_PRODUCT >0){

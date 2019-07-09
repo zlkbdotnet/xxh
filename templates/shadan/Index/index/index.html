@@ -1,9 +1,18 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container fly-marginTop fly-user-main">
     <div class="layui-row">
-		
+		<div class="layui-carousel" id="carousel_index">
+		  <div carousel-item>
+			<div>条目1</div>
+			<div>条目2</div>
+			<div>条目3</div>
+			<div>条目4</div>
+			<div>条目5</div>
+		  </div>
+		</div>
     </div>
 </div>
 <div id="layerad" style="display: none;"><?php echo $config['layerad'];?></div>
 <!--引入公共底文件-->
 <?php include '../templates/shadan/common/footer.html';?>
+<script>layui.use('index');</script>
