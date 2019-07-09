@@ -216,7 +216,7 @@ pre{padding: 10px 15px; margin: 10px 0; font-size: 12px; border-left: 6px solid 
 .fly-header .fly-nav-user .layui-nav-child{left: auto; right: 0; width: 120px; min-width: 0;}
 
 /* 底部 */
-.fly-footer {line-height: 30px; text-align: center; color: #737573;}
+.fly-footer {line-height: 30px; text-align: center; color: #737573;margin: 10px 0 0;}
 .fly-footer a{padding:0 6px; font-weight: 300; color: #333;}
 .fly-footer a:hover{color: #777;}
 .fly-union{margin-top: 10px; color: #999;}
