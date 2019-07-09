@@ -118,7 +118,7 @@ class AdController extends AdminBasicController
 					'isactive'=>$isactive
 				);
 				
-				if($protocol == "add"){
+				if($method == "add"){
 					if(!$content OR empty($content)){
 						$data = array('code' => 1000, 'msg' => '丢失参数');
 						Helper::response($data);
