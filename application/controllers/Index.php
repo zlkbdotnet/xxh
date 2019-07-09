@@ -4,7 +4,7 @@
  * Author:资料空白
  * Date:20180604
  */
-class IndexController extends BasicController
+class IndexController extends IndexBasicController
 {
 
 	public function init()
@@ -15,8 +15,9 @@ class IndexController extends BasicController
 	public function indexAction()
 	{
 		if(file_exists(INSTALL_LOCK)){
-			$this->redirect("/product/");
-			return FALSE;
+			$data = array();
+			$data['title'] = "首页";
+			$this->getView()->assign($data);
 		}else{
 			$this->redirect("/install/");
 			return FALSE;
