@@ -20,7 +20,7 @@ class IndexController extends IndexBasicController
 			//获取帮助中心文章
 			$this->m_help = $this->load('help');
 			$where = array('isactive'=>1);
-			$items_help = $this->m_help->Where($where)->Limit("10")->Order(array('id'=>'DESC'))->Select();
+			$items_help = $this->m_help->Where($where)->Limit("6")->Order(array('id'=>'DESC'))->Select();
 			$data['items_help'] = $items_help;
 			
 			$data['title'] = "首页";
