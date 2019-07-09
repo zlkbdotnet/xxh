@@ -30,7 +30,9 @@
         <div class="layui-container">
              <div class=""><a class="fly-logo" href="/"><img src="<?php if(isset($config['logo']) AND strlen($config['logo'])>0):?><?php echo $config['logo'];?><?php else:?>/res/images/logo.png<?php endif;?>" alt="zfaka"></a></div>
             <ul class="layui-nav fly-nav" id="webmenu">
-				<li></li>
+                <li class="layui-nav-item layui-hide-xs">
+                    <a href="/">首页</a>
+                </li>	
                 <?php if($login):?>
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/member">我的账户</a>
@@ -119,6 +121,8 @@
 			aMenu[3].className += ' layui-this';
 		} else if (aName.indexOf('/about') > -1) {
 			aMenu[4].className += ' layui-this';
+		} else {
+			aMenu[0].className += ' layui-this';
 		}
 		<?php else:?>
 		if (aName.indexOf('/product/query') > -1) {
@@ -127,6 +131,8 @@
 			aMenu[1].className += ' layui-this';
 		} else if (aName.indexOf('/about') > -1) {
 			aMenu[3].className += ' layui-this';
+		} else {
+			aMenu[0].className += ' layui-this';
 		}
 		<?php endif;?>
 	}
