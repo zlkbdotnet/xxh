@@ -11,13 +11,6 @@
 			</div>
 		</div>
 		<?php endif;?>
-		
-		<!-- 公告-->
-		<?php if(isset($config['notice']) AND $config['notice']):?>
-		<blockquote class="layui-elem-quote layui-text" style="background-color: #ffffff;">
-			<i class="layui-icon layui-icon-speaker"></i><?php echo $config['notice'];?>
-		</blockquote>
-		<?php endif;?>
         
 		<!--电脑端-->
 		<?php if(!empty($products)):?>
@@ -107,7 +100,6 @@
 		
     </div>
 </div>
-<div id="layerad" style="display: none;"><?php echo $config['layerad'];?></div>
 <!--引入公共底文件-->
 <?php include '../templates/shadan/common/footer.html';?>
 <script>
