@@ -15,7 +15,7 @@ class M_Ad extends Model
 		parent::__construct();
 	}
 
-	private function getValue()
+	public function getValue()
 	{
 		$result = $this->Select();
 		$value = array();
