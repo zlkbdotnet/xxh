@@ -164,7 +164,7 @@ class AdController extends AdminBasicController
 		$csrf_token = $this->getPost('csrf_token', false);
         if (FALSE != $id AND is_numeric($id) AND $id > 0) {
 			if ($this->VerifyCsrfToken($csrf_token)) {
-				$delete = $this->m_ad->Where(array("id"=>$id))->DeleteOne();
+				$delete = $this->m_ad->Where(array("id"=>$id,'locked'=>0))->DeleteOne();
 				if($delete){
 					$data = array('code' => 1, 'msg' => '删除成功', 'data' => '');
 				}else{

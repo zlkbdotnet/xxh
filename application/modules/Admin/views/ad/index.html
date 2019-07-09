@@ -25,8 +25,12 @@
     {{# } }}
 </script>
 <script type="text/html" id="opt">
-<a class="layui-btn layui-btn-warm layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/ad/edit/?id={{d.id}}">编辑</a>
-<a data-href="/<?php echo ADMIN_DIR;?>/ad/delete/?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+	<a class="layui-btn layui-btn-warm layui-btn-xs" href="/<?php echo ADMIN_DIR;?>/ad/edit/?id={{d.id}}">编辑</a>
+	{{# if(d.locked >0){ }}
+		<a class="layui-btn layui-btn-disabled layui-btn-xs" href="javascript:;">删除</a>
+	{{# } else { }}
+		<a data-href="/<?php echo ADMIN_DIR;?>/ad/delete/?id={{d.id}}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+	{{# } }}
 </script>
 <!--引入公共底文件-->
 <?php include ADMIN_COMMON_PATH.'/footer.html';?>
