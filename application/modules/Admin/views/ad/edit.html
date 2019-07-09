@@ -23,7 +23,7 @@
                         <div class="layui-form-item">
                             <label for="label" class="layui-form-label">广告标签</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="label" name="label" autocomplete="off" lay-verify="required" value="<?php echo $items['label'];?>" class="layui-input">
+                                <input type="text" id="label" name="label" autocomplete="off" <?php if($items['locked']=="1"):?>readonly<?php endif;?> lay-verify="required" value="<?php echo $items['label'];?>" class="layui-input">
                             </div>
                         </div>
 						<div class="layui-form-item layui-form-text">

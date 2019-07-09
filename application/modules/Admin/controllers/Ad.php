@@ -125,6 +125,7 @@ class AdController extends AdminBasicController
 					}
 					$m['content'] = htmlspecialchars(addslashes($content));
 					$m['addtime'] = time();
+					$m['locked'] = 0;
 					$id = $this->m_ad->Insert($m);
 					if($id>0){
 						$data = array('code' => 1, 'msg' => '新增成功');
