@@ -3,21 +3,14 @@
     <div class="layui-row">
 	
 		<!-- 广告位-->
+		<?php if(isset($ad['product_index_ad']) AND !empty()):?>
 		<div class="layui-card">
 			<div class="layui-card-header">广告位</div>
 			<div class="layui-card-body">
-			<script type="text/javascript">
-				(function() {
-					var s = "_" + Math.random().toString(36).slice(2);
-					document.write('<div style="" id="' + s + '"></div>');
-					(window.slotbydup = window.slotbydup || []).push({
-						id: "u3977403",
-						container:  s
-					});
-				})();
-			</script>
+				<?php echo $ad['product_index_ad'];?>
 			</div>
 		</div>
+		<?php endif;?>
 		
 		<!-- 公告-->
 		<?php if(isset($config['notice']) AND $config['notice']):?>
