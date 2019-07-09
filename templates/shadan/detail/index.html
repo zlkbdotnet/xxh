@@ -116,16 +116,9 @@
 								<div class="layui-tab-item layui-show">
 									<?php if(isset($product['description'])):?><?php echo htmlspecialchars_decode(htmlspecialchars_decode($product['description']));?><?php endif;?>
 									<!--广告插入-->
-									<script type="text/javascript">
-									(function() {
-										var s = "_" + Math.random().toString(36).slice(2);
-										document.write('<div style="" id="' + s + '"></div>');
-										(window.slotbydup = window.slotbydup || []).push({
-											id: "u4106833",
-											container: s
-										});
-									})();
-									</script>
+									<?php if(isset($ad['product_content_ad']) AND !empty($ad['product_content_ad'])):?>
+										<?php echo $ad['product_content_ad'];?>
+									<?php endif;?>
 								</div>	  
 							</div>
 						</div>
