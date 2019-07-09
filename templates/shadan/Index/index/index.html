@@ -1,24 +1,26 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container">
-  <div class="layui-row layui-col-space15">
-		<!-- 公告-->
-		<?php if(isset($config['notice']) AND $config['notice']):?>
+	<!-- 公告-->
+	<?php if(isset($config['notice']) AND $config['notice']):?>
+	<div class="layui-row">
 		<blockquote class="layui-elem-quote layui-text" style="background-color: #ffffff;">
 			<i class="layui-icon layui-icon-speaker"></i><?php echo $config['notice'];?>
 		</blockquote>
-		<?php endif;?>
-		
-    <div class="layui-col-md8">
-      <div class="fly-panel">
-		<!-- Banner图-->
-		<div class="layui-carousel" id="carousel_index">
-		  <div carousel-item>
-			<div><img src="/res/images/banner/1.jpg"></div>
-			<div><img src="/res/images/banner/2.jpg"></div>
-			<div><img src="/res/images/banner/3.jpg"></div>
-			<div><img src="/res/images/banner/4.jpg"></div>
-		  </div>
-		</div>
+	</div>
+	<?php endif;?>
+	
+	<div class="layui-row layui-col-space15">
+		<div class="layui-col-md8">
+			<div class="fly-panel">
+				<!-- Banner图-->
+				<div class="layui-carousel" id="carousel_index">
+				  <div carousel-item>
+					<div><img src="/res/images/banner/1.jpg"></div>
+					<div><img src="/res/images/banner/2.jpg"></div>
+					<div><img src="/res/images/banner/3.jpg"></div>
+					<div><img src="/res/images/banner/4.jpg"></div>
+				  </div>
+				</div>
 	  
         <div class="fly-panel-title fly-filter">
           <a>置顶</a>
