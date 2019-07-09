@@ -123,7 +123,7 @@ class AdController extends AdminBasicController
 						$data = array('code' => 1000, 'msg' => '丢失参数');
 						Helper::response($data);
 					}
-					$m['content'] = $content;
+					$m['content'] = htmlspecialchars($content);
 					$m['addtime'] = time();
 					$id = $this->m_ad->Insert($m);
 					if($id>0){
@@ -133,7 +133,7 @@ class AdController extends AdminBasicController
 					}
 				}else{
 					if(is_numeric($id) AND $id>0){
-						$m['content'] = $content;
+						$m['content'] = htmlspecialchars($content);
 						$u = $this->m_ad->UpdateByID($m,$id);
 						if($id>0){
 							$data = array('code' => 1, 'msg' => '更新成功');
