@@ -1,0 +1,57 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/setting-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="email">
+            <ul class="layui-tab-title" id="LAY_mine">
+				<li lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/email/">邮箱管理</a></li>
+				<li class="layui-this" lay-id="info">编辑</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+				 <div class="layui-form-pane layui-tab-item layui-show">
+						<blockquote class="layui-elem-quote">
+							<p> 注意事项： </p>
+							<p> 广告标签不要添加特殊符号，只支持数字+字符</p>
+						</blockquote>
+                    <form class="layui-form layui-show" method="post">
+                        <div class="layui-form-item">
+                            <label for="name" class="layui-form-label">广告位</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" name="name" autocomplete="off" lay-verify="required" value="<?php echo $items['name'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="label" class="layui-form-label">广告标签</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="label" name="label" autocomplete="off" lay-verify="required" value="<?php echo $items['label'];?>" class="layui-input">
+                            </div>
+                        </div>
+						<div class="layui-form-item layui-form-text">
+							<label for="content" class="layui-form-label">广告内容</label>
+							<div class="layui-input-block">
+								<textarea placeholder="" id="content" name="content" autocomplete="off" class="layui-textarea" style="height: 80px;"><?php echo $items['content'];?></textarea>
+							</div>
+						</div> 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否激活</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="isactive" value="0" title="未激活" <?php if($items['isactive']=="0"):?>checked=""<?php endif;?>>
+                                <input type="radio" name="isactive" value="1" title="激活" <?php if($items['isactive']=="1"):?>checked=""<?php endif;?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+							<input type="hidden" name="id" value="<?php echo $items['id'];?>">
+							<input type="hidden" name="method" value="edit">
+                            <button class="layui-btn" key="set-mine" lay-filter="edit" lay-submit>确认修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+    layui.use('adminad');
+</script>

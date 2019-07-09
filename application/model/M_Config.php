@@ -51,7 +51,6 @@ class M_Config extends Model
 				$config[$i['name']]=htmlspecialchars_decode($i['value'],ENT_QUOTES);
 			}
 		}
-
 		return $config;
 	}
 
