@@ -1,10 +1,10 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container">
-	<!-- 公告-->
-	<?php if(isset($config['notice']) AND $config['notice']):?>
+	<!-- 头部广告-->
+	<?php if(isset($ad['index_top_ad']) AND $ad['index_top_ad']):?>
 	<div class="layui-row">
 		<blockquote class="layui-elem-quote layui-text" style="background-color: #ffffff;">
-			<i class="layui-icon layui-icon-speaker"></i><?php echo $config['notice'];?>
+			<i class="layui-icon layui-icon-speaker"></i><?php echo $ad['index_top_ad'];?>
 		</blockquote>
 	</div>
 	<?php endif;?>
@@ -24,12 +24,12 @@
 					</div>
 				</div>
 			</div>
-
+	
+			<!-- 帮助中心-->
 			<div class="fly-panel" style="margin-bottom: 0;">
 				<div class="fly-panel-title fly-filter">
 				  <a href="" class="layui-this">帮助中心</a>
 				</div>
-
 				<ul class="fly-list">
 					<?php if(!empty($items_help)):?>
 					<?php foreach($items_help AS $help):?>
@@ -52,20 +52,25 @@
 		</div>
 		
 		<div class="layui-col-md4">
+			<!-- 捐赠开发者-->
 			<div class="fly-panel">
 				<h3 class="fly-panel-title">捐赠</h3>
 				<div class="fly-panel-main">
 					<img width="100%" src="/res/images/pay/supportme.jpg">
 				</div>
 			</div>
-
+			
+			<!-- 侧边广告-->
+			<?php if(isset($ad['index_side_ad']) AND $ad['index_side_ad']):?>
 			<div class="fly-panel">
 				<div class="fly-panel-title">广告区域</div>
 				<div class="fly-panel-main">
-				  <a href="http://layim.layui.com/?from=fly" target="_blank" class="fly-zanzhu" time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">LayIM 3.0 - layui 旗舰之作</a>
+					<?php echo $ad['index_side_ad'];?>
 				</div>
 			</div>
-      
+			<?php endif;?>
+			
+			<!-- 友情链接-->
 			<div class="fly-panel fly-link">
 				<h3 class="fly-panel-title">友情链接</h3>
 				<dl class="fly-panel-main">
