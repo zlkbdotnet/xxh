@@ -21,7 +21,21 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+--
+-- 表的结构 `t_ad`
+--
 
+CREATE TABLE IF NOT EXISTS `t_ad` (
+  `id` int(11) NOT NULL,
+  `name` varchar(60) NOT NULL COMMENT '广告标题',
+  `label` varchar(60) NOT NULL COMMENT '广告标签',
+  `content` text NOT NULL COMMENT '广告内容',
+  `isactive` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未激活 1激活',
+  `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0不锁,1锁，锁定后不能修改',
+  `addtime` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 --
 -- 表的结构 `t_admin_login_log`
 --
@@ -463,6 +477,9 @@ CREATE TABLE IF NOT EXISTS `t_user_login_logs` (
 --
 ALTER TABLE `t_products_pifa`
   ADD PRIMARY KEY (`id`);
+  
+ALTER TABLE `t_ad` ADD PRIMARY KEY (`id`); 
+  
 --
 -- Indexes for table `t_admin_login_log`
 --
@@ -574,7 +591,7 @@ ALTER TABLE `t_user_login_logs`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
+ALTER TABLE `t_ad` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3; 
 --
 -- AUTO_INCREMENT for table `t_admin_login_log`
 --
