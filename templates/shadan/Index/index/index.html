@@ -51,13 +51,15 @@
 		</div>
 		
 		<div class="layui-col-md4">
-			<!-- 捐赠开发者-->
+			<!-- 侧边广告-->
+			<?php if(isset($ad['index_side_ad_2']) AND $ad['index_side_ad_2']):?>
 			<div class="fly-panel">
-				<h3 class="fly-panel-title">捐赠作者</h3>
-				<div class="fly-panel-main">
-					<img width="100%" src="/res/images/pay/weixin.png">
+				<div class="fly-panel-title">广告区域</div>
+				<div class="fly-panel-main" style="text-align: center;">
+					<?php echo $ad['index_side_ad_2'];?>
 				</div>
 			</div>
+			<?php endif;?>
 			
 			<!-- 侧边广告-->
 			<?php if(isset($ad['index_side_ad']) AND $ad['index_side_ad']):?>

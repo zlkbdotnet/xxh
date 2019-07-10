@@ -33,50 +33,6 @@
     </div>
 	
     <div class="layui-col-md4">
-      <dl class="fly-panel fly-list-one">
-        <dt class="fly-panel-title">本周热议</dt>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-        <dd>
-          <a href="">基于 layui 的极简社区页面模版</a>
-          <span><i class="iconfont icon-pinglun1"></i> 16</span>
-        </dd>
-      </dl>
-
 			<?php if(isset($ad['help_side_ad']) AND $ad['help_side_ad']):?>
 			<div class="fly-panel">
 				<div class="fly-panel-title">广告区域</div>
@@ -86,7 +42,16 @@
 			</div>
 			<?php endif;?>
 
+			<?php if(isset($ad['help_side_ad_2']) AND $ad['help_side_ad_2']):?>
+			<div class="fly-panel">
+				<div class="fly-panel-title">广告区域</div>
+				<div class="fly-panel-main zlkb-ad-body" style="text-align: center;">
+					<?php echo $ad['help_side_ad_2'];?>
+				</div>
+			</div>
+			<?php endif;?>
     </div>
+	
   </div>
 </div>
 <!--引入公共底文件-->
