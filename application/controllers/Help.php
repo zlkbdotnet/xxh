@@ -6,7 +6,7 @@
  * Date:20180508
  */
 
-class HelpController extends MemberBasicController
+class HelpController extends IndexBasicController
 {
 
     private $m_help;
@@ -18,10 +18,6 @@ class HelpController extends MemberBasicController
 
     public function indexAction()
     {
-        if ($this->login==FALSE AND !$this->userid) {
-            $this->redirect("/member/login");
-            return FALSE;
-        }
 		$data = array();
 		$data['title'] = "帮助中心";
         $this->getView()->assign($data);
@@ -29,12 +25,6 @@ class HelpController extends MemberBasicController
 	
 	public function ajaxAction()
 	{
-        if ($this->login==FALSE AND !$this->userid) {
-            $data = array('code' => 1000, 'msg' => '请登录');
-			Helper::response($data);
-        }
-		
-		
 		$where = array('isactive'=>1);
 		
 		$page = $this->get('page');
@@ -68,10 +58,6 @@ class HelpController extends MemberBasicController
 	
 	public function detailAction()
 	{
-        if ($this->login==FALSE AND !$this->userid) {
-            $this->redirect("/member/login");
-            return FALSE;
-        }
 		$id=$this->get('id');
 		if(is_numeric($id) AND $id>0){
 			$where = array('isactive'=>1);
@@ -81,7 +67,7 @@ class HelpController extends MemberBasicController
 			$data['title'] = "帮助中心";
 			$this->getView()->assign($data);
 		}else{
-            $this->redirect("/member/help/");
+            $this->redirect("/help/");
             return FALSE;
 		}
 	}
