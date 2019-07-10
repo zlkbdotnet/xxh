@@ -1,26 +1,89 @@
-<?php include MEMBER_COMMON_PATH.'/header.html';?>
+<?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container fly-marginTop fly-user-main">
-	<?php include MEMBER_COMMON_PATH.'/help-nav.html';?>
-    <div class="fly-panel fly-panel-user" pad20>
-        <div class="layui-tab layui-tab-brief" lay-filter="user">
-            <ul class="layui-tab-title" id="LAY_mine">
-                <li class="layui-this" lay-id="info">帮助中心</li>
-            </ul>
-            <div class="layui-tab-content" style="padding: 20px 0;">
-                <div class="layui-form-pane layui-tab-item layui-show">
-                    <div class="site-text">
-                        <blockquote class="site-text layui-elem-quote">
-                            <p><?php echo $items['title'];?></p>
-                        </blockquote>
-                        <p><?php echo $items['content'];?></p>
-                    </div>
-                </div>
-            </div>
+	<!-- 头部广告-->
+	<?php if(isset($ad['help_top_ad']) AND !empty($ad['help_top_ad'])):?>
+	<div class="layui-card">
+		<div class="layui-card-header">广告区域</div>
+		<div class="layui-card-body zlkb-ad-body">
+			<?php echo $ad['help_top_ad'];?>
+		</div>
+	</div>
+	<?php endif;?>
+	
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8 content detail">
+      <div class="fly-panel detail-box">
+        <h1><?php echo $items['title'];?></h1>
+        <div class="detail-about">
+          <a class="fly-avatar" href="javascript:;">
+            <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="资料空白">
+          </a>
+          <div class="fly-detail-user">
+            <span><?php echo date("Y-m-d H:i:s",$items['addtime']);?></span>
+          </div>
         </div>
+        <div class="detail-body photos">
+			<?php echo $items['content'];?>
+        </div>
+      </div>
     </div>
+	
+    <div class="layui-col-md4">
+      <dl class="fly-panel fly-list-one">
+        <dt class="fly-panel-title">本周热议</dt>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-pinglun1"></i> 16</span>
+        </dd>
+      </dl>
+
+			<?php if(isset($ad['help_side_ad']) AND $ad['help_side_ad']):?>
+			<div class="fly-panel">
+				<div class="fly-panel-title">广告区域</div>
+				<div class="fly-panel-main zlkb-ad-body" style="text-align: center;">
+					<?php echo $ad['help_side_ad'];?>
+				</div>
+			</div>
+			<?php endif;?>
+
+    </div>
+  </div>
 </div>
 <!--引入公共底文件-->
-<?php include MEMBER_COMMON_PATH.'/footer.html';?>
-<script>
-layui.use('memberhelp');
-</script>
+<?php include '../templates/shadan/common/footer.html';?>
