@@ -7,6 +7,7 @@
 class IndexController extends IndexBasicController
 {
 	private $m_help;
+	private $m_banner;
 	
 	public function init()
 	{
@@ -22,6 +23,10 @@ class IndexController extends IndexBasicController
 			$where = array('isactive'=>1);
 			$items_help = $this->m_help->Where($where)->Limit("6")->Order(array('id'=>'DESC'))->Select();
 			$data['items_help'] = $items_help;
+			//获取banner图
+			$this->m_banner = $this->load('banner');
+			$items_banner = $this->m_banner->getValue();
+			$data['items_banner'] = $items_banner;
 			
 			$data['title'] = "首页";
 			$this->getView()->assign($data);

@@ -16,11 +16,13 @@
 				<div class="layui-row fly-panel-main" style="padding: 15px;"> 
 					<div class="layui-carousel" id="carousel_index">
 					  <div carousel-item>
-						<div><img src="/res/images/banner/1.jpg"></div>
-						<div><img src="/res/images/banner/2.jpg"></div>
-						<div><img src="/res/images/banner/3.jpg"></div>
-						<div><img src="/res/images/banner/4.jpg"></div>
+						<?php if(isset($items_banner) AND !empty($items_banner)):?>
+							<?php foreach($items_banner AS $banner):?>
+							<div><img src="<?php echo $banner['image'];?>"></div>
+							<?php endforeach;?>
+						<?php endif;?>
 					  </div>
+					  
 					</div>
 				</div>
 			</div>
