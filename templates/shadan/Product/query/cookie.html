@@ -1,14 +1,6 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container fly-marginTop">
-    <div class="layui-card layui-form-pane">
-		<div class="layui-card-header layui-hide-xs">查询订单</div>
-		<div class="layui-tab-brief layui-hide-md"><ul class="layui-tab-title"><li class=""><a href="/product/">购买商品</a></li><li class="layui-this">查询订单</li></ul></div>
-        <div class="layui-card-body layui-tab layui-tab-brief" lay-filter="user">
-			<blockquote class="layui-elem-quote">
-				友情提示:订单查询仅能查询最近30天的数据；移动端模式下，仅能查询最近一笔订单。
-			</blockquote>
-            <div class="layui-tab-content">
-
+ 
 						<div class="layui-tab layui-tab-brief" lay-filter="">
 							<ul class="layui-tab-title">
 								<li class="layui-this">浏览器缓存</a></li>
@@ -18,6 +10,9 @@
 							<div class="layui-tab-content">
 								<div class="layui-tab-item layui-show">
 									<div class="layui-form-pane" id="query-pane">
+										<blockquote class="layui-elem-quote">
+											友情提示:订单查询仅能查询最近30天的数据；移动端模式下，仅能查询最近一笔订单。
+										</blockquote>
 										<form class="layui-form" id="query-form">
 											<div class="layui-form-item">
 												<input type="hidden" name="zlkbmethod" value="cookie">
@@ -35,11 +30,6 @@
 								</div>
 							</div>
 						</div> 
-					
-
-            </div>
-        </div>
-    </div>
 </div>
 <!-- cookie tpl-->
 <!--引入公共底文件-->
