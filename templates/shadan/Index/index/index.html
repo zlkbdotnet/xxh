@@ -1,10 +1,10 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container fly-marginTop fly-user-main">
 	<!-- 头部广告-->
-	<?php if(isset($ad['index_top_ad']) AND $ad['index_top_ad']):?>
+	<?php if(isset($ad['index_top_ad']) AND !empty($ad['index_top_ad'])):?>
 	<div class="layui-row" style="margin-top: 10px;">
 		<blockquote class="layui-elem-quote layui-text" style="background-color: #ffffff;">
-			<i class="layui-icon layui-icon-speaker"></i><?php echo $ad['index_top_ad'];?>
+			<i class="layui-icon layui-icon-speaker"></i><?php echo $ad['index_top_ad']['content'];?>
 		</blockquote>
 	</div>
 	<?php endif;?>
