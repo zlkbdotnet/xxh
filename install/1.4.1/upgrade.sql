@@ -1,2 +1,0 @@
-INSERT INTO `t_config` (`id`, `catid`, `name`, `value`, `tag`, `lock`, `updatetime`) VALUES (32, 1, 'querycontactswitch', '1', '查询方式(联系方式)开关', '1', '1546063186');
-ALTER TABLE `t_products` ADD `iszhekou` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0无折扣,1有折扣' AFTER `imgurl`;

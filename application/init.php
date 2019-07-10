@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Chongqing');
 define('ENV', strtoupper(ini_get('yaf.environ')));
-define('VERSION', '1.4.3');
+define('VERSION', '2.0.0');
 define('WEB_NAME',"ZFAKA平台");
 define('URL_KEY', 'faG2#@@1');
 define('CUR_DATE', date('Y-m-d'));
