@@ -4,7 +4,7 @@
  * Author:资料空白
  * Date:20190529
  */
-class AboutController extends ProductBasicController
+class AboutController extends IndexBasicController
 {
 
 	public function init()
