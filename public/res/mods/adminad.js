@@ -12,6 +12,7 @@ layui.define(['layer', 'form', 'table'], function(exports){
 		cols: [[
 			{field: 'id', title: 'ID', width:80},
 			{field: 'name', title: '广告位'},
+			{field: 'title', title: '广告标题', minWidth:200},
 			{field: 'label', title: '广告标签', minWidth:200},
 			{field: 'isactive', title: '是否激活', width:100, templet: '#isactive',align:'center'},
 			{field: 'opt', title: '操作', width:120, templet: '#opt',align:'center'}

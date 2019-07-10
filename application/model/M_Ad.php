@@ -21,7 +21,7 @@ class M_Ad extends Model
 		$value = array();
 		if(!empty($result)){
 			foreach($result AS $i){
-				$value[$i['label']] = htmlspecialchars_decode($i['content'],ENT_QUOTES);
+				$value[$i['label']] = array("title"=>$i['title'],'content'=>htmlspecialchars_decode($i['content'],ENT_QUOTES));
 			}
 		}
 		return $value;

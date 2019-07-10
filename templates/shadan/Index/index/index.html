@@ -54,9 +54,9 @@
 			<!-- 侧边广告-->
 			<?php if(isset($ad['index_side_ad_2']) AND $ad['index_side_ad_2']):?>
 			<div class="fly-panel">
-				<div class="fly-panel-title">广告区域</div>
+				<?php if(strlen($ad['index_side_ad_2']['title'])>0):?><div class="fly-panel-title"><?php echo $ad['index_side_ad_2']['title'];?></div><?php endif;?>
 				<div class="fly-panel-main" style="text-align: center;">
-					<?php echo $ad['index_side_ad_2'];?>
+					<?php echo $ad['index_side_ad_2']['content'];?>
 				</div>
 			</div>
 			<?php endif;?>
@@ -64,9 +64,9 @@
 			<!-- 侧边广告-->
 			<?php if(isset($ad['index_side_ad']) AND $ad['index_side_ad']):?>
 			<div class="fly-panel">
-				<div class="fly-panel-title">广告区域</div>
+				<?php if(strlen($ad['index_side_ad']['title'])>0):?><div class="fly-panel-title"><?php echo $ad['index_side_ad']['title'];?></div><?php endif;?>
 				<div class="fly-panel-main" style="text-align: center;">
-					<?php echo $ad['index_side_ad'];?>
+					<?php echo $ad['index_side_ad']['content'];?>
 				</div>
 			</div>
 			<?php endif;?>

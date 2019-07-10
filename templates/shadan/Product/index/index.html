@@ -5,9 +5,9 @@
 		<!-- 广告位-->
 		<?php if(isset($ad['product_index_ad']) AND !empty($ad['product_index_ad'])):?>
 		<div class="layui-card">
-			<div class="layui-card-header">广告区域</div>
+			<?php if(strlen($ad['product_index_ad']['title'])>0):?><div class="layui-card-header"><?php echo $ad['product_index_ad']['title'];?></div><?php endif;?>
 			<div class="layui-card-body zlkb-ad-body">
-				<?php echo $ad['product_index_ad'];?>
+				<?php echo $ad['product_index_ad']['content'];?>
 			</div>
 		</div>
 		<?php endif;?>

@@ -3,9 +3,9 @@
 	<!-- 头部广告-->
 	<?php if(isset($ad['help_top_ad']) AND !empty($ad['help_top_ad'])):?>
 	<div class="layui-card">
-		<div class="layui-card-header">广告区域</div>
+		<?php if(strlen($ad['help_top_ad']['title'])>0):?><div class="layui-card-header"><?php echo $ad['help_top_ad']['title'];?></div><?php endif;?>
 		<div class="layui-card-body zlkb-ad-body">
-			<?php echo $ad['help_top_ad'];?>
+			<?php echo $ad['help_top_ad']['content'];?>
 		</div>
 	</div>
 	<?php endif;?>
@@ -35,18 +35,18 @@
     <div class="layui-col-md4">
 			<?php if(isset($ad['help_side_ad']) AND $ad['help_side_ad']):?>
 			<div class="fly-panel">
-				<div class="fly-panel-title">广告区域</div>
+				<?php if(strlen($ad['help_side_ad']['title'])>0):?><div class="fly-panel-title"><?php echo $ad['help_side_ad']['title'];?></div><?php endif;?>
 				<div class="fly-panel-main zlkb-ad-body" style="text-align: center;">
-					<?php echo $ad['help_side_ad'];?>
+					<?php echo $ad['help_side_ad']['content'];?>
 				</div>
 			</div>
 			<?php endif;?>
 
 			<?php if(isset($ad['help_side_ad_2']) AND $ad['help_side_ad_2']):?>
 			<div class="fly-panel">
-				<div class="fly-panel-title">广告区域</div>
+				<?php if(strlen($ad['help_side_ad_2']['title'])>0):?><div class="fly-panel-title"><?php echo $ad['help_side_ad_2']['title'];?></div><?php endif;?>
 				<div class="fly-panel-main zlkb-ad-body" style="text-align: center;">
-					<?php echo $ad['help_side_ad_2'];?>
+					<?php echo $ad['help_side_ad_2']['content'];?>
 				</div>
 			</div>
 			<?php endif;?>

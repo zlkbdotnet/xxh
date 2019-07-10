@@ -52,7 +52,7 @@ class AdController extends AdminBasicController
             }
 			
             $limits = "{$pagenum},{$limit}";
-			$field = array('id','name','label','isactive','addtime');
+			$field = array('id','name','title','label','isactive','addtime');
 			$items = $this->m_ad->Field($field)->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
 			
             if (empty($items)) {
@@ -98,7 +98,8 @@ class AdController extends AdminBasicController
 	{
 		$method = $this->getPost('method',false);
 		$id = $this->getPost('id',false);
-		$name = $this->getPost('name',false);
+		$name = $this->getPost('name');
+		$title = $this->getPost('title');
 		$label = $this->getPost('label',false);
 		$isactive = $this->getPost('isactive',false);
 		$content = $this->getPost('content',false);
@@ -113,6 +114,7 @@ class AdController extends AdminBasicController
 		if($method AND $name AND $label AND $csrf_token){
 			if ($this->VerifyCsrfToken($csrf_token)) {
 				$m = array(
+					'title'=>$title,
 					'name'=>$name,
 					'label'=>$label,
 					'isactive'=>$isactive
