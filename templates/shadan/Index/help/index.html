@@ -1,13 +1,15 @@
 <?php include '../templates/shadan/common/header.html';?>
 <div class="layui-container">
 	<!-- 头部广告-->
-	<?php if(isset($ad['help_top_ad']) AND $ad['help_top_ad']):?>
-	<div class="layui-row" style="margin-top: 10px;">
-		<blockquote class="layui-elem-quote layui-text" style="background-color: #ffffff;">
-			<i class="layui-icon layui-icon-speaker"></i><?php echo $ad['help_top_ad'];?>
-		</blockquote>
-	</div>
-	<?php endif;?>
+		<!-- 广告位-->
+		<?php if(isset($ad['help_top_ad']) AND !empty($ad['help_top_ad'])):?>
+		<div class="layui-card">
+			<div class="layui-card-header">广告区域</div>
+			<div class="layui-card-body">
+				<?php echo $ad['help_top_ad'];?>
+			</div>
+		</div>
+		<?php endif;?>
 	
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8">
