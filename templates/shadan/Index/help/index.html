@@ -92,14 +92,14 @@
         </dd>
       </dl>
 
-      <div class="fly-panel">
-        <div class="fly-panel-title">
-          广告区域
-        </div>
-        <div class="fly-panel-main">
-          <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
-        </div>
-      </div>
+			<?php if(isset($ad['help_side_ad']) AND $ad['help_side_ad']):?>
+			<div class="fly-panel">
+				<div class="fly-panel-title">广告区域</div>
+				<div class="fly-panel-main" style="text-align: center;">
+					<?php echo $ad['help_side_ad'];?>
+				</div>
+			</div>
+			<?php endif;?>
 
     </div>
   </div>
