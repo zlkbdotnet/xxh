@@ -18,7 +18,18 @@ class HelpController extends IndexBasicController
 
     public function indexAction()
     {
+		$page = $this->get('page');
+		$page = is_numeric($page) ? $page : 1;
+		
+		$limit = $this->get('limit');
+		$limit = is_numeric($limit) ? $limit : 10;		
+		
 		$data = array();
+		$where = array('isactive'=>1);
+		$items = $this->m_help->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
+		$data['items'] = $items;
+		
+		
 		$data['title'] = "帮助中心";
         $this->getView()->assign($data);
     }
