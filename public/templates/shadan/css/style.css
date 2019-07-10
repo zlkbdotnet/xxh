@@ -654,3 +654,6 @@ body .fly-user-main{position: relative; min-height: 600px;}
 .goodsdetail-mobile-btn {}
 /*20190524 原价*/
 .trade-price-ori{text-decoration: line-through;padding-left: 10px;}
+/*20190710 广告区域*/
+.zlkb-ad-body{text-align: center;}
+.zlkb-ad-body img{width:100%;}
