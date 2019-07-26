@@ -15,9 +15,33 @@
                     </blockquote>
                     <form class="layui-form layui-show" method="post">
                         <div class="layui-form-item">
-                            <label for="L_email" class="layui-form-label">邮箱</label>
+                            <label for="weburl" class="layui-form-label">站点地址</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="L_email" disabled autocomplete="off" value="<?php echo $AdminUser['email'];?>" class="layui-input">
+                                <input type="text" id="weburl" autocomplete="off" value="<?php echo $config['weburl'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="webname" class="layui-form-label">站点名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="webname" autocomplete="off" value="<?php echo $config['webname'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="webdescription" class="layui-form-label">站点描述</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="webdescription" autocomplete="off" value="<?php echo $config['webdescription'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="adminemail" class="layui-form-label">管理员邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="adminemail" autocomplete="off" value="<?php echo $config['adminemail'];?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="logo" class="layui-form-label">站点logo</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="logo" autocomplete="off" value="<?php echo $config['logo'];?>" class="layui-input">
                             </div>
                         </div>
                     </form>
