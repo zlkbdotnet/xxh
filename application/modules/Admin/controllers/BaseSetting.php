@@ -1,12 +1,12 @@
 <?php
 
 /*
- * 功能：后台中心－首页
+ * 功能：后台中心－基础设置
  * Author:资料空白
- * Date:20180509
+ * Date:20190726
  */
 
-class SettingController extends AdminBasicController
+class BaseSettingController extends AdminBasicController
 {
 	private $m_config;
     public function init()

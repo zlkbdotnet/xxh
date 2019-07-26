@@ -53,7 +53,7 @@ class AdController extends AdminBasicController
 			
             $limits = "{$pagenum},{$limit}";
 			$field = array('id','name','title','label','isactive','addtime');
-			$items = $this->m_ad->Field($field)->Where($where)->Limit($limits)->Order(array('id'=>'DESC'))->Select();
+			$items = $this->m_ad->Field($field)->Where($where)->Limit($limits)->Order(array('id'=>'ASC'))->Select();
 			
             if (empty($items)) {
                 $data = array('code'=>1002,'count'=>0,'data'=>array(),'msg'=>'无数据');
