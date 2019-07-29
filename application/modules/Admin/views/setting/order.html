@@ -1,0 +1,63 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/setting-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="" lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/setting/">基础设置</a></li>
+				<li class="layui-this" lay-id="info">订单设置</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p>
+							注意事项： 请根据实际情况自行填写。
+						</p>
+                    </blockquote>
+                    <form class="layui-form layui-show" method="post">
+                        <div class="layui-form-item">
+                            <label for="limitemailorder" class="layui-form-label">订单限制</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="limitemailorder" autocomplete="off" value="<?php echo $config['limitemailorder'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">同一账户当日下单限制（针对未付款订单）,不限制请设置为0</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="orderprefix" class="layui-form-label">订单前缀</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="orderprefix" autocomplete="off" value="<?php echo $config['orderprefix'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">订单前缀，只能是英文和数字,且长度不要超过5个字符串建议不要超过5个字符串</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="limitorderqty" class="layui-form-label">数量限制</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="limitorderqty" autocomplete="off" value="<?php echo $config['limitorderqty'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">单笔订单数量限制</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="paysubjectswitch" class="layui-form-label">订单说明</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="paysubjectswitch" autocomplete="off" value="<?php echo $config['paysubjectswitch'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">订单说明显示:0商品名,1订单号</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="limitiporder" class="layui-form-label">IP限制</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="limitiporder" autocomplete="off" value="<?php echo $config['limitiporder'];?>" class="layui-input">
+                            </div>
+							<div class="layui-form-mid layui-word-aux">同一ip当日下单限制（针对未付款订单）,不限制请设置为0</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminprofiles');
+</script>

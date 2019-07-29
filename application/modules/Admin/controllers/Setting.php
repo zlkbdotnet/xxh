@@ -21,11 +21,23 @@ class SettingController extends AdminBasicController
             $this->redirect('/'.ADMIN_DIR."/login");
             return FALSE;
         }
-
 		$data = array();
+		$data['title'] = "基础设置";
 		$this->getView()->assign($data);
     }
 
+    public function orderAction()
+    {
+        if ($this->AdminUser==FALSE AND empty($this->AdminUser)) {
+            $this->redirect('/'.ADMIN_DIR."/login");
+            return FALSE;
+        }
+		$data = array();
+		$data['title'] = "订单设置";
+		$this->getView()->assign($data);
+    }
+	
+	
 	//ajax
 	public function ajaxAction()
 	{
