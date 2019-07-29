@@ -37,16 +37,24 @@
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/member">我的账户</a>
                 </li>
+				<?php if($config['productswitch']>0):?>
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/product">购买商品</a>
                 </li>
+				<?php else:?>
+				<li></li>
+				<?php endif;?>
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/member/help">帮助中心</a>
                 </li>
                 <?php else:?>
+				<?php if($config['productswitch']>0):?>
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/product">购买商品</a>
                 </li>
+				<?php else:?>
+				<li></li>
+				<?php endif;?>
                 <li class="layui-nav-item layui-hide-xs">
                     <a href="/product/query">查询订单</a>
                 </li>
