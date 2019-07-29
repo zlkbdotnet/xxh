@@ -6,7 +6,7 @@
  * Date:20190726
  */
 
-class BasesettingController extends AdminBasicController
+class SettingController extends AdminBasicController
 {
 	private $m_config;
     public function init()
