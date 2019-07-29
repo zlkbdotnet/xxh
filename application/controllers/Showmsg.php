@@ -4,7 +4,7 @@
  * Author:资料空白
  * Date:20180604
  */
-class ShowmsgController extends BasicController
+class ShowmsgController extends IndexBasicController
 {
 
  	public function init()
