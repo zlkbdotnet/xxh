@@ -19,7 +19,7 @@
 						<?php if(isset($items_banner) AND !empty($items_banner)):?>
 							<?php foreach($items_banner AS $banner):?>
 								<?php if($banner['url']):?>
-								<div><a href="<?php echo $banner['url'];?>" title="<?php echo $banner['title'];?>"><img alt="<?php echo $banner['title'];?>" src="<?php echo $banner['image'];?>"></a></div>
+								<div><a href="<?php echo $banner['url'];?>" title="<?php echo $banner['title'];?>" target="_blank"><img alt="<?php echo $banner['title'];?>" src="<?php echo $banner['image'];?>"></a></div>
 								<?php else:?>
 								<div><img alt="<?php echo $banner['title'];?>" src="<?php echo $banner['image'];?>"></div>
 								<?php endif;?>
