@@ -1,0 +1,53 @@
+<?php include ADMIN_COMMON_PATH.'/header.html';?>
+<div class="layui-container fly-marginTop fly-user-main">
+    <?php include ADMIN_COMMON_PATH.'/setting-nav.html';?>
+    <div class="fly-panel fly-panel-user" pad20>
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="" lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/setting/">基础设置</a></li>
+				<li class="" lay-id="info"><a href="/<?php echo ADMIN_DIR;?>/setting/order/">订单设置</a></li>
+				<li class="layui-this" lay-id="info">开关设置</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form-pane layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <p>
+							注意事项： 请根据实际情况自行填写。
+						</p>
+                    </blockquote>
+                    <form class="layui-form layui-show" method="post">
+						<div class="layui-form-item">
+							<label class="layui-form-label">验证码</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="yzmswitch" lay-skin="switch" lay-text="ON|OFF">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">登录</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="loginswitch" lay-skin="switch" lay-text="ON|OFF">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">找回密码</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="forgetpwdswitch" lay-skin="switch" lay-text="ON|OFF">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">折扣开关</label>
+							<div class="layui-input-block">
+								<input type="checkbox" name="discountswitch" lay-skin="switch" lay-text="ON|OFF">
+							</div>
+						</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--引入公共底文件-->
+<?php include ADMIN_COMMON_PATH.'/footer.html';?>
+<script>
+layui.use('adminprofiles');
+</script>
