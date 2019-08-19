@@ -1,5 +1,7 @@
 ## ZFAKA安装教程（Docker版）：
 
+![](https://img.baiyue.one/upload/2019/08/5d5a09df7a3fa.png)
+
 Docker版优势
 
 **优点**
