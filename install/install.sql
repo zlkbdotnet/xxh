@@ -284,9 +284,6 @@ INSERT INTO `t_payment` (`id`, `payment`, `payname`, `payimage`, `alias`, `sign_
 (5, '支付宝电脑网站支付(WEB)', '支付宝', '/res/images/pay/alipay.jpg', 'zfbweb', 'RSA2', '2018********', '', '', '', '','',0, 0),
 (6, '微信扫码支付', '微信', '/res/images/pay/weixin.jpg', 'wxf2f', 'MD5', '', '', '', '', '', '',0, 0),
 (7, '有赞接口', '微信', '/res/images/pay/yzpay.jpg', 'yzpay', 'RSA2', '', '', '', '', '', '',0, 0),
-(8, '收款宝(微信)', '微信', '/res/images/pay/weixin.jpg', 'zlkbcodepaywx', 'RSA2', '', '', '', '', 'https://codepay.zlkb.net/api/order', '0',300, 0),
-(9, '收款宝(支付宝)', '支付宝', '/res/images/pay/alipay.jpg', 'zlkbcodepayalipay', 'RSA2', '', '', '', '', 'https://codepay.zlkb.net/api/order', '0',300, 0),
-(10, '收款宝(QQ)', 'QQ', '/res/images/pay/qqpay.jpg', 'zlkbcodepayqq', 'RSA2', '', '', '', '', 'https://codepay.zlkb.net/api/order', '0',300, 0),
 (11, '微信H5支付', '微信', '/res/images/pay/weixin.jpg', 'wxh5', 'MD5', '', '', '', '', '','', 0, 0),
 (12, 'PAYPAL', 'PAYPAL', '/res/images/pay/paypal.jpg', 'paypal', 'RSA2', '', '', '', '', 'live','7', 0, 0);
 
