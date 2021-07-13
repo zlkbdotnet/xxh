@@ -247,7 +247,7 @@ class OrderController extends AdminBasicController
 			Helper::response($data);
         }
 		$id = $this->getPost('id');
-		$kami = $this->getPost('kami');
+		$kami = $this->getPost('kami', false);
 		$csrf_token = $this->getPost('csrf_token', false);
 		
         if (FALSE != $id AND is_numeric($id) AND $id > 0) {
@@ -256,7 +256,7 @@ class OrderController extends AdminBasicController
 				if(is_array($order) AND !empty($order)){
 					if($order['status']=='1' OR $order['status']=='3'){
 						//业务处理
-						$kami = str_replace(array("\r","\n","\t"), "", $kami);
+						$kami = getRawText($kami, false);
 						$update = $this->m_order->Where(array('id'=>$id))->Where('status=1 or status=3')->Update(array('status'=>2,'kami'=>$kami));
 						if($update){
 							$m = array();
