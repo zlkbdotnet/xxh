@@ -1,0 +1,20 @@
+before_script:
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+  - git clone http://192.168.1.212:10030/jj/zfaka.git $(pwd)/site
+  - mv $(pwd)/site/conf/application.ini.new $(pwd)/site/conf/application.ini
+
+build-nginx:
+  stage: build
+  script:
+    - docker build  -f Dockerfile.nginx -t "$DOCKER_USER/zfaka:nginx" .
+    - docker push "$DOCKER_USER/zfaka:nginx"
+  tags:
+    - docker-build
+
+build-php:
+  stage: build
+  script:
+    - docker build  -f Dockerfile.php -t "$DOCKER_USER/zfaka:php" .
+    - docker push "$DOCKER_USER/zfaka:php"
+  tags:
+    - docker-build

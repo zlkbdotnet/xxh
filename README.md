@@ -45,6 +45,8 @@
 
 >**友情提示：感谢佰阅部落友情提供Docker版 [直达链接](https://github.com/Baiyuetribe/zfaka)**
 
+## [使用docker-compose快速部署(网速快，只需要几分钟)](https://github.com/zsnmwy/zfaka/wiki/%E4%BD%BF%E7%94%A8docker-compose%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2)
+
 ## 2.1 环境安装
 
 ### 2.1.1 lnmp环境
